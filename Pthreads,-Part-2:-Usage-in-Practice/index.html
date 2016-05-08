@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>Pthreads, Part 2: Usage in Practice - UIUC CS241 SystemProgramming Wiki</title>
+  
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Pthreads, Part 2: Usage in Practice";
+    var mkdocs_page_input_path = "Pthreads,-Part-2:-Usage-in-Practice.md";
+    var mkdocs_page_url = "/Pthreads,-Part-2:-Usage-in-Practice/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script>
+  <script src="../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> UIUC CS241 SystemProgramming Wiki</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Home</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../#Example Markdown/">#Example Markdown</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../#Informal-Glossary/">#Informal Glossary</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../#Piazza: When And How to Ask For Help/">#Piazza: When And How to Ask For Help</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../C Programming, Part 4: Debugging/">C Programming, Part 4: Debugging</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-1:-Introduction/">C Programming, Part 1: Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-2:-Text-Input-And-Output/">C Programming, Part 2: Text Input And Output</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-3:-Common-Gotchas/">C Programming, Part 3: Common Gotchas</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming:-Review-Questions/">C Programming: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-1:-Resource-Allocation-Graph/">Deadlock, Part 1: Resource Allocation Graph</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-2:-Deadlock-Conditions/">Deadlock, Part 2: Deadlock Conditions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Exam-Topics/">Exam Topics</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-1:-Introduction/">File System, Part 1: Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-2:-Files-are-inodes-(everything-else-is-just-data...)/">File System, Part 2: Files are inodes (everything else is just data...)</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-3:-Permissions/">File System, Part 3: Permissions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-4:-Working-with-directories/">File System, Part 4: Working with directories</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-5:-Virtual-file-systems/">File System, Part 5: Virtual file systems</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-6:-Memory-mapped-files-and-Shared-memory/">File System, Part 6: Memory mapped files and Shared memory</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-7:-Scalable-and-Reliable-Filesystems/">File System, Part 7: Scalable and Reliable Filesystems</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-8:-Disk-blocks-example/">File System, Part 8: Disk blocks example</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Files,-Part-1:-Working-with-files/">Files, Part 1: Working with files</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Filesystem:-Review-Questions/">Filesystem: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Forking,-Part-1:-Introduction/">Forking, Part 1: Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Forking,-Part-2:-Fork,-Exec,-Wait/">Forking, Part 2: Fork, Exec, Wait</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../HW0/">HW0</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-1:-Heap-Memory-Introduction/">Memory, Part 1: Heap Memory Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-2:-Implementing-a-Memory-Allocator/">Memory, Part 2: Implementing a Memory Allocator</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-3:-Smashing-the-Stack-Example/">Memory, Part 3: Smashing the Stack Example</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory:-Review-Questions/">Memory: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Multi-threaded-Programming:-Review-Questions/">Multi threaded Programming: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking, Part 3: Building a simple TCP Client/">Networking, Part 3: Building a simple TCP Client</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking, Part 6: Creating a UDP server/">Networking, Part 6: Creating a UDP server</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-1:-Introduction/">Networking, Part 1: Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-2:-Using-getaddrinfo/">Networking, Part 2: Using getaddrinfo</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-4:-Building-a-simple-TCP-Server/">Networking, Part 4: Building a simple TCP Server</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-5:-Reusing-ports/">Networking, Part 5: Reusing ports</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking:-Review-Questions/">Networking: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Nonblocking-I-O,-select(),-and-epoll/">Nonblocking I O, select(), and epoll</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../OSI-Model/">OSI Model</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../POSIX,-Part-1:-Error-handling/">POSIX, Part 1: Error handling</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipe:-Review-Questions/">Pipe: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipes,-Part-1:-Introduction-to-pipes/">Pipes, Part 1: Introduction to pipes</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipes,-Part-2:-Pipe-programming-secrets/">Pipes, Part 2: Pipe programming secrets</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Process-Control,-Part-1:-Wait-macros,-using-signals/">Process Control, Part 1: Wait macros, using signals</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Programming-Tricks,-Part-1/">Programming Tricks, Part 1</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-1:-Introduction/">Pthreads, Part 1: Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Pthreads, Part 2: Usage in Practice</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#how-do-i-create-a-pthread">How do I create a pthread?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#if-i-call-pthread_create-twice-how-many-stacks-does-my-process-have">If I call pthread_create twice how many stacks does my process have?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#what-is-the-difference-between-a-process-and-a-thread">What is the difference between a process and a thread?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#what-does-pthread_cancel-do">What does pthread_cancel do?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#what-is-the-difference-between-exit-and-pthread_exit">What is the difference between exit and pthread_exit?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#how-can-a-thread-be-terminated">How can a thread be terminated?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#what-is-the-purpose-of-pthread_join">What is the purpose of pthread_join?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#what-happens-if-you-dont-call-pthread_join">What happens if you don't call pthread_join?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#should-i-use-pthread_exit-or-pthread_join">Should I use pthread_exit or pthread_join?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#can-you-pass-pointers-to-stack-variables-from-one-thread-to-another">Can you pass pointers to stack variables from one thread to another?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#how-can-i-create-ten-threads-with-different-starting-values">How can I create ten threads with different starting values.</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#why-are-some-functions-eg-asctimegetenv-strtok-strerror-not-thread-safe">Why are some functions e.g.  asctime,getenv, strtok, strerror  not thread-safe?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#what-are-condition-variables-semaphores-mutexes">What are condition variables, semaphores, mutexes?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#are-there-any-advantages-of-using-threads-over-forking-processes">Are there any advantages of using threads over forking processes?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#are-there-any-dis-advantages-of-using-threads-over-forking-processes">Are there any dis-advantages of using threads over forking processes?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#can-you-fork-a-process-with-multiple-threads">Can you fork a process with multiple threads?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#are-there-other-reasons-where-fork-might-be-preferable-to-creating-a-thread">Are there other reasons where fork might be preferable to creating a thread.</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#how-can-i-find-out-more">How can I find out more?</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../RPC,-Part-1:-Introduction-to-Remote-Procedure-Calls/">RPC, Part 1: Introduction to Remote Procedure Calls</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Sample-program-using-pthread-barriers/">Sample program using pthread barriers</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Scheduling,-Part-1:-Scheduling-Processes/">Scheduling, Part 1: Scheduling Processes</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-2:-Pending-Signals-and-Signal-Masks/">Signals, Part 2: Pending Signals and Signal Masks</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-3:-Raising-signals/">Signals, Part 3: Raising signals</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-4:-Sigaction/">Signals, Part 4: Sigaction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals:-Review-Questions/">Signals: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-1:-Mutex-Locks/">Synchronization, Part 1: Mutex Locks</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-2:-Counting-Semaphores/">Synchronization, Part 2: Counting Semaphores</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-3:-Working-with-Mutexes-And-Semaphores/">Synchronization, Part 3: Working with Mutexes And Semaphores</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-4:-The-Critical-Section-Problem/">Synchronization, Part 4: The Critical Section Problem</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-5:-Condition-Variables/">Synchronization, Part 5: Condition Variables</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-6:-Implementing-a-barrier/">Synchronization, Part 6: Implementing a barrier</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-7:-The-Reader-Writer-Problem/">Synchronization, Part 7: The Reader Writer Problem</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-8:-Ring-Buffer-Example/">Synchronization, Part 8: Ring Buffer Example</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-9:-The-Reader-Writer-Problem-(part-2)/">Synchronization, Part 9: The Reader Writer Problem (part 2)</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../System-Programming-Short-Stories-and-Songs/">System Programming Short Stories and Songs</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Test-page/">Test page</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Virtual-Memory,-Part-1:-Introduction-to-Virtual-Memory/">Virtual Memory, Part 1: Introduction to Virtual Memory</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../_Footer/"> Footer</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">UIUC CS241 SystemProgramming Wiki</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Pthreads, Part 2: Usage in Practice</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="how-do-i-create-a-pthread">How do I create a pthread?</h2>
+<p>See <a href="https://github.com/angrave/SystemProgramming/wiki/Pthreads,-Part-1:-Introduction">Pthreads Part 1</a> which introduces <code>pthread_create</code> and <code>pthread_join</code></p>
+<h2 id="if-i-call-pthread_create-twice-how-many-stacks-does-my-process-have">If I call <code>pthread_create</code> twice how many stacks does my process have?</h2>
+<p>Your process will contain three stacks - one for each thread. The first thread is created when the process starts and you created two more. Actually there can be more stacks than this but let's ignore that complication for now. The important idea is that each thread requires a stack because the stack contains automatic variables and the old CPU PC register so that it can back to executing the calling function after the function is finished.</p>
+<h2 id="what-is-the-difference-between-a-process-and-a-thread">What is the difference between a process and a thread?</h2>
+<p>In addition, unlike processes, threads within the same process can share the same global memory (data and heap segments).</p>
+<h2 id="what-does-pthread_cancel-do">What does <code>pthread_cancel</code> do?</h2>
+<p>Stops a thread. Note the thread may not actually be stopped immediately. For example it can be terminated when the thread makes an operating system call (e.g. <code>write</code>).</p>
+<p>In practice <code>pthread_cancel</code> is rarely used because it does not give a thread an opportunity to clean up after itself (for example, it may have opened some files).
+An alternative implementation is to use a boolean (int) variable whose value is used to inform other threads that they should finish and clean up.</p>
+<h2 id="what-is-the-difference-between-exit-and-pthread_exit">What is the difference between <code>exit</code> and <code>pthread_exit</code>?</h2>
+<p><code>exit(42)</code> exits the entire process and sets the processes exit value.  This is equivalent to <code>return 42</code> in the main method. All threads inside the process are stopped.</p>
+<p><code>pthread_exit(void *)</code> only stops the calling thread i.e. the thread never returns after calling <code>pthread_exit</code>. The pthread library will automatically finish the process if there are no other threads running. <code>pthread_exit(...)</code> is equivalent to returning from the thread's function; both finish the thread and also set the return value (void *pointer) for the thread.</p>
+<p>Calling <code>pthread_exit</code> in the the <code>main</code> thread is a common way for simple programs to ensure that all threads finish. For example, in the following program, the  <code>myfunc</code> threads will probably not have time to get started.</p>
+<pre><code class="C">int main() {
+  pthread_t tid1, tid2;
+  pthread_create(&amp;tid1, NULL, myfunc, &quot;Jabberwocky&quot;);
+  pthread_create(&amp;tid2, NULL, myfunc, &quot;Vorpel&quot;);
+  exit(42); //or return 42;
+
+  // No code is run after exit
+}
+</code></pre>
+
+<p>The next two programs will wait for the new threads to finish-</p>
+<pre><code class="C">int main() {
+  pthread_t tid1, tid2;
+  pthread_create(&amp;tid1, NULL, myfunc, &quot;Jabberwocky&quot;);
+  pthread_create(&amp;tid2, NULL, myfunc, &quot;Vorpel&quot;);
+  pthread_exit(NULL); 
+
+  // No code is run after pthread_exit
+  // However process will continue to exist until both threads have finished
+}
+</code></pre>
+
+<p>Alternatively, we join on each thread (i.e. wait for it to finish) before we return from main (or call exit).</p>
+<pre><code class="C">int main() {
+  pthread_t tid1, tid2;
+  pthread_create(&amp;tid1, NULL, myfunc, &quot;Jabberwocky&quot;);
+  pthread_create(&amp;tid2, NULL, myfunc, &quot;Vorpel&quot;);
+  // wait for both threads to finish :
+  void* result;
+  pthread_join(tid1, &amp;result);
+  pthread_join(tid2, &amp;result); 
+  return 42;
+}
+</code></pre>
+
+<p>Note the pthread_exit version creates thread zombies, however this is not a long-running processes, so we don't care.</p>
+<h2 id="how-can-a-thread-be-terminated">How can a thread be terminated?</h2>
+<ul>
+<li>Returning from the thread function</li>
+<li>Calling <code>pthread_exit</code></li>
+<li>Cancelling the thread with <code>pthread_cancel</code></li>
+<li>Terminating the process (e.g. SIGTERM); exit(); returning from <code>main</code></li>
+</ul>
+<h2 id="what-is-the-purpose-of-pthread_join">What is the purpose of pthread_join?</h2>
+<ul>
+<li>Wait for a thread to finish</li>
+<li>Clean up thread resources.</li>
+</ul>
+<h2 id="what-happens-if-you-dont-call-pthread_join">What happens if you don't call <code>pthread_join</code>?</h2>
+<p>Finished threads will continue to consume resources. Eventually, if enough threads are created, <code>pthread_create</code> will fail.
+In practice, this is only an issue for long-runnning processes but is not an issue for simple, short-lived processes as all thread resources are automatically freed when the process exits.</p>
+<h2 id="should-i-use-pthread_exit-or-pthread_join">Should I use <code>pthread_exit</code> or <code>pthread_join</code>?</h2>
+<p>Both <code>pthread_exit</code> and <code>pthread_join</code> will let the other threads finish on their own (even if called in the main thread). However, only <code>pthread_join</code> will return to you when the specified thread finishes. <code>pthread_exit</code> does not wait and will immediately end your thread and give you no chance to continue executing.</p>
+<h2 id="can-you-pass-pointers-to-stack-variables-from-one-thread-to-another">Can you pass pointers to stack variables from one thread to another?</h2>
+<p>Yes. However you need to be very careful about the lifetime of stack variables.</p>
+<pre><code>pthread_t start_threads() {
+  int start = 42;
+  pthread_t tid;
+  pthread_create(&amp;tid, 0, myfunc, &amp;start); // ERROR!
+  return tid;
+}
+</code></pre>
+
+<p>The above code is invalid because the function <code>start_threads</code> will likely return before <code>myfunc</code> even starts. The function passes the address-of <code>start</code>, however by the time <code>myfunc</code> is executes, <code>start</code> is no longer in scope and its address will re-used for another variable.</p>
+<p>The following code is valid because the lifetime of the stack variable is longer than the background thread.</p>
+<pre><code>void start_threads() {
+  int start = 42;
+  void *result;
+  pthread_t tid;
+  pthread_create(&amp;tid, 0, myfunc, &amp;start); // OK - start will be valid!
+  pthread_join(tid, &amp;result);
+}
+</code></pre>
+
+<h2 id="how-can-i-create-ten-threads-with-different-starting-values">How can I create ten threads with different starting values.</h2>
+<p>The following code is supposed to start ten threads with values 0,1,2,3,...9
+However, when run prints out <code>1 7 8 8 8 8 8 8 8 10</code>! Can you see why?</p>
+<pre><code class="C">#include &lt;pthread.h&gt;
+void* myfunc(void* ptr) {
+    int i = *((int *) ptr);
+    printf(&quot;%d &quot;, i);
+    return NULL;
+}
+
+int main() {
+    // Each thread gets a different value of i to process
+    int i;
+    pthread_t tid;
+    for(i =0; i &lt; 10; i++) {
+        pthread_create(&amp;tid, NULL, myfunc, &amp;i); // ERROR
+    }
+    pthread_exit(NULL);
+}
+</code></pre>
+
+<p>The above code suffers from a <code>race condition</code> - the value of i is changing. The new threads start later (in the example output the last thread starts after the loop has finished).</p>
+<p>To overcome this race-condition, we will give each thread a pointer to it's own data area. For example, for each thread we may want to store the id, a starting value and an output value:</p>
+<pre><code class="C">struct T {
+  pthread_t id;
+  int start;
+  char result[100];
+};
+</code></pre>
+
+<p>These can be stored in an array - </p>
+<pre><code>struct T *info = calloc(10 , sizeof(struct T)); // reserve enough bytes for ten T structures
+</code></pre>
+
+<p>And each array element passed to each thread - </p>
+<pre><code>pthread_create(&amp;info[i].id, NULL, func, &amp;info[i]);
+</code></pre>
+
+<h2 id="why-are-some-functions-eg-asctimegetenv-strtok-strerror-not-thread-safe">Why are some functions e.g.  asctime,getenv, strtok, strerror  not thread-safe?</h2>
+<p>To answer this, let's look at a simple function that is also not 'thread-safe'</p>
+<pre><code class="C">char *to_message(int num) {
+    char static result [256];
+    if (num &lt; 10) sprintf(result, &quot;%d : blah blah&quot; , num);
+    else strcpy(result, &quot;Unknown&quot;);
+    return result;
+}
+</code></pre>
+
+<p>In the above code the result buffer is stored in global memory. This is good - we wouldn't want to return a pointer to an invalid address on the stack, but there's only one result buffer in the entire memory. If two threads were to use it at the same time then one would corrupt the other:</p>
+<table>
+<thead>
+<tr>
+<th>Time</th>
+<th>Thread 1</th>
+<th>Thread 2</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>to_m(5 )</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td></td>
+<td>to_m(99)</td>
+<td>Now both threads will see "Unknown" stored in the result buffer</td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-are-condition-variables-semaphores-mutexes">What are condition variables, semaphores, mutexes?</h2>
+<p>These are synchronization locks that are used to prevent race conditions and ensure proper synchronization between threads running in the same program. In addition these locks are conceptually identical to the primitives used inside the kernel.</p>
+<h2 id="are-there-any-advantages-of-using-threads-over-forking-processes">Are there any advantages of using threads over forking processes?</h2>
+<p>Yes! Sharing information between threads is easy because threads (of the same process) live inside the same virtual memory space.
+Also, creating a thread is significantly faster than creating(forking) a process.</p>
+<h2 id="are-there-any-dis-advantages-of-using-threads-over-forking-processes">Are there any dis-advantages of using threads over forking processes?</h2>
+<p>Yes! No- isolation! As threads live inside the same process, one thread has access to the same virtual memory as the other threads. A single thread can terminate the entire process (e.g. by trying to read address zero).</p>
+<h2 id="can-you-fork-a-process-with-multiple-threads">Can you fork a process with multiple threads?</h2>
+<p>Yes! However the child process only has a single thread (which is a clone of the thread that called <code>fork</code>. We can see this as a simple example, where the background threads never print out a second message in the child process.</p>
+<pre><code class="C">#include &lt;pthread.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+
+static pid_t child = -2;
+
+void *sleepnprint(void *arg) {
+  printf(&quot;%d:%s starting up...\n&quot;, getpid(), (char *) arg);
+
+  while (child == -2) {sleep(1);} /* Later we will use condition variables */
+
+  printf(&quot;%d:%s finishing...\n&quot;,getpid(), (char*)arg);
+
+  return NULL;  
+}
+int main() {
+  pthread_t tid1, tid2;
+  pthread_create(&amp;tid1,NULL, sleepnprint, &quot;New Thread One&quot;);
+  pthread_create(&amp;tid2,NULL, sleepnprint, &quot;New Thread Two&quot;);
+
+  child = fork();
+  printf(&quot;%d:%s\n&quot;,getpid(), &quot;fork()ing complete&quot;);
+  sleep(3);
+
+  printf(&quot;%d:%s\n&quot;,getpid(), &quot;Main thread finished&quot;);
+
+  pthread_exit(NULL);
+  return 0; /* Never executes */
+}
+</code></pre>
+
+<pre><code>8970:New Thread One starting up...
+8970:fork()ing complete
+8973:fork()ing complete
+8970:New Thread Two starting up...
+8970:New Thread Two finishing...
+8970:New Thread One finishing...
+8970:Main thread finished
+8973:Main thread finished
+</code></pre>
+
+<p>In practice creating threads before forking can lead to unexpected errors because (as demonstrated above) the other threads are immediately terminated when forking. Another thread might have just lock a mutex (e.g. by calling malloc) and never unlock it again. Advanced users may find <code>pthread_atfork</code> useful however we suggest you usually try to avoid creating threads before forking unless you fully understand the limitations and difficulties of this approach.</p>
+<h2 id="are-there-other-reasons-where-fork-might-be-preferable-to-creating-a-thread">Are there other reasons where <code>fork</code> might be preferable to creating a thread.</h2>
+<p>Creating separate processes is useful 
+<em> When more security is desired (for example, Chrome browser uses different processes for different tabs)
+</em> When running an existing and complete program then a new process is required (e.g. starting 'gcc')</p>
+<h2 id="how-can-i-find-out-more">How can I find out more?</h2>
+<p>See the complete example in the <a href="http://man7.org/linux/man-pages/man3/pthread_create.3.html">man page</a>
+And the <a href="http://man7.org/linux/man-pages/man7/pthreads.7.html">pthread reference guide</a>
+ALSO: <a href="http://www.thegeekstuff.com/2012/04/terminate-c-thread/">Concise third party sample code explaining create, join and exit</a></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../RPC,-Part-1:-Introduction-to-Remote-Procedure-Calls/" class="btn btn-neutral float-right" title="RPC, Part 1: Introduction to Remote Procedure Calls">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Pthreads,-Part-1:-Introduction/" class="btn btn-neutral" title="Pthreads, Part 1: Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../Pthreads,-Part-1:-Introduction/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../RPC,-Part-1:-Introduction-to-Remote-Procedure-Calls/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

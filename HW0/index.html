@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>HW0 - UIUC CS241 SystemProgramming Wiki</title>
+  
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "HW0";
+    var mkdocs_page_input_path = "HW0.md";
+    var mkdocs_page_url = "/HW0/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script>
+  <script src="../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> UIUC CS241 SystemProgramming Wiki</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Home</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../#Example Markdown/">#Example Markdown</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../#Informal-Glossary/">#Informal Glossary</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../#Piazza: When And How to Ask For Help/">#Piazza: When And How to Ask For Help</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../C Programming, Part 4: Debugging/">C Programming, Part 4: Debugging</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-1:-Introduction/">C Programming, Part 1: Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-2:-Text-Input-And-Output/">C Programming, Part 2: Text Input And Output</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-3:-Common-Gotchas/">C Programming, Part 3: Common Gotchas</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming:-Review-Questions/">C Programming: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-1:-Resource-Allocation-Graph/">Deadlock, Part 1: Resource Allocation Graph</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-2:-Deadlock-Conditions/">Deadlock, Part 2: Deadlock Conditions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Exam-Topics/">Exam Topics</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-1:-Introduction/">File System, Part 1: Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-2:-Files-are-inodes-(everything-else-is-just-data...)/">File System, Part 2: Files are inodes (everything else is just data...)</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-3:-Permissions/">File System, Part 3: Permissions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-4:-Working-with-directories/">File System, Part 4: Working with directories</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-5:-Virtual-file-systems/">File System, Part 5: Virtual file systems</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-6:-Memory-mapped-files-and-Shared-memory/">File System, Part 6: Memory mapped files and Shared memory</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-7:-Scalable-and-Reliable-Filesystems/">File System, Part 7: Scalable and Reliable Filesystems</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-8:-Disk-blocks-example/">File System, Part 8: Disk blocks example</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Files,-Part-1:-Working-with-files/">Files, Part 1: Working with files</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Filesystem:-Review-Questions/">Filesystem: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Forking,-Part-1:-Introduction/">Forking, Part 1: Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Forking,-Part-2:-Fork,-Exec,-Wait/">Forking, Part 2: Fork, Exec, Wait</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">HW0</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#welcome">Welcome!</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#so-you-want-to-master-system-programming-and-get-a-better-grade-than-b">So you want to master System Programming? And get a better grade than B?</a></li>
+                
+                    <li><a class="toctree-l4" href="#watch-the-videos-and-write-up-your-answers-to-the-following-questions">Watch the videos and write up your answers to the following questions.</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-1:-Heap-Memory-Introduction/">Memory, Part 1: Heap Memory Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-2:-Implementing-a-Memory-Allocator/">Memory, Part 2: Implementing a Memory Allocator</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-3:-Smashing-the-Stack-Example/">Memory, Part 3: Smashing the Stack Example</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory:-Review-Questions/">Memory: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Multi-threaded-Programming:-Review-Questions/">Multi threaded Programming: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking, Part 3: Building a simple TCP Client/">Networking, Part 3: Building a simple TCP Client</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking, Part 6: Creating a UDP server/">Networking, Part 6: Creating a UDP server</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-1:-Introduction/">Networking, Part 1: Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-2:-Using-getaddrinfo/">Networking, Part 2: Using getaddrinfo</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-4:-Building-a-simple-TCP-Server/">Networking, Part 4: Building a simple TCP Server</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-5:-Reusing-ports/">Networking, Part 5: Reusing ports</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking:-Review-Questions/">Networking: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Nonblocking-I-O,-select(),-and-epoll/">Nonblocking I O, select(), and epoll</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../OSI-Model/">OSI Model</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../POSIX,-Part-1:-Error-handling/">POSIX, Part 1: Error handling</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipe:-Review-Questions/">Pipe: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipes,-Part-1:-Introduction-to-pipes/">Pipes, Part 1: Introduction to pipes</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipes,-Part-2:-Pipe-programming-secrets/">Pipes, Part 2: Pipe programming secrets</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Process-Control,-Part-1:-Wait-macros,-using-signals/">Process Control, Part 1: Wait macros, using signals</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Programming-Tricks,-Part-1/">Programming Tricks, Part 1</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-1:-Introduction/">Pthreads, Part 1: Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-2:-Usage-in-Practice/">Pthreads, Part 2: Usage in Practice</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../RPC,-Part-1:-Introduction-to-Remote-Procedure-Calls/">RPC, Part 1: Introduction to Remote Procedure Calls</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Sample-program-using-pthread-barriers/">Sample program using pthread barriers</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Scheduling,-Part-1:-Scheduling-Processes/">Scheduling, Part 1: Scheduling Processes</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-2:-Pending-Signals-and-Signal-Masks/">Signals, Part 2: Pending Signals and Signal Masks</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-3:-Raising-signals/">Signals, Part 3: Raising signals</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-4:-Sigaction/">Signals, Part 4: Sigaction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals:-Review-Questions/">Signals: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-1:-Mutex-Locks/">Synchronization, Part 1: Mutex Locks</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-2:-Counting-Semaphores/">Synchronization, Part 2: Counting Semaphores</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-3:-Working-with-Mutexes-And-Semaphores/">Synchronization, Part 3: Working with Mutexes And Semaphores</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-4:-The-Critical-Section-Problem/">Synchronization, Part 4: The Critical Section Problem</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-5:-Condition-Variables/">Synchronization, Part 5: Condition Variables</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-6:-Implementing-a-barrier/">Synchronization, Part 6: Implementing a barrier</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-7:-The-Reader-Writer-Problem/">Synchronization, Part 7: The Reader Writer Problem</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-8:-Ring-Buffer-Example/">Synchronization, Part 8: Ring Buffer Example</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-9:-The-Reader-Writer-Problem-(part-2)/">Synchronization, Part 9: The Reader Writer Problem (part 2)</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../System-Programming-Short-Stories-and-Songs/">System Programming Short Stories and Songs</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Test-page/">Test page</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Virtual-Memory,-Part-1:-Introduction-to-Virtual-Memory/">Virtual Memory, Part 1: Introduction to Virtual Memory</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../_Footer/"> Footer</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">UIUC CS241 SystemProgramming Wiki</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>HW0</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="welcome">Welcome!</h1>
+<pre><code class="C">// First can you guess which lyrics have been transformed into this C-like system code?
+char q[] = &quot;Do you wanna build a C99 program?&quot;;
+#define or &quot;go debugging with gdb?&quot;
+static unsigned int i = sizeof(or) != strlen(or);
+char* ptr = &quot;lathe&quot;; size_t come = fprintf(stdout,&quot;%s door&quot;, ptr+2);
+int away = ! (int) * &quot;&quot;;
+
+int* shared = mmap(NULL, sizeof(int*), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+munmap(shared,sizeof(int*));
+
+if(!fork()) { execlp(&quot;man&quot;,&quot;man&quot;,&quot;-3&quot;,&quot;ftell&quot;, (char*)0); perror(&quot;failed&quot;); }
+if(!fork()) { execlp(&quot;make&quot;,&quot;make&quot;, &quot;snowman&quot;, (char*)0); execlp(&quot;make&quot;,&quot;make&quot;, (char*)0)); }
+
+exit(0);
+</code></pre>
+
+<h1 id="so-you-want-to-master-system-programming-and-get-a-better-grade-than-b">So you want to master System Programming? And get a better grade than B?</h1>
+<pre><code class="C">int main(int argc, char** argv) {
+ puts(&quot;Great! We have plenty of useful resources for you but it's up to you to&quot;);
+ puts(&quot;be an active learner and learn how to solve problems and debug code.&quot;);
+ puts(&quot;Bring your near-completed answers the problems below&quot;);
+ puts(&quot; to the first lab to show that you've been working on this&quot;);
+ printf(&quot;A few \&quot;don't knows\&quot; or \&quot;unsure\&quot; is fine for lab 1&quot;); 
+ puts(&quot;Warning; your peers will be working hard for this class&quot;);
+ puts(&quot;This is not CS225; you will be pushed much harder to&quot;);
+ puts(&quot; work things out on your own&quot;);
+ fprintf(stdout,&quot;the point is that this homework is a stepping stone to all future assignments&quot;);
+ char p[] = &quot;so you will want to clear up any confusions or misconceptions.&quot;;
+ write(1, p, strlen(p) );
+ char buffer[1024];
+ sprintf(buffer,&quot;For grading purposes this homework 0 will be graded as part of your lab %d work.&quot;, 1);
+ write(1, buffer, strlen(buffer));
+ printf(&quot;Press Return to continue\n&quot;);
+ read(0, buffer, sizeof(buffer));
+ return 0;
+}
+</code></pre>
+
+<h2 id="watch-the-videos-and-write-up-your-answers-to-the-following-questions">Watch the videos and write up your answers to the following questions.</h2>
+<p>http://cs-education.github.io/sys/</p>
+<p>There is also the course wikibook - </p>
+<p>https://github.com/angrave/SystemProgramming/wiki</p>
+<p>Questions? Comments? Use Piazza,
+https://piazza.com/class/ijd7w4r95dp3q</p>
+<p>The in-browser virtual machine runs entirely in Javascript and is fastest in Chrome. Note the VM and any code you write is reset when you reload the page <em>So copy your code to a separate document.</em> The post-video challenges (e.g. Haiku poem) are not part of homework 0. </p>
+<h3 id="chapter-1">Chapter 1</h3>
+<ul>
+<li>Hello World (System call style)</li>
+<li>Write a program that uses <code>write()</code> to print out "Hi! My name is <Your Name>".</li>
+<li>Hello Standard Error Stream</li>
+<li>Write a program that uses <code>write()</code> to print out a triangle of height <code>n</code> to Standard Error<ul>
+<li>n should be a variable and the triangle should look like this for n = 3
+```C
+<em>
+</em>*</li>
+</ul>
+<hr />
+<p>```</p>
+</li>
+<li>Writing to files</li>
+<li>Take your program from "Hello World" and have it write to a file<ul>
+<li>Make sure to to use some interesting flags and mode for <code>open()</code></li>
+<li><code>man 2 open</code> is your friend</li>
+</ul>
+</li>
+<li>Not everything is a system call</li>
+<li>Take your program from "Writing to files" and replace it with <code>printf()</code></li>
+<li>Name some differences from <code>write()</code> and <code>printf()</code></li>
+</ul>
+<h3 id="chapter-2">Chapter 2</h3>
+<ul>
+<li>Not all bytes are 8 bits?</li>
+<li>How many bits are there in a byte?</li>
+<li>How many bytes is a <code>char</code>?</li>
+<li>Tell me how many bytes the following are on your machine: <code>int, double, float, long, long long</code></li>
+<li>Follow the int pointer</li>
+<li>On a machine with 8 byte integers:
+  <code>C
+  int main(){
+      int data[8];
+  }</code>
+  If the address of data is <code>0x7fbd9d40</code>, then what is the address of <code>data+2</code>?</li>
+<li>What is <code>data[3]</code> equivalent to in C?</li>
+<li><code>sizeof</code> character arrays, incrementing pointers</li>
+</ul>
+<p>Remember the type of a string constant <code>"abc"</code> is an array.
+  - Why does this segfault?
+  <code>C
+  char *ptr = "hello";
+  *ptr = 'J';</code>
+  - What does <code>sizeof("Hello\0World")</code> return?
+  - What does <code>strlen("Hello\0World")</code> return?
+  - Give an example of X such that <code>sizeof(X)</code> is 3
+  - Give an example of Y such at <code>sizeof(Y)</code> might be 4 or 8 depending on the machine.</p>
+<h3 id="chapter-3">Chapter 3</h3>
+<ul>
+<li>Program arguments <code>argc</code> <code>argv</code></li>
+<li>Name me two ways to find the length of <code>argv</code></li>
+<li>What is <code>argv[0]</code></li>
+<li>Environment Variables</li>
+<li>Where are the pointers to environment variables stored?</li>
+<li>String searching (Strings are just char arrays)</li>
+<li>
+<p>On a machine where pointers are 8 bytes and with the following code:
+  <code>C
+  char *ptr = "Hello";
+  char array[] = "Hello";</code>
+  What is the results of <code>sizeof(ptr)</code> and <code>sizeof(array)</code>? Explain why.</p>
+</li>
+<li>
+<p>Lifetime of automatic variables</p>
+</li>
+<li>What datastucture is managing the lifetime of automatic variables?</li>
+</ul>
+<h3 id="chapter-4">Chapter 4</h3>
+<ul>
+<li>Memory allocation using <code>malloc</code>, heap and time</li>
+<li>If I want to use data after the lifetime of the function it was created in, then where should I put it and how do I put it there?</li>
+<li>Fill in the blank. In a good C program: "For every malloc there is a ___".</li>
+<li>Heap allocation Gotchas</li>
+<li>Name one reason <code>malloc</code> can fail.</li>
+<li>Name some differences between <code>time()</code> and <code>ctime()</code></li>
+<li>What is wrong with this code snippet?
+  <code>C
+  free(ptr);
+  free(ptr);</code></li>
+<li>What is wrong with this code snippet?
+  <code>C
+  free(ptr);
+  printf("%s\n", ptr);</code></li>
+<li>How can one avoid the previous 2 mistakes? </li>
+<li>struct, typedefs and a linked list</li>
+<li>Create a struct that represents a Person and typedef, so that "struct Person" can be replaced with a single word.<ul>
+<li>A person should contain the following information: name, age, friends (pointer to an array of pointers to People).</li>
+</ul>
+</li>
+<li>Now make two persons "Agent Smith" and "Sonny Moore" on the heap who are 128 and 256 years old respectively and are friends with each other.</li>
+<li>Duplicating strings, memory allocation and deallocation of structures</li>
+<li>Create functions to create and destroy a Person (Person's and their names should live on the heap).<ul>
+<li><code>create()</code> should take a name and make a copy of the name and also an age. Use malloc to reserve sufficient memory. Be sure initialize all fields (why?).</li>
+<li><code>destroy()</code> should free up not only the memory of the person struct but also free all its attributes that are stored on the heap (the array if it exists and the string). Destroying one person however should not destroy any others.</li>
+</ul>
+</li>
+</ul>
+<h3 id="chapter-5">Chapter 5</h3>
+<ul>
+<li>Reading characters, Trouble with gets</li>
+<li>What functions can be used for getting characters for <code>stdin</code> and writing them to <code>stdout</code>?</li>
+<li>Name one issue with <code>gets()</code></li>
+<li>Introducing <code>sscanf</code> and friends</li>
+<li>Write code that parses a the string "Hello 5 World" and initializes 3 variables to ("Hello", 5, "World") respectively.</li>
+<li><code>getline</code> is useful</li>
+<li>What does one need to define before using <code>getline()</code>?</li>
+<li>Write a C program to print out the content of a file line by line using <code>getline()</code></li>
+</ul>
+<h3 id="c-development-a-web-search-is-useful-here">C Development (A web search is useful here)</h3>
+<ul>
+<li>What compiler flag is used to generate a debug build?</li>
+<li>You modify the makefile to generate debug builds and type <code>make</code> again. Explain why this is insufficient to generate a new build.</li>
+<li>Are tabs or spaces used in Makefiles?</li>
+<li>What are the differences between heap and stack memory?</li>
+<li>Are there other kinds of memory in a process?</li>
+</ul>
+<h3 id="optional-just-for-fun">Optional (Just for fun)</h3>
+<ul>
+<li>Convert your a song lyrics into System Programming and C code covered in this wiki book and share on Piazza.</li>
+<li>Find, in your opinion the best and worst C code on the web and post the link to Piazza</li>
+<li>Write a short C program with a deliberate subtle C bug and post it on Piazza to see if others can spot your bug </li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Memory,-Part-1:-Heap-Memory-Introduction/" class="btn btn-neutral float-right" title="Memory, Part 1: Heap Memory Introduction">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Forking,-Part-2:-Fork,-Exec,-Wait/" class="btn btn-neutral" title="Forking, Part 2: Fork, Exec, Wait"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../Forking,-Part-2:-Fork,-Exec,-Wait/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../Memory,-Part-1:-Heap-Memory-Introduction/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

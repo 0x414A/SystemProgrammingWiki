@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>File System, Part 2: Files are inodes (everything else is just data...) - UIUC CS241 SystemProgramming Wiki</title>
+  
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "File System, Part 2: Files are inodes (everything else is just data...)";
+    var mkdocs_page_input_path = "File-System,-Part-2:-Files-are-inodes-(everything-else-is-just-data...).md";
+    var mkdocs_page_url = "/File-System,-Part-2:-Files-are-inodes-(everything-else-is-just-data...)/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script>
+  <script src="../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> UIUC CS241 SystemProgramming Wiki</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Home</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../#Example Markdown/">#Example Markdown</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../#Informal-Glossary/">#Informal Glossary</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../#Piazza: When And How to Ask For Help/">#Piazza: When And How to Ask For Help</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../C Programming, Part 4: Debugging/">C Programming, Part 4: Debugging</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-1:-Introduction/">C Programming, Part 1: Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-2:-Text-Input-And-Output/">C Programming, Part 2: Text Input And Output</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-3:-Common-Gotchas/">C Programming, Part 3: Common Gotchas</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming:-Review-Questions/">C Programming: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-1:-Resource-Allocation-Graph/">Deadlock, Part 1: Resource Allocation Graph</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-2:-Deadlock-Conditions/">Deadlock, Part 2: Deadlock Conditions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Exam-Topics/">Exam Topics</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-1:-Introduction/">File System, Part 1: Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">File System, Part 2: Files are inodes (everything else is just data...)</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#so-how-do-we-implement-a-directory">So... How do we implement a directory?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#how-can-i-find-the-inode-number-of-a-file">How can I find the inode number of a file?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#how-do-i-find-out-meta-information-about-a-file-or-directory">How do I find out meta-information about a file (or directory)?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#how-do-i-list-the-contents-of-a-directory">How do I list the contents of a directory ?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#how-do-i-read-the-contents-of-a-directory">How do I read the contents of a directory?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#how-do-i-check-to-see-if-a-file-is-in-the-current-directory">How do I check to see if a file is in the current directory?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#an-aside-a-system-programming-pattern-to-clean-up-resources-goto-considered-useful">An aside - A System programming pattern to clean up resources - goto considered useful!</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#what-are-the-gotchas-of-using-readdir-for-example-to-recursively-search-directories">What are the gotcha's of using readdir? For example to recursively search directories?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#how-i-do-determine-if-a-directory-entry-is-a-directory">How I do determine if a directory entry is a directory?</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-3:-Permissions/">File System, Part 3: Permissions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-4:-Working-with-directories/">File System, Part 4: Working with directories</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-5:-Virtual-file-systems/">File System, Part 5: Virtual file systems</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-6:-Memory-mapped-files-and-Shared-memory/">File System, Part 6: Memory mapped files and Shared memory</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-7:-Scalable-and-Reliable-Filesystems/">File System, Part 7: Scalable and Reliable Filesystems</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-8:-Disk-blocks-example/">File System, Part 8: Disk blocks example</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Files,-Part-1:-Working-with-files/">Files, Part 1: Working with files</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Filesystem:-Review-Questions/">Filesystem: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Forking,-Part-1:-Introduction/">Forking, Part 1: Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Forking,-Part-2:-Fork,-Exec,-Wait/">Forking, Part 2: Fork, Exec, Wait</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../HW0/">HW0</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-1:-Heap-Memory-Introduction/">Memory, Part 1: Heap Memory Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-2:-Implementing-a-Memory-Allocator/">Memory, Part 2: Implementing a Memory Allocator</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-3:-Smashing-the-Stack-Example/">Memory, Part 3: Smashing the Stack Example</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory:-Review-Questions/">Memory: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Multi-threaded-Programming:-Review-Questions/">Multi threaded Programming: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking, Part 3: Building a simple TCP Client/">Networking, Part 3: Building a simple TCP Client</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking, Part 6: Creating a UDP server/">Networking, Part 6: Creating a UDP server</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-1:-Introduction/">Networking, Part 1: Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-2:-Using-getaddrinfo/">Networking, Part 2: Using getaddrinfo</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-4:-Building-a-simple-TCP-Server/">Networking, Part 4: Building a simple TCP Server</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-5:-Reusing-ports/">Networking, Part 5: Reusing ports</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking:-Review-Questions/">Networking: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Nonblocking-I-O,-select(),-and-epoll/">Nonblocking I O, select(), and epoll</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../OSI-Model/">OSI Model</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../POSIX,-Part-1:-Error-handling/">POSIX, Part 1: Error handling</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipe:-Review-Questions/">Pipe: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipes,-Part-1:-Introduction-to-pipes/">Pipes, Part 1: Introduction to pipes</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipes,-Part-2:-Pipe-programming-secrets/">Pipes, Part 2: Pipe programming secrets</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Process-Control,-Part-1:-Wait-macros,-using-signals/">Process Control, Part 1: Wait macros, using signals</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Programming-Tricks,-Part-1/">Programming Tricks, Part 1</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-1:-Introduction/">Pthreads, Part 1: Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-2:-Usage-in-Practice/">Pthreads, Part 2: Usage in Practice</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../RPC,-Part-1:-Introduction-to-Remote-Procedure-Calls/">RPC, Part 1: Introduction to Remote Procedure Calls</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Sample-program-using-pthread-barriers/">Sample program using pthread barriers</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Scheduling,-Part-1:-Scheduling-Processes/">Scheduling, Part 1: Scheduling Processes</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-2:-Pending-Signals-and-Signal-Masks/">Signals, Part 2: Pending Signals and Signal Masks</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-3:-Raising-signals/">Signals, Part 3: Raising signals</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-4:-Sigaction/">Signals, Part 4: Sigaction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals:-Review-Questions/">Signals: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-1:-Mutex-Locks/">Synchronization, Part 1: Mutex Locks</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-2:-Counting-Semaphores/">Synchronization, Part 2: Counting Semaphores</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-3:-Working-with-Mutexes-And-Semaphores/">Synchronization, Part 3: Working with Mutexes And Semaphores</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-4:-The-Critical-Section-Problem/">Synchronization, Part 4: The Critical Section Problem</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-5:-Condition-Variables/">Synchronization, Part 5: Condition Variables</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-6:-Implementing-a-barrier/">Synchronization, Part 6: Implementing a barrier</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-7:-The-Reader-Writer-Problem/">Synchronization, Part 7: The Reader Writer Problem</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-8:-Ring-Buffer-Example/">Synchronization, Part 8: Ring Buffer Example</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-9:-The-Reader-Writer-Problem-(part-2)/">Synchronization, Part 9: The Reader Writer Problem (part 2)</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../System-Programming-Short-Stories-and-Songs/">System Programming Short Stories and Songs</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Test-page/">Test page</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Virtual-Memory,-Part-1:-Introduction-to-Virtual-Memory/">Virtual Memory, Part 1: Introduction to Virtual Memory</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../_Footer/"> Footer</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">UIUC CS241 SystemProgramming Wiki</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>File System, Part 2: Files are inodes (everything else is just data...)</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p>Big idea: Forget names of files: The 'inode' is the file.  </p>
+<p>It is common to think of the file name as the 'actual' file. It's not! Instead consider the inode as the file. The inode holds the meta-information (last accessed, ownership, size) and points to the disk blocks used to hold the file contents.</p>
+<h2 id="so-how-do-we-implement-a-directory">So... How do we implement a directory?</h2>
+<p>A directory is just a mapping of names to inode numbers.
+POSIX provides a small set of functions to read the filename and inode number for each entry (see below)</p>
+<h2 id="how-can-i-find-the-inode-number-of-a-file">How can I find the inode number of a file?</h2>
+<p>From a shell, use <code>ls</code> with the <code>-i</code> option</p>
+<pre><code>$ ls -i
+12983989 dirlist.c      12984068 sandwhich.c
+</code></pre>
+
+<p>From C, call one of the stat functions (introduced below).</p>
+<h2 id="how-do-i-find-out-meta-information-about-a-file-or-directory">How do I find out meta-information about a file (or directory)?</h2>
+<p>Use the stat calls. For example, to find out when my 'notes.txt' file was last accessed -</p>
+<pre><code class="C">   struct stat s;
+   stat(&quot;notes.txt&quot;, &amp; s);
+   printf(&quot;Last accessed %s&quot;, ctime(s.st_atime));
+</code></pre>
+
+<p>There are actually three versions of <code>stat</code>;</p>
+<pre><code class="C">       int stat(const char *path, struct stat *buf);
+       int fstat(int fd, struct stat *buf);
+       int lstat(const char *path, struct stat *buf);
+</code></pre>
+
+<p>For example you can use <code>fstat</code> to find out the meta-information about a file if you already have an file descriptor associated with that file</p>
+<pre><code class="C">   FILE *file = fopen(&quot;notes.txt&quot;, &quot;r&quot;);
+   int fd = fileno(file); /* Just for fun - extract the file descriptor from a C FILE struct */
+   struct stat s;
+   fstat(fd, &amp; s);
+   printf(&quot;Last accessed %s&quot;, ctime(s.st_atime));
+</code></pre>
+
+<p>The third call 'lstat' we will discuss when we introduce symbolic links.</p>
+<p>In addition to access,creation, and modified times, the stat structure includes the inode number, length of the file and owner information.</p>
+<pre><code class="C">struct stat {
+               dev_t     st_dev;     /* ID of device containing file */
+               ino_t     st_ino;     /* inode number */
+               mode_t    st_mode;    /* protection */
+               nlink_t   st_nlink;   /* number of hard links */
+               uid_t     st_uid;     /* user ID of owner */
+               gid_t     st_gid;     /* group ID of owner */
+               dev_t     st_rdev;    /* device ID (if special file) */
+               off_t     st_size;    /* total size, in bytes */
+               blksize_t st_blksize; /* blocksize for file system I/O */
+               blkcnt_t  st_blocks;  /* number of 512B blocks allocated */
+               time_t    st_atime;   /* time of last access */
+               time_t    st_mtime;   /* time of last modification */
+               time_t    st_ctime;   /* time of last status change */
+           };
+</code></pre>
+
+<h2 id="how-do-i-list-the-contents-of-a-directory">How do I list the contents of a directory ?</h2>
+<p>Let's write our own version of 'ls' to list the contents of a directory.</p>
+<pre><code class="C">#include &lt;stdio.h&gt;
+#include &lt;dirent.h&gt;
+#include &lt;stdlib.h&gt;
+int main(int argc, char **argv) {
+    if(argc == 1) {
+        printf(&quot;Usage: %s [directory]\n&quot;, *argv);
+        exit(0);
+    }
+    struct dirent *dp;
+    DIR *dirp = opendir(argv[1]);
+    while ((dp = readdir(dirp)) != NULL) {
+        puts(dp-&gt;d_name);
+    }
+
+    closedir(dirp);
+    return 0;
+}
+</code></pre>
+
+<h2 id="how-do-i-read-the-contents-of-a-directory">How do I read the contents of a directory?</h2>
+<p>Ans: Use opendir readdir closedir
+For example, here's a very simple implementation of 'ls' to list the contents of a directory.</p>
+<pre><code class="C">#include &lt;stdio.h&gt;
+#include &lt;dirent.h&gt;
+#include &lt;stdlib.h&gt;
+int main(int argc, char **argv) {
+    if(argc ==1) {
+        printf(&quot;Usage: %s [directory]\n&quot;, *argv);
+        exit(0);
+    }
+    struct dirent *dp;
+    DIR *dirp = opendir(argv[1]);
+    while ((dp = readdir(dirp)) != NULL) {
+        printf(&quot;%s %lu\n&quot;, dp-&gt; d_name, (unsigned long)dp-&gt; d_ino );
+    }
+
+    closedir(dirp);
+    return 0;
+}
+</code></pre>
+
+<p>Note: after a call to fork(), either (XOR) the parent or the child can use readdir(), rewinddir() or seekdir(). If both the parent and the child use the above, behavior is undefined.</p>
+<h2 id="how-do-i-check-to-see-if-a-file-is-in-the-current-directory">How do I check to see if a file is in the current directory?</h2>
+<p>For example, to see if a particular directory includes a file (or filename) 'name', we might write the following code. (Hint: Can you spot the bug?)</p>
+<pre><code class="C">int exists(char *directory, char *name)  {
+    struct dirent *dp;
+    DIR *dirp = opendir(directory);
+    while ((dp = readdir(dirp)) != NULL) {
+        puts(dp-&gt;d_name);
+        if (!strcmp(dp-&gt;d_name, name)) {
+        return 1; /* Found */
+        }
+    }
+    closedir(dirp);
+    return 0; /* Not Found */
+}
+</code></pre>
+
+<p>The above code has a subtle bug: It leaks resources! If a matching filename is found then 'closedir' is never called as part of the early return. Any file descriptors opened, and any memory allocated, by opendir are never released. This means eventually the process will run out of resources and an <code>open</code> or <code>opendir</code> call will fail.</p>
+<p>The fix is to ensure we free up resources in every possible code-path. In the above code this means calling <code>closedir</code> before <code>return 1</code>. Forgetting to release resources is a common C programming bug because there is no support in the C lanaguage to ensure resources are always released with all codepaths.</p>
+<h2 id="an-aside-a-system-programming-pattern-to-clean-up-resources-goto-considered-useful">An aside - A System programming pattern to clean up resources - goto considered useful!</h2>
+<p>Note If C supported exception handling this discussion would be unnecessary.
+Imagine your function required several temporary resources that need to be freed before returning.
+How can we write readable code that correctly frees resources under all code paths? Some system programs use <code>goto</code> to jump forward into the clean up code, using the following pattern:</p>
+<pre><code class="C">int f() {
+   Acquire resource r1
+   if(...) goto clean_up_r1
+   Acquire resource r2
+   if(...) goto clean_up_r2
+
+   perform work
+clean_up_r2:
+   clean up r2
+clean_up_r1:
+   clean up r1
+   return result
+}
+</code></pre>
+
+<p>Whether this is a good thing or not has led to long rigorous debates that have generally helped system programmers stay warm during the cold winter months. Are there alternatives? Yes! For example using conditional logic, breaking out of do-while loops and writing secondary functions that perform the innermost work. However all choices are problematic and cumbersome as we are attempting to shoe-horn in exception handling in a language that has no inbuilt support for it.</p>
+<h2 id="what-are-the-gotchas-of-using-readdir-for-example-to-recursively-search-directories">What are the gotcha's of using readdir? For example to recursively search directories?</h2>
+<p>There are two main gotchas and one consideration:
+The <code>readdir</code> function returns "." (current directory) and ".." (parent directory). If you are looking for sub-directories, you need to explicitly exclude these directories.</p>
+<p>For many applications it's reasonable to check the current directory first before recursively searching sub-directories. This can be achieved by storing the results in a linked list, or resetting the directory struct to restart from the beginning.</p>
+<p>One final note of caution: <code>readdir</code> is not thread-safe! For multi-threaded searches use <code>readdir_r</code> which requires the caller to pass in the address of an existing dirent struct.</p>
+<p>See the man page of readdir for more details.</p>
+<h2 id="how-i-do-determine-if-a-directory-entry-is-a-directory">How I do determine if a directory entry is a directory?</h2>
+<p>Ans: Use <code>S_ISDIR</code> to check the mode bits stored in the stat structure</p>
+<p>And to check if a file is regular file use <code>S_ISREG</code>,</p>
+<pre><code class="C">   struct stat s;
+   if (0 == stat(name, &amp;s)) {
+      printf(&quot;%s &quot;, name);
+      if (S_ISDIR( s.st_mode)) puts(&quot;is a directory&quot;);
+      if (S_ISREG( s.st_mode)) puts(&quot;is a regular file&quot;);
+   } else {
+      perror(&quot;stat failed - are you sure I can read this file's meta data?&quot;);
+   }
+</code></pre>
+
+<p><a href="https://github.com/angrave/SystemProgramming/wiki/File-System,-Part-3:-Permissions">Go to File System, Part 3</a></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../File-System,-Part-3:-Permissions/" class="btn btn-neutral float-right" title="File System, Part 3: Permissions">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../File-System,-Part-1:-Introduction/" class="btn btn-neutral" title="File System, Part 1: Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../File-System,-Part-1:-Introduction/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../File-System,-Part-3:-Permissions/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

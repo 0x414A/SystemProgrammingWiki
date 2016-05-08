@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>Synchronization, Part 3: Working with Mutexes And Semaphores - UIUC CS241 SystemProgramming Wiki</title>
+  
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Synchronization, Part 3: Working with Mutexes And Semaphores";
+    var mkdocs_page_input_path = "Synchronization,-Part-3:-Working-with-Mutexes-And-Semaphores.md";
+    var mkdocs_page_url = "/Synchronization,-Part-3:-Working-with-Mutexes-And-Semaphores/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script>
+  <script src="../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> UIUC CS241 SystemProgramming Wiki</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Home</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../#Example Markdown/">#Example Markdown</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../#Informal-Glossary/">#Informal Glossary</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../#Piazza: When And How to Ask For Help/">#Piazza: When And How to Ask For Help</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../C Programming, Part 4: Debugging/">C Programming, Part 4: Debugging</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-1:-Introduction/">C Programming, Part 1: Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-2:-Text-Input-And-Output/">C Programming, Part 2: Text Input And Output</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-3:-Common-Gotchas/">C Programming, Part 3: Common Gotchas</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming:-Review-Questions/">C Programming: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-1:-Resource-Allocation-Graph/">Deadlock, Part 1: Resource Allocation Graph</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-2:-Deadlock-Conditions/">Deadlock, Part 2: Deadlock Conditions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Exam-Topics/">Exam Topics</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-1:-Introduction/">File System, Part 1: Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-2:-Files-are-inodes-(everything-else-is-just-data...)/">File System, Part 2: Files are inodes (everything else is just data...)</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-3:-Permissions/">File System, Part 3: Permissions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-4:-Working-with-directories/">File System, Part 4: Working with directories</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-5:-Virtual-file-systems/">File System, Part 5: Virtual file systems</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-6:-Memory-mapped-files-and-Shared-memory/">File System, Part 6: Memory mapped files and Shared memory</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-7:-Scalable-and-Reliable-Filesystems/">File System, Part 7: Scalable and Reliable Filesystems</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-8:-Disk-blocks-example/">File System, Part 8: Disk blocks example</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Files,-Part-1:-Working-with-files/">Files, Part 1: Working with files</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Filesystem:-Review-Questions/">Filesystem: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Forking,-Part-1:-Introduction/">Forking, Part 1: Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Forking,-Part-2:-Fork,-Exec,-Wait/">Forking, Part 2: Fork, Exec, Wait</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../HW0/">HW0</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-1:-Heap-Memory-Introduction/">Memory, Part 1: Heap Memory Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-2:-Implementing-a-Memory-Allocator/">Memory, Part 2: Implementing a Memory Allocator</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-3:-Smashing-the-Stack-Example/">Memory, Part 3: Smashing the Stack Example</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory:-Review-Questions/">Memory: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Multi-threaded-Programming:-Review-Questions/">Multi threaded Programming: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking, Part 3: Building a simple TCP Client/">Networking, Part 3: Building a simple TCP Client</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking, Part 6: Creating a UDP server/">Networking, Part 6: Creating a UDP server</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-1:-Introduction/">Networking, Part 1: Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-2:-Using-getaddrinfo/">Networking, Part 2: Using getaddrinfo</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-4:-Building-a-simple-TCP-Server/">Networking, Part 4: Building a simple TCP Server</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-5:-Reusing-ports/">Networking, Part 5: Reusing ports</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking:-Review-Questions/">Networking: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Nonblocking-I-O,-select(),-and-epoll/">Nonblocking I O, select(), and epoll</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../OSI-Model/">OSI Model</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../POSIX,-Part-1:-Error-handling/">POSIX, Part 1: Error handling</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipe:-Review-Questions/">Pipe: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipes,-Part-1:-Introduction-to-pipes/">Pipes, Part 1: Introduction to pipes</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipes,-Part-2:-Pipe-programming-secrets/">Pipes, Part 2: Pipe programming secrets</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Process-Control,-Part-1:-Wait-macros,-using-signals/">Process Control, Part 1: Wait macros, using signals</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Programming-Tricks,-Part-1/">Programming Tricks, Part 1</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-1:-Introduction/">Pthreads, Part 1: Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-2:-Usage-in-Practice/">Pthreads, Part 2: Usage in Practice</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../RPC,-Part-1:-Introduction-to-Remote-Procedure-Calls/">RPC, Part 1: Introduction to Remote Procedure Calls</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Sample-program-using-pthread-barriers/">Sample program using pthread barriers</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Scheduling,-Part-1:-Scheduling-Processes/">Scheduling, Part 1: Scheduling Processes</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-2:-Pending-Signals-and-Signal-Masks/">Signals, Part 2: Pending Signals and Signal Masks</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-3:-Raising-signals/">Signals, Part 3: Raising signals</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-4:-Sigaction/">Signals, Part 4: Sigaction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals:-Review-Questions/">Signals: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-1:-Mutex-Locks/">Synchronization, Part 1: Mutex Locks</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-2:-Counting-Semaphores/">Synchronization, Part 2: Counting Semaphores</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Synchronization, Part 3: Working with Mutexes And Semaphores</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#what-is-an-atomic-operation">What is an atomic operation?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#how-do-i-use-mutex-lock-to-make-my-data-structure-thread-safe">How do I use mutex lock to make my data-structure thread-safe?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#when-can-i-destroy-the-mutex">When can I destroy the mutex?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#can-i-copy-a-pthread_mutex_t-to-a-new-memory-locaton">Can I copy a pthread_mutex_t to a new memory locaton?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#what-would-a-simple-implementation-of-a-mutex-look-like">What would a simple implementation of a mutex look like?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#how-can-i-force-my-threads-to-wait-if-the-stack-is-empty-or-full">How can I force my threads to wait if the stack is empty or full?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#what-are-the-common-mutex-gotchas">What are the common Mutex Gotchas?</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-4:-The-Critical-Section-Problem/">Synchronization, Part 4: The Critical Section Problem</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-5:-Condition-Variables/">Synchronization, Part 5: Condition Variables</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-6:-Implementing-a-barrier/">Synchronization, Part 6: Implementing a barrier</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-7:-The-Reader-Writer-Problem/">Synchronization, Part 7: The Reader Writer Problem</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-8:-Ring-Buffer-Example/">Synchronization, Part 8: Ring Buffer Example</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-9:-The-Reader-Writer-Problem-(part-2)/">Synchronization, Part 9: The Reader Writer Problem (part 2)</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../System-Programming-Short-Stories-and-Songs/">System Programming Short Stories and Songs</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Test-page/">Test page</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Virtual-Memory,-Part-1:-Introduction-to-Virtual-Memory/">Virtual Memory, Part 1: Introduction to Virtual Memory</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../_Footer/"> Footer</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">UIUC CS241 SystemProgramming Wiki</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Synchronization, Part 3: Working with Mutexes And Semaphores</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="what-is-an-atomic-operation">What is an atomic operation?</h2>
+<p>To paraphrase Wikipedia, "An operation (or set of operations) is atomic or uninterruptible if it appears to the rest of the system to occur instantaneously."
+Without locks, only simple CPU instructions ("read this byte from memory") are atomic (indivisible). On a single CPU system one could temporarily disable interrupts (so a sequence of operations cannot be interrupted) but in practice atomicity is achieved by using synchronization primitives, typically a mutex lock.</p>
+<p>Incrementing a variable (<code>i++</code>) is <em>not</em> atomic because it requires three distinct steps: Copying the bit pattern from memory into the CPU; performing a calculation using the CPU's registers; copying the bit pattern back to memory. During this increment sequence, another thread or process can still read the old value and other writes to the same memory would also be over-written when the increment sequence completes.</p>
+<h2 id="how-do-i-use-mutex-lock-to-make-my-data-structure-thread-safe">How do I use mutex lock to make my data-structure thread-safe?</h2>
+<p>Note, this is just an introduction - writing high-performance thread-safe data-structures requires it's own book! Here's a simple data structure (a stack) that is not thread-safe:</p>
+<pre><code class="C">// A simple fixed-sized stack (version 1)
+int count;
+double values[count];
+
+void push(double v) { values[count++] = v; }
+double pop() { return values[--count]; }
+int is_empty() { return count == 0; }
+</code></pre>
+
+<p>Version 1 of the stack is not thread-safe because if two threads call push or pop at the same time then the results or the stack can be inconsistent. For example, imagine if two threads call pop at the same time then both threads may read the same value, both may read the original count value.</p>
+<p>To turn this into a thread-safe data structure we need to identify the <em>critical sections</em> of our code  i.e. which section(s) of the code must only have one thread at a time. In the above example the <code>push</code>,<code>pop</code> and <code>is_empty</code> functions access the same variables (i.e. memory) and all critical sections for the stack. </p>
+<p>While <code>push</code> (and <code>pop</code>) is executing, the datastructure is an inconsistent state (for example the count may not have been written to, so may still contain the original value). By wrapping these methods with a mutex we can ensure that only one thread at a time can update (or read) the stack.</p>
+<p>A candidate 'solution' is shown below. Is it correct? If not, how will it fail?</p>
+<pre><code class="C">// An attempt at a thread-safe stack (version 2)
+int count;
+double values[count];
+pthread_mutex_t m1 = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t m2 = PTHREAD_MUTEX_INITIALIZER;
+
+void push() { pthread_mutex_lock(&amp;m1); values[count++] = values; pthread_mutex_unlock(&amp;m1); }
+double pop() { pthread_mutex_lock(&amp;m2); double v=values[--count]; pthread_mutex_unlock(&amp;m2); return v;}
+int is_empty() { pthread_mutex_lock(&amp;m1); return count == 0; pthread_mutex_unlock(&amp;m1); }
+</code></pre>
+
+<p>The above code ('version 2') contains at least one error. Take a moment to see if you can the error(s) and work out the consequence(s).</p>
+<p>If three called <code>push()</code> at the same time the lock <code>m1</code> ensures that only one thread at time manipulates the stack (two threads will need to wait until the first thread completes (calls unlock), then a second thread will be allowed to continue into the critical section and finally the third thread will be allowed to continue once the second thread has finished).</p>
+<p>A similar argument applies to concurrent calls (calls at the same time) to <code>pop</code>. However version 2 does not prevent push and pop from running at the same time because <code>push</code> and <code>pop</code> use two different mutex locks.</p>
+<p>The fix is simple in this case - use the same mutex lock for both the push and pop functions.</p>
+<p>The code has a second error; <code>is_empty</code> returns after the comparison and will not unlock the mutex. However the error would not be spotted immediately. For example, suppose one thread calls <code>is_empty</code> and a second thread later calls <code>push</code>. This thread would mysteriously stop. Using debugger you can discover that the thread is stuck at the lock() method inside the <code>push</code> method because the lock was never unlocked by the earlier <code>is_empty</code> call. Thus an oversight in one thread led to problems much later in time in an arbitrary other thread.</p>
+<p>A better version is shown below - </p>
+<pre><code class="C">// An attempt at a thread-safe stack (version 3)
+int count;
+double values[count];
+pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
+
+void push(double v) { 
+  pthread_mutex_lock(&amp;m); 
+  values[count++] = v;
+  pthread_mutex_unlock(&amp;m);
+}
+double pop() {
+  pthread_mutex_lock(&amp;m);
+  double v = values[--count];
+  pthread_mutex_unlock(&amp;m);
+  return v;
+}
+int is_empty() {
+  pthread_mutex_lock(&amp;m);
+  int result= count == 0;
+  pthread_mutex_unlock(&amp;m);
+  return result;
+}
+</code></pre>
+
+<p>Version 3 is thread-safe (we have ensured mutual exclusion for all of the critical sections) however there are two points of note:
+<em> <code>is_empty</code> is thread-safe but its result may already be out-of date i.e. the stack may no longer be empty by the time the thread gets the result!
+</em> There is no protection against underflow (popping on an empty stack) or overflow (pushing onto an already-full stack)</p>
+<p>The latter point can be fixed using counting semaphores.</p>
+<p>The implementation assumes a single stack.  A more general purpose version might include the mutex as part of the memory struct and use pthread_mutex_init to initialize the mutex. For example,</p>
+<pre><code class="C">// Support for multiple stacks (each one has a mutex)
+typedef struct stack {
+  int count;
+  pthread_mutex_t m; 
+  double *values;
+} stack_t;
+
+stack_t* stack_create(int capacity) {
+  stack_t *result = malloc(sizeof(stack_t));
+  result-&gt;count = 0;
+  result-&gt;values = malloc(sizeof(double) * capacity);
+  pthread_mutex_init(&amp;result-&gt;m, NULL);
+  return result;
+}
+void stack_destroy(stack_t *s) {
+  free(s-&gt;values);
+  pthread_mutex_destroy(&amp;s-&gt;m);
+  free(s);
+}
+// Warning no underflow or overflow checks!
+
+void push(stack_t *s, double v) { 
+  pthread_mutex_lock(&amp;s-&gt;m); 
+  s-&gt;values[(s-&gt;count)++] = v; 
+  pthread_mutex_unlock(&amp;s-&gt;m); }
+
+double pop(stack_t *s) { 
+  pthread_mutex_lock(&amp;s-&gt;m); 
+  double v = s-&gt;values[--(s-&gt;count)]; 
+  pthread_mutex_unlock(&amp;s-&gt;m); 
+  return v;
+}
+
+int is_empty(stack_t *s) { 
+  pthread_mutex_lock(&amp;s-&gt;m); 
+  int result = s-&gt;count == 0; 
+  pthread_mutex_unlock(&amp;s-&gt;m);
+  return result;
+}
+</code></pre>
+
+<p>Example use:</p>
+<pre><code class="C">int main() {
+    stack_t *s1 = stack_create(10 /* Max capacity*/);
+    stack_t *s2 = stack_create(10);
+    push(s1, 3.141);
+    push(s2, pop(s1));
+    stack_destroy(s2);
+    stack_destroy(s1);
+}
+</code></pre>
+
+<h2 id="when-can-i-destroy-the-mutex">When can I destroy the mutex?</h2>
+<p>You can only destroy an unlocked mutex</p>
+<h2 id="can-i-copy-a-pthread_mutex_t-to-a-new-memory-locaton">Can I copy a pthread_mutex_t to a new memory locaton?</h2>
+<p>No, copying the bytes of the mutex to a new memory location and then using the copy is <em>not</em> supported.</p>
+<h2 id="what-would-a-simple-implementation-of-a-mutex-look-like">What would a simple implementation of a mutex look like?</h2>
+<p>A simple (but incorrect!) suggestion is shown below. The <code>unlock</code> function simply unlocks the mutex and returns. The lock function first checks to see if the lock is already locked. If it is currently locked, it will keep checking again until another thread has unlocked the mutex.</p>
+<pre><code class="C">// Version 1 (Incorrect!)
+
+void lock(mutex_t *m) {
+  while(m-&gt;locked) { /*Locked? Nevermind - just loop and check again!*/ }
+
+  m-&gt;locked = 1;
+}
+void unlock(mutex_t *m) {
+  m-&gt;locked = 0;
+}
+</code></pre>
+
+<p>Version 1 uses 'busy-waiting' (unnecessarily wasting CPU resources) however there is a more serious problem: We have a race-condition! </p>
+<p>If two threads both called <code>lock</code> concurrently it is possible that both threads would read 'm_locked' as zero. Thus both threads would believe they have exclusive access to the lock and both threads will continue. Ooops!</p>
+<p>We might attempt to reduce the CPU overhead a little by calling <code>pthread_yield()</code> inside the loop  - pthread_yield suggests to the operating system that the thread does not use the CPU for a short while, so the CPU may be assigned to threads that are waiting to run. But does not fix the race-condition. We need a better implementation - can you work how to prevent the race-condition?</p>
+<h2 id="how-can-i-force-my-threads-to-wait-if-the-stack-is-empty-or-full">How can I force my threads to wait if the stack is empty or full?</h2>
+<p>Use counting semaphores! Use a counting semaphore to keep track of how many spaces remain and another semaphore to keep to track the number of items in the stack. We will call these two semaphores 'sremain' and 'sitems'. Remember <code>sem_wait</code> will wait if the semaphore's count has been decremented to zero (by another thread calling sem_post).</p>
+<pre><code class="C">// Sketch #1
+
+sem_t sitems;
+sem_t sremain;
+void stack_init(){
+  sem_init(&amp;sitems, 0, 0);
+  sem_init(&amp;sremain, 0, 10);
+}
+
+
+double pop() {
+  // Wait until there's at least one item
+  sem_wait(&amp;sitems);
+  ...
+
+void push(double v) {
+  // Wait until there's at least one space
+  sem_wait(&amp;sremain);
+  ...
+</code></pre>
+
+<p>Sketch #2  has implemented the <code>post</code> too early. Another thread waiting in push can erroneously attempt to write into a full stack (and similarly a thread waiting in the pop() is allowed to continue too early).</p>
+<pre><code class="C">// Sketch #2 (Error!)
+double pop() {
+  // Wait until there's at least one item
+  sem_wait(&amp;sitems);
+  sem_post(&amp;sremain); // error! wakes up pushing() thread too early
+  return values[--count];
+}
+void push(double v) {
+  // Wait until there's at least one space
+  sem_wait(&amp;sremain);
+  sem_post(&amp;sitems); // error! wakes up a popping() thread too early
+  values[count++] = v;
+}
+</code></pre>
+
+<p>Sketch 3 implements the correct semaphore logic but can you spot the error?</p>
+<pre><code class="C">// Sketch #3 (Error!)
+double pop() {
+  // Wait until there's at least one item
+  sem_wait(&amp;sitems);
+  double v= values[--count];
+  sem_post(&amp;sremain);
+  return v;
+}
+
+void push(double v) {
+  // Wait until there's at least one space
+  sem_wait(&amp;sremain);
+  values[count++] = v;
+  sem_post(&amp;sitems); 
+}
+</code></pre>
+
+<p>Sketch 3 correctly enforces buffer full and buffer empty conditions using semaphores. However there is no <em>mutual exclusion</em>: Two threads can be in the <em>critical section</em> at the same time, which would corrupt the data structure (or least lead to data loss). The fix is to wrap a mutex around the critical section:</p>
+<pre><code class="C">// Simple single stack - see above example on how to convert this into a multiple stacks.
+// Also a robust POSIX implementation would check for EINTR and error codes of sem_wait.
+
+// PTHREAD_MUTEX_INITIALIZER for statics (use pthread_mutex_init() for stack/heap memory)
+
+pthread_mutex_t m= PTHREAD_MUTEX_INITIALIZER; 
+int count = 0;
+double values[10];
+sem_t sitems, sremain;
+
+void init() {
+  sem_init(&amp;sitems, 0, 0);
+  sem_init(&amp;sremains, 0, 10); // 10 spaces
+}
+
+double pop() {
+  // Wait until there's at least one item
+  sem_wait(&amp;sitems);
+
+  pthread_mutex_lock(&amp;m); // CRITICAL SECTION
+  double v= values[--count];
+  pthread_mutex_unlock(&amp;m);
+
+  sem_post(&amp;sremain); // Hey world, there's at least one space
+  return v;
+}
+
+void push(double v) {
+  // Wait until there's at least one space
+  sem_wait(&amp;sremain);
+
+  pthread_mutex_lock(&amp;m); // CRITICAL SECTION
+  values[count++] = v;
+  pthread_mutex_unlock(&amp;m);
+
+  sem_post(&amp;sitems); // Hey world, there's at least one item
+}
+// Note a robust solution will need to check sem_wait's result for EINTR (more about this later)
+</code></pre>
+
+<h2 id="what-are-the-common-mutex-gotchas">What are the common Mutex Gotchas?</h2>
+<ul>
+<li>Locking/unlocking the wrong mutex (due to a silly typo)</li>
+<li>Not unlocking a mutex (due to say an early return during an error condition)</li>
+<li>Resource leak (not calling <code>pthread_mutex_destroy</code>)</li>
+<li>Using an unitialized mutex (or using a mutex that has already been destroyed)</li>
+<li>Locking a mutex twice on a thread (without unlocking first)</li>
+<li>Deadlock and Priority Inversion (we will talk about these later)</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Synchronization,-Part-4:-The-Critical-Section-Problem/" class="btn btn-neutral float-right" title="Synchronization, Part 4: The Critical Section Problem">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Synchronization,-Part-2:-Counting-Semaphores/" class="btn btn-neutral" title="Synchronization, Part 2: Counting Semaphores"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../Synchronization,-Part-2:-Counting-Semaphores/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../Synchronization,-Part-4:-The-Critical-Section-Problem/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>
