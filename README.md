@@ -10,14 +10,19 @@ Many intra-wiki links are broken, however.
 
 You will need to install `mkdocs`:
 
-  pip install mkdocs
+```shell
+pip install mkdocs
+```
   
 Then clone this locally:
 
-  git clone --recursive https://github.com/csresources/SystemProgrammingWiki.git
-  
+```shell
+git clone --recursive https://github.com/csresources/SystemProgrammingWiki.git
+```
+
 Once you've cloned it:
 
-  cd SystemProgrammingWiki
-  mkdocs serve
-  
+```shell
+cd SystemProgrammingWiki
+mkdocs serve
+```  
