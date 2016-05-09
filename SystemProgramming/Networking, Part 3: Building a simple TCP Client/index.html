@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>Networking, Part 3: Building a simple TCP Client - UIUC CS241 SystemProgramming Wiki</title>
+  
+
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Networking, Part 3: Building a simple TCP Client";
+    var mkdocs_page_input_path = "SystemProgramming/Networking, Part 3: Building a simple TCP Client.md";
+    var mkdocs_page_url = "/SystemProgramming/Networking, Part 3: Building a simple TCP Client/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+  <script src="../../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> UIUC CS241 SystemProgramming Wiki</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../..">Home</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>SystemProgramming</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../#Example Markdown/">#Example Markdown</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../#Informal-Glossary/">#Informal Glossary</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../#Piazza: When And How to Ask For Help/">#Piazza: When And How to Ask For Help</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C Programming, Part 4: Debugging/">C Programming, Part 4: Debugging</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-1:-Introduction/">C Programming, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-2:-Text-Input-And-Output/">C Programming, Part 2: Text Input And Output</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-3:-Common-Gotchas/">C Programming, Part 3: Common Gotchas</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming:-Review-Questions/">C Programming: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-1:-Resource-Allocation-Graph/">Deadlock, Part 1: Resource Allocation Graph</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-2:-Deadlock-Conditions/">Deadlock, Part 2: Deadlock Conditions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Exam-Topics/">Exam Topics</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-1:-Introduction/">File System, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-2:-Files-are-inodes-(everything-else-is-just-data...)/">File System, Part 2: Files are inodes (everything else is just data...)</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-3:-Permissions/">File System, Part 3: Permissions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-4:-Working-with-directories/">File System, Part 4: Working with directories</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-5:-Virtual-file-systems/">File System, Part 5: Virtual file systems</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-6:-Memory-mapped-files-and-Shared-memory/">File System, Part 6: Memory mapped files and Shared memory</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-7:-Scalable-and-Reliable-Filesystems/">File System, Part 7: Scalable and Reliable Filesystems</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-8:-Disk-blocks-example/">File System, Part 8: Disk blocks example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Files,-Part-1:-Working-with-files/">Files, Part 1: Working with files</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Filesystem:-Review-Questions/">Filesystem: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Forking,-Part-1:-Introduction/">Forking, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Forking,-Part-2:-Fork,-Exec,-Wait/">Forking, Part 2: Fork, Exec, Wait</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../HW0/">HW0</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Home/">Home</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-1:-Heap-Memory-Introduction/">Memory, Part 1: Heap Memory Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-2:-Implementing-a-Memory-Allocator/">Memory, Part 2: Implementing a Memory Allocator</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-3:-Smashing-the-Stack-Example/">Memory, Part 3: Smashing the Stack Example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory:-Review-Questions/">Memory: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Multi-threaded-Programming:-Review-Questions/">Multi threaded Programming: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Networking, Part 3: Building a simple TCP Client</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#complete-simple-tcp-client-example">Complete Simple TCP Client Example</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#comment-on-http-request-and-response">Comment on HTTP request and response</a></li>
+                
+            
+            </ul>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking, Part 6: Creating a UDP server/">Networking, Part 6: Creating a UDP server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-1:-Introduction/">Networking, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-2:-Using-getaddrinfo/">Networking, Part 2: Using getaddrinfo</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-4:-Building-a-simple-TCP-Server/">Networking, Part 4: Building a simple TCP Server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-5:-Reusing-ports/">Networking, Part 5: Reusing ports</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking:-Review-Questions/">Networking: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Nonblocking-I-O,-select(),-and-epoll/">Nonblocking I O, select(), and epoll</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../OSI-Model/">OSI Model</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../POSIX,-Part-1:-Error-handling/">POSIX, Part 1: Error handling</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipe:-Review-Questions/">Pipe: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipes,-Part-1:-Introduction-to-pipes/">Pipes, Part 1: Introduction to pipes</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipes,-Part-2:-Pipe-programming-secrets/">Pipes, Part 2: Pipe programming secrets</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Process-Control,-Part-1:-Wait-macros,-using-signals/">Process Control, Part 1: Wait macros, using signals</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Programming-Tricks,-Part-1/">Programming Tricks, Part 1</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-1:-Introduction/">Pthreads, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-2:-Usage-in-Practice/">Pthreads, Part 2: Usage in Practice</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../RPC,-Part-1:-Introduction-to-Remote-Procedure-Calls/">RPC, Part 1: Introduction to Remote Procedure Calls</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Sample-program-using-pthread-barriers/">Sample program using pthread barriers</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Scheduling,-Part-1:-Scheduling-Processes/">Scheduling, Part 1: Scheduling Processes</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-2:-Pending-Signals-and-Signal-Masks/">Signals, Part 2: Pending Signals and Signal Masks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-3:-Raising-signals/">Signals, Part 3: Raising signals</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-4:-Sigaction/">Signals, Part 4: Sigaction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals:-Review-Questions/">Signals: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-1:-Mutex-Locks/">Synchronization, Part 1: Mutex Locks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-2:-Counting-Semaphores/">Synchronization, Part 2: Counting Semaphores</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-3:-Working-with-Mutexes-And-Semaphores/">Synchronization, Part 3: Working with Mutexes And Semaphores</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-4:-The-Critical-Section-Problem/">Synchronization, Part 4: The Critical Section Problem</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-5:-Condition-Variables/">Synchronization, Part 5: Condition Variables</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-6:-Implementing-a-barrier/">Synchronization, Part 6: Implementing a barrier</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-7:-The-Reader-Writer-Problem/">Synchronization, Part 7: The Reader Writer Problem</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-8:-Ring-Buffer-Example/">Synchronization, Part 8: Ring Buffer Example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-9:-The-Reader-Writer-Problem-(part-2)/">Synchronization, Part 9: The Reader Writer Problem (part 2)</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../System-Programming-Short-Stories-and-Songs/">System Programming Short Stories and Songs</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Test-page/">Test page</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Virtual-Memory,-Part-1:-Introduction-to-Virtual-Memory/">Virtual Memory, Part 1: Introduction to Virtual Memory</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../_Footer/"> Footer</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">UIUC CS241 SystemProgramming Wiki</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>SystemProgramming &raquo;</li>
+        
+      
+    
+    <li>Networking, Part 3: Building a simple TCP Client</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="complete-simple-tcp-client-example">Complete Simple TCP Client Example</h2>
+<pre><code class="C">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/socket.h&gt;
+#include &lt;netdb.h&gt;
+#include &lt;unistd.h&gt;
+
+int main(int argc, char **argv)
+{
+    int s;
+    int sock_fd = socket(AF_INET, SOCK_STREAM, 0);
+
+    struct addrinfo hints, *result;
+    memset(&amp;hints, 0, sizeof(struct addrinfo));
+    hints.ai_family = AF_INET; /* IPv4 only */
+    hints.ai_socktype = SOCK_STREAM; /* TCP */
+
+    s = getaddrinfo(&quot;www.illinois.edu&quot;, &quot;80&quot;, &amp;hints, &amp;result);
+    if (s != 0) {
+            fprintf(stderr, &quot;getaddrinfo: %s\n&quot;, gai_strerror(s));
+            exit(1);
+    }
+
+    connect(sock_fd, result-&gt;ai_addr, result-&gt;ai_addrlen);
+
+    char *buffer = &quot;GET / HTTP/1.0\r\n\r\n&quot;;
+    printf(&quot;SENDING: %s&quot;, buffer);
+    printf(&quot;===\n&quot;);
+    write(sock_fd, buffer, strlen(buffer));
+
+
+    char resp[1000];
+    int len = read(sock_fd, resp, 999);
+    resp[len] = '\0';
+    printf(&quot;%s\n&quot;, resp);
+
+    return 0;
+}
+</code></pre>
+
+<p>Example output:</p>
+<pre><code>SENDING: GET / HTTP/1.0
+
+===
+HTTP/1.1 200 OK
+Date: Mon, 27 Oct 2014 19:19:05 GMT
+Server: Apache/2.2.15 (Red Hat) mod_ssl/2.2.15 OpenSSL/1.0.1e-fips mod_jk/1.2.32
+Last-Modified: Fri, 03 Feb 2012 16:51:10 GMT
+ETag: &quot;401b0-49-4b8121ea69b80&quot;
+Accept-Ranges: bytes
+Content-Length: 73
+Connection: close
+Content-Type: text/html
+
+Provided by Web Services at Public Affairs at the University of Illinois
+</code></pre>
+
+<h2 id="comment-on-http-request-and-response">Comment on HTTP request and response</h2>
+<p>The example above demonstrates a request to the server using Hypertext Transfer Protocol.
+A web page (or other resources) are requested using the following request:</p>
+<pre><code>GET / HTTP/1.0
+
+</code></pre>
+
+<p>There are four parts (the method e.g. GET,POST,...); the resource (e.g. / /index.html /image.png); the proctocol "HTTP/1.0" and two new lines (\r\n\r\n)</p>
+<p>The server's first response line describes the HTTP version used and whether the request is successful using a 3 digit response code:</p>
+<pre><code>HTTP/1.1 200 OK
+</code></pre>
+
+<p>If the client had requested a non existing file, e.g. <code>GET /nosuchfile.html HTTP/1.0</code>
+Then the first line includes the response code is the well-known <code>404</code> response code:</p>
+<pre><code>HTTP/1.1 404 Not Found
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Networking, Part 6: Creating a UDP server/" class="btn btn-neutral float-right" title="Networking, Part 6: Creating a UDP server">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Multi-threaded-Programming:-Review-Questions/" class="btn btn-neutral" title="Multi threaded Programming: Review Questions"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../Multi-threaded-Programming:-Review-Questions/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../Networking, Part 6: Creating a UDP server/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

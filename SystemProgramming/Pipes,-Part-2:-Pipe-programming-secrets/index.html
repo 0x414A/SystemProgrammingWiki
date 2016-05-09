@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>Pipes, Part 2: Pipe programming secrets - UIUC CS241 SystemProgramming Wiki</title>
+  
+
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Pipes, Part 2: Pipe programming secrets";
+    var mkdocs_page_input_path = "SystemProgramming/Pipes,-Part-2:-Pipe-programming-secrets.md";
+    var mkdocs_page_url = "/SystemProgramming/Pipes,-Part-2:-Pipe-programming-secrets/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+  <script src="../../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> UIUC CS241 SystemProgramming Wiki</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../..">Home</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>SystemProgramming</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../#Example Markdown/">#Example Markdown</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../#Informal-Glossary/">#Informal Glossary</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../#Piazza: When And How to Ask For Help/">#Piazza: When And How to Ask For Help</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C Programming, Part 4: Debugging/">C Programming, Part 4: Debugging</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-1:-Introduction/">C Programming, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-2:-Text-Input-And-Output/">C Programming, Part 2: Text Input And Output</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-3:-Common-Gotchas/">C Programming, Part 3: Common Gotchas</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming:-Review-Questions/">C Programming: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-1:-Resource-Allocation-Graph/">Deadlock, Part 1: Resource Allocation Graph</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-2:-Deadlock-Conditions/">Deadlock, Part 2: Deadlock Conditions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Exam-Topics/">Exam Topics</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-1:-Introduction/">File System, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-2:-Files-are-inodes-(everything-else-is-just-data...)/">File System, Part 2: Files are inodes (everything else is just data...)</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-3:-Permissions/">File System, Part 3: Permissions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-4:-Working-with-directories/">File System, Part 4: Working with directories</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-5:-Virtual-file-systems/">File System, Part 5: Virtual file systems</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-6:-Memory-mapped-files-and-Shared-memory/">File System, Part 6: Memory mapped files and Shared memory</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-7:-Scalable-and-Reliable-Filesystems/">File System, Part 7: Scalable and Reliable Filesystems</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-8:-Disk-blocks-example/">File System, Part 8: Disk blocks example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Files,-Part-1:-Working-with-files/">Files, Part 1: Working with files</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Filesystem:-Review-Questions/">Filesystem: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Forking,-Part-1:-Introduction/">Forking, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Forking,-Part-2:-Fork,-Exec,-Wait/">Forking, Part 2: Fork, Exec, Wait</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../HW0/">HW0</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Home/">Home</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-1:-Heap-Memory-Introduction/">Memory, Part 1: Heap Memory Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-2:-Implementing-a-Memory-Allocator/">Memory, Part 2: Implementing a Memory Allocator</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-3:-Smashing-the-Stack-Example/">Memory, Part 3: Smashing the Stack Example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory:-Review-Questions/">Memory: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Multi-threaded-Programming:-Review-Questions/">Multi threaded Programming: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking, Part 3: Building a simple TCP Client/">Networking, Part 3: Building a simple TCP Client</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking, Part 6: Creating a UDP server/">Networking, Part 6: Creating a UDP server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-1:-Introduction/">Networking, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-2:-Using-getaddrinfo/">Networking, Part 2: Using getaddrinfo</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-4:-Building-a-simple-TCP-Server/">Networking, Part 4: Building a simple TCP Server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-5:-Reusing-ports/">Networking, Part 5: Reusing ports</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking:-Review-Questions/">Networking: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Nonblocking-I-O,-select(),-and-epoll/">Nonblocking I O, select(), and epoll</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../OSI-Model/">OSI Model</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../POSIX,-Part-1:-Error-handling/">POSIX, Part 1: Error handling</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipe:-Review-Questions/">Pipe: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipes,-Part-1:-Introduction-to-pipes/">Pipes, Part 1: Introduction to pipes</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Pipes, Part 2: Pipe programming secrets</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#pipe-gotchas-1">Pipe Gotchas (1)</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#want-to-use-pipes-with-printf-and-scanf-use-fdopen">Want to use pipes with printf and scanf? Use fdopen!</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#when-do-i-need-two-pipes">When do I need two pipes?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#closing-pipes-gotchas">Closing pipes gotchas</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#the-lifetime-of-pipes">The lifetime of pipes</a></li>
+                
+            
+            </ul>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Process-Control,-Part-1:-Wait-macros,-using-signals/">Process Control, Part 1: Wait macros, using signals</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Programming-Tricks,-Part-1/">Programming Tricks, Part 1</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-1:-Introduction/">Pthreads, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-2:-Usage-in-Practice/">Pthreads, Part 2: Usage in Practice</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../RPC,-Part-1:-Introduction-to-Remote-Procedure-Calls/">RPC, Part 1: Introduction to Remote Procedure Calls</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Sample-program-using-pthread-barriers/">Sample program using pthread barriers</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Scheduling,-Part-1:-Scheduling-Processes/">Scheduling, Part 1: Scheduling Processes</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-2:-Pending-Signals-and-Signal-Masks/">Signals, Part 2: Pending Signals and Signal Masks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-3:-Raising-signals/">Signals, Part 3: Raising signals</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-4:-Sigaction/">Signals, Part 4: Sigaction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals:-Review-Questions/">Signals: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-1:-Mutex-Locks/">Synchronization, Part 1: Mutex Locks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-2:-Counting-Semaphores/">Synchronization, Part 2: Counting Semaphores</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-3:-Working-with-Mutexes-And-Semaphores/">Synchronization, Part 3: Working with Mutexes And Semaphores</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-4:-The-Critical-Section-Problem/">Synchronization, Part 4: The Critical Section Problem</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-5:-Condition-Variables/">Synchronization, Part 5: Condition Variables</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-6:-Implementing-a-barrier/">Synchronization, Part 6: Implementing a barrier</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-7:-The-Reader-Writer-Problem/">Synchronization, Part 7: The Reader Writer Problem</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-8:-Ring-Buffer-Example/">Synchronization, Part 8: Ring Buffer Example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-9:-The-Reader-Writer-Problem-(part-2)/">Synchronization, Part 9: The Reader Writer Problem (part 2)</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../System-Programming-Short-Stories-and-Songs/">System Programming Short Stories and Songs</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Test-page/">Test page</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Virtual-Memory,-Part-1:-Introduction-to-Virtual-Memory/">Virtual Memory, Part 1: Introduction to Virtual Memory</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../_Footer/"> Footer</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">UIUC CS241 SystemProgramming Wiki</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>SystemProgramming &raquo;</li>
+        
+      
+    
+    <li>Pipes, Part 2: Pipe programming secrets</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="pipe-gotchas-1">Pipe Gotchas (1)</h2>
+<p>Here's a complete example that doesn't work! The child reads one byte at a time from the pipe and prints it out - but we never see the message! Can you see why?</p>
+<pre><code class="C">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;signal.h&gt;
+
+int main() {
+    int fd[2];
+    pipe(fd);
+    //You must read from fd[0] and write from fd[1]
+    printf(&quot;Reading from %d, writing to %d\n&quot;, fd[0], fd[1]);
+
+    pid_t p = fork();
+    if (p &gt; 0) {
+        /* I have a child therefore I am the parent*/
+        write(fd[1],&quot;Hi Child!&quot;,9);
+
+        /*don't forget your child*/
+        wait(NULL);
+    } else {
+        char buf;
+        int bytesread;
+        // read one byte at a time.
+        while ((bytesread = read(fd[0], &amp;buf, 1)) &gt; 0) {
+            putchar(buf);
+        }
+    }
+    return 0;
+}
+
+</code></pre>
+
+<p>The parent sends the bytes <code>H,i,(space),C...!</code> into the pipe (this may block if the pipe is full).
+The child starts reading the pipe one byte at a time. In the above case, the child process will read and print each character. However it never leaves the while loop! When there are no characters left to read it simply blocks and waits for more. The call <code>putchar</code> writes the characters out but we never flush the buffer.</p>
+<p>To see the message we could flush the buffer (e.g. fflush(stdout) or printf("\n"))
+or better, let's look for the end of message '!'</p>
+<pre><code class="C">        while ((bytesread = read(fd[0], &amp;buf, 1)) &gt; 0) {
+            putchar(buf);
+            if (buf == '!') break; /* End of message */
+        }
+</code></pre>
+
+<p>And the message will be flushed to the terminal when the child process exits.</p>
+<h2 id="want-to-use-pipes-with-printf-and-scanf-use-fdopen">Want to use pipes with printf and scanf? Use fdopen!</h2>
+<p>POSIX file descriptors are simple integers 0,1,2,3...
+At the C library level, C wraps these with a buffer and useful functions like printf and scanf, so we that we can easily print or parse integers, strings etc.
+If you already have a file descriptor then you can 'wrap' it yourself into a FILE pointer using <code>fdopen</code> :</p>
+<pre><code class="C">#include &lt;sys/types.h&gt;
+#include &lt;sys/stat.h&gt;
+#include &lt;fcntl.h&gt;
+
+int main() {
+    char *name=&quot;Fred&quot;;
+    int score = 123;
+    int filedes = open(&quot;mydata.txt&quot;, &quot;w&quot;, O_CREAT, S_IWUSR | S_IRUSR);
+
+    FILE *f = fdopen(filedes, &quot;w&quot;);
+    fprintf(f, &quot;Name:%s Score:%d\n&quot;, name, score);
+    fclose(f);
+</code></pre>
+
+<p>For writing to files this is unnecessary - just use <code>fopen</code> which does the same as <code>open</code> and <code>fdopen</code>
+However for pipes, we already have a file descriptor - so this is great time to use <code>fdopen</code>!</p>
+<p>Here's a complete example using pipes that almost works! Can you spot the error? Hint: The parent never prints anything!</p>
+<pre><code class="C">#include &lt;unistd.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+
+int main() {
+    int fh[2];
+    pipe(fh);
+    FILE *reader = fdopen(fh[0], &quot;r&quot;);
+    FILE *writer = fdopen(fh[1], &quot;w&quot;);
+    pid_t p = fork();
+    if (p &gt; 0) {
+        int score;
+        fscanf(reader, &quot;Score %d&quot;, &amp;score);
+        printf(&quot;The child says the score is %d\n&quot;, score);
+    } else {
+        fprintf(writer, &quot;Score %d&quot;, 10 + 10);
+        fflush(writer);
+    }
+    return 0;
+}
+</code></pre>
+
+<p>Note the (unnamed) pipe resource will disappear once both the child and parent have exited. In the above example the child will send the bytes and the parent will receive the bytes from the pipe. However, no end-of-line character is ever sent, so <code>fscanf</code> will continue to ask for bytes because it is waiting for the end of the line i.e. it will wait forever! The fix is to ensure we send a newline character, so that <code>fscanf</code> will return.</p>
+<pre><code class="C">change:   fprintf(writer, &quot;Score %d&quot;, 10 + 10);
+to:       fprintf(writer, &quot;Score %d\n&quot;, 10 + 10);
+</code></pre>
+
+<p>So do we need to <code>fflush</code> too?
+Yes, if you want your bytes to be sent to the pipe immediately! At the beginning of this course we assumed that file streams are always <em>line buffered</em> i.e. the C library will flush its buffer everytime you send a newline character. Actually this is only true for terminal streams - for other filestreams the C library attempts to improve performance by only flushing when it's internal buffer is full or the file is closed.</p>
+<h2 id="when-do-i-need-two-pipes">When do I need two pipes?</h2>
+<p>If you need to send data to and from a child asynchronously, then two pipes are required (one for each direction).
+Otherwise the child would attempt to read its own data intended for the parent (and vice versa)!</p>
+<h2 id="closing-pipes-gotchas">Closing pipes gotchas</h2>
+<p>Processes receive the signal SIGPIPE when no process is listening! From the pipe(2) man page - </p>
+<pre><code>If all file descriptors referring to the read end of a pipe have been closed,
+ then a write(2) will cause a SIGPIPE signal to be generated for the calling process. 
+</code></pre>
+
+<p>Tip: Notice only the writer (not a reader) can use this signal.
+To inform the reader that a writer is closing their end of the pipe, you could write your own special byte (e.g. 0xff) or a message ( <code>"Bye!"</code>)</p>
+<p>Here's an example of catching this signal that does not work! Can you see why?</p>
+<pre><code class="C">#include &lt;stdio.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;signal.h&gt;
+
+void no_one_listening(int signal) {
+    write(1, &quot;No one is listening!\n&quot;, 21);
+}
+
+int main() {
+    signal(SIGPIPE, no_one_listening);
+    int filedes[2];
+
+    pipe(filedes);
+    pid_t child = fork();
+    if (child &gt; 0) { 
+        /* I must be the parent. Close the listening end of the pipe */
+        /* I'm not listening anymore!*/
+        close(filedes[0]);
+    } else {
+        /* Child writes messages to the pipe */
+        write(filedes[1], &quot;One&quot;, 3);
+        sleep(2);
+        // Will this write generate SIGPIPE ?
+        write(filedes[1], &quot;Two&quot;, 3);
+        write(1, &quot;Done\n&quot;, 5);
+    }
+    return 0;
+}
+</code></pre>
+
+<p>The mistake in above code is that there is still a reader for the pipe! The child still has the pipe's first file descriptor open and remember the specification? All readers must be closed.</p>
+<p>When forking, <em>It is common practice</em> to close the unnecessary (unused) end of each pipe in the child and parent process. For example the parent might close the reading end and the child might close the writing end (and vice versa if you have two pipes)</p>
+<h2 id="the-lifetime-of-pipes">The lifetime of pipes</h2>
+<p>Unnamed pipes (the kind we've seen up to this point) live in memory (do not take up any disk space) and are a simple and efficient form of inter-process communication (IPC) that is useful for streaming data and simple messages. Once all processes have closed, the pipe resources are freed.</p>
+<p>An alternative to <em>unamed</em> pipes is <em>named</em> pipes created using <code>mkfifo</code> - more about these in a future lecture.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Process-Control,-Part-1:-Wait-macros,-using-signals/" class="btn btn-neutral float-right" title="Process Control, Part 1: Wait macros, using signals">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Pipes,-Part-1:-Introduction-to-pipes/" class="btn btn-neutral" title="Pipes, Part 1: Introduction to pipes"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../Pipes,-Part-1:-Introduction-to-pipes/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../Process-Control,-Part-1:-Wait-macros,-using-signals/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

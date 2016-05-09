@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>Forking, Part 2: Fork, Exec, Wait - UIUC CS241 SystemProgramming Wiki</title>
+  
+
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Forking, Part 2: Fork, Exec, Wait";
+    var mkdocs_page_input_path = "SystemProgramming/Forking,-Part-2:-Fork,-Exec,-Wait.md";
+    var mkdocs_page_url = "/SystemProgramming/Forking,-Part-2:-Fork,-Exec,-Wait/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+  <script src="../../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> UIUC CS241 SystemProgramming Wiki</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../..">Home</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>SystemProgramming</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../#Example Markdown/">#Example Markdown</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../#Informal-Glossary/">#Informal Glossary</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../#Piazza: When And How to Ask For Help/">#Piazza: When And How to Ask For Help</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C Programming, Part 4: Debugging/">C Programming, Part 4: Debugging</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-1:-Introduction/">C Programming, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-2:-Text-Input-And-Output/">C Programming, Part 2: Text Input And Output</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-3:-Common-Gotchas/">C Programming, Part 3: Common Gotchas</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming:-Review-Questions/">C Programming: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-1:-Resource-Allocation-Graph/">Deadlock, Part 1: Resource Allocation Graph</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-2:-Deadlock-Conditions/">Deadlock, Part 2: Deadlock Conditions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Exam-Topics/">Exam Topics</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-1:-Introduction/">File System, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-2:-Files-are-inodes-(everything-else-is-just-data...)/">File System, Part 2: Files are inodes (everything else is just data...)</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-3:-Permissions/">File System, Part 3: Permissions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-4:-Working-with-directories/">File System, Part 4: Working with directories</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-5:-Virtual-file-systems/">File System, Part 5: Virtual file systems</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-6:-Memory-mapped-files-and-Shared-memory/">File System, Part 6: Memory mapped files and Shared memory</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-7:-Scalable-and-Reliable-Filesystems/">File System, Part 7: Scalable and Reliable Filesystems</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-8:-Disk-blocks-example/">File System, Part 8: Disk blocks example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Files,-Part-1:-Working-with-files/">Files, Part 1: Working with files</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Filesystem:-Review-Questions/">Filesystem: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Forking,-Part-1:-Introduction/">Forking, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Forking, Part 2: Fork, Exec, Wait</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#what-does-the-following-exec-example-do">What does the following 'exec' example do?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#what-does-the-child-inherit-from-the-parent">What does the child inherit from the parent?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#what-is-different-in-the-child-process-than-the-parent-process">What is different in the child process than the parent process?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#how-do-i-wait-for-my-child-to-finish">How do I wait for my child to finish?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#what-is-the-fork-exec-wait-pattern">What is the fork-exec-wait pattern</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#how-do-i-start-a-background-process-that-runs-as-the-same-time">How do I start a background process that runs as the same time?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#good-parents-dont-let-their-children-become-zombies">Good parents don't let their children become zombies!</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#what-would-be-effect-of-too-many-zombies">What would be effect of too many zombies?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#what-does-the-system-do-to-help-prevent-zombies">What does the system do to help prevent zombies?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#how-do-i-prevent-zombies-warning-simplified-answer">How do I prevent zombies? (Warning: Simplified answer)</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#how-can-i-asynchronously-wait-for-my-child-using-sigchld-advanced">How can I asynchronously wait for my child using SIGCHLD? (ADVANCED)</a></li>
+                
+            
+            </ul>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../HW0/">HW0</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Home/">Home</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-1:-Heap-Memory-Introduction/">Memory, Part 1: Heap Memory Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-2:-Implementing-a-Memory-Allocator/">Memory, Part 2: Implementing a Memory Allocator</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-3:-Smashing-the-Stack-Example/">Memory, Part 3: Smashing the Stack Example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory:-Review-Questions/">Memory: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Multi-threaded-Programming:-Review-Questions/">Multi threaded Programming: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking, Part 3: Building a simple TCP Client/">Networking, Part 3: Building a simple TCP Client</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking, Part 6: Creating a UDP server/">Networking, Part 6: Creating a UDP server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-1:-Introduction/">Networking, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-2:-Using-getaddrinfo/">Networking, Part 2: Using getaddrinfo</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-4:-Building-a-simple-TCP-Server/">Networking, Part 4: Building a simple TCP Server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-5:-Reusing-ports/">Networking, Part 5: Reusing ports</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking:-Review-Questions/">Networking: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Nonblocking-I-O,-select(),-and-epoll/">Nonblocking I O, select(), and epoll</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../OSI-Model/">OSI Model</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../POSIX,-Part-1:-Error-handling/">POSIX, Part 1: Error handling</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipe:-Review-Questions/">Pipe: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipes,-Part-1:-Introduction-to-pipes/">Pipes, Part 1: Introduction to pipes</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipes,-Part-2:-Pipe-programming-secrets/">Pipes, Part 2: Pipe programming secrets</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Process-Control,-Part-1:-Wait-macros,-using-signals/">Process Control, Part 1: Wait macros, using signals</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Programming-Tricks,-Part-1/">Programming Tricks, Part 1</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-1:-Introduction/">Pthreads, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-2:-Usage-in-Practice/">Pthreads, Part 2: Usage in Practice</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../RPC,-Part-1:-Introduction-to-Remote-Procedure-Calls/">RPC, Part 1: Introduction to Remote Procedure Calls</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Sample-program-using-pthread-barriers/">Sample program using pthread barriers</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Scheduling,-Part-1:-Scheduling-Processes/">Scheduling, Part 1: Scheduling Processes</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-2:-Pending-Signals-and-Signal-Masks/">Signals, Part 2: Pending Signals and Signal Masks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-3:-Raising-signals/">Signals, Part 3: Raising signals</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-4:-Sigaction/">Signals, Part 4: Sigaction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals:-Review-Questions/">Signals: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-1:-Mutex-Locks/">Synchronization, Part 1: Mutex Locks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-2:-Counting-Semaphores/">Synchronization, Part 2: Counting Semaphores</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-3:-Working-with-Mutexes-And-Semaphores/">Synchronization, Part 3: Working with Mutexes And Semaphores</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-4:-The-Critical-Section-Problem/">Synchronization, Part 4: The Critical Section Problem</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-5:-Condition-Variables/">Synchronization, Part 5: Condition Variables</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-6:-Implementing-a-barrier/">Synchronization, Part 6: Implementing a barrier</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-7:-The-Reader-Writer-Problem/">Synchronization, Part 7: The Reader Writer Problem</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-8:-Ring-Buffer-Example/">Synchronization, Part 8: Ring Buffer Example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-9:-The-Reader-Writer-Problem-(part-2)/">Synchronization, Part 9: The Reader Writer Problem (part 2)</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../System-Programming-Short-Stories-and-Songs/">System Programming Short Stories and Songs</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Test-page/">Test page</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Virtual-Memory,-Part-1:-Introduction-to-Virtual-Memory/">Virtual Memory, Part 1: Introduction to Virtual Memory</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../_Footer/"> Footer</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">UIUC CS241 SystemProgramming Wiki</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>SystemProgramming &raquo;</li>
+        
+      
+    
+    <li>Forking, Part 2: Fork, Exec, Wait</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="what-does-the-following-exec-example-do">What does the following 'exec' example do?</h2>
+<pre><code class="C">#include &lt;unistd.h&gt;
+#include &lt;fcntl.h&gt; // O_CREAT, O_APPEND etc. defined here
+
+int main() {
+   close(1); // close standard out
+   open(&quot;log.txt&quot;, O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
+   puts(&quot;Captain's log&quot;);
+   chdir(&quot;/usr/include&quot;);
+   // execl( executable,  arguments for executable including program name and NULL at the end)
+
+   execl(&quot;/bin/ls&quot;, /* Remaining items sent to ls*/ &quot;/bin/ls&quot;, &quot;.&quot;, (char *) NULL); // &quot;ls .&quot;
+   perror(&quot;exec failed&quot;);
+   return 0; // Not expected
+}
+</code></pre>
+
+<p>There's no error checking in the above code (we assume close,open,chdir etc works as expected).
+<em> open: will use the lowest available file descriptor (i.e. 1) ; so standard out now goes to the log file.
+</em> chdir : Change the current directory to /usr/include
+<em> execl : Replace the program image with /bin/ls and call its main() method
+</em> perror : We don't expect to get here - if we did then exec failed.</p>
+<h2 id="what-does-the-child-inherit-from-the-parent">What does the child inherit from the parent?</h2>
+<ul>
+<li>Open filehandles. If the parent later seeks, say, to the back to the beginning of the file then this will affect the child too (and vice versa). </li>
+<li>Signal handlers</li>
+<li>Current working directory</li>
+<li>Environment variables</li>
+</ul>
+<p>See the <a href="http://linux.die.net/man/2/fork">fork man page</a> for more details.</p>
+<h2 id="what-is-different-in-the-child-process-than-the-parent-process">What is different in the child process than the parent process?</h2>
+<p>The process id is different. In the child calling <code>getppid()</code> (notice the two 'p's) will give the same result as calling getpid() in the parent. See the fork man page for more details.</p>
+<h2 id="how-do-i-wait-for-my-child-to-finish">How do I wait for my child to finish?</h2>
+<p>Use <code>waitpid</code> or <code>wait</code>. The parent process will pause until <code>wait</code> (or <code>waitpid</code>) returns. Note this explanation glosses over the restarting discussion.</p>
+<h2 id="what-is-the-fork-exec-wait-pattern">What is the fork-exec-wait pattern</h2>
+<p>A common programming pattern is to call <code>fork</code> followed by <code>exec</code> and <code>wait</code>. The original process calls fork, which creates a child process. The child process then uses exec to start execution of a new program. Meanwhile the parent uses <code>wait</code> (or <code>waitpid</code>) to wait for the child process to finish.
+See below for a complete code example.</p>
+<h2 id="how-do-i-start-a-background-process-that-runs-as-the-same-time">How do I start a background process that runs as the same time?</h2>
+<p>Don't wait for them! Your parent process can continue to execute code without having to wait for the child process. Note in practice background processes can also be disconnected from the parent's input and output streams by calling <code>close</code> on the open file descriptors before calling exec.</p>
+<p>However child processes that finish before their parent finishes can become zombies. See the zombie page for more information.</p>
+<h2 id="good-parents-dont-let-their-children-become-zombies">Good parents don't let their children become zombies!</h2>
+<p>When a child finishes (or terminates) it still takes up a slot in the kernel process table. 
+Only when the child has been 'waited on' will the slot be available again.</p>
+<p>A long running program could create many zombies by continually creating processes and never <code>wait</code>-ing for them.</p>
+<h2 id="what-would-be-effect-of-too-many-zombies">What would be effect of too many zombies?</h2>
+<p>Eventually there would be insufficient space in the kernel process table to create a new processes. Thus <code>fork()</code> would fail and could make the system difficult / impossible to use - for example just logging in requires a new process!</p>
+<h2 id="what-does-the-system-do-to-help-prevent-zombies">What does the system do to help prevent zombies?</h2>
+<p>Once a process completes, any of its children will be assigned to "init" - the first process with pid of 1. Thus these children would see getppid() return a value of 1. The init process automatically waits for all of its children, thus removing zombies from the system.</p>
+<h2 id="how-do-i-prevent-zombies-warning-simplified-answer">How do I prevent zombies? (Warning: Simplified answer)</h2>
+<p>Wait on your child!</p>
+<pre><code class="C">waitpid(child, &amp;status, 0); // Clean up and wait for my child process to finish.
+</code></pre>
+
+<p>Note we assume that the only reason to get a SIGCHLD event is that a child has finished (this is not quite true - see man page for more details).</p>
+<p>A robust implementation would also check for interrupted status and include the above in a loop.
+Read on for a discussion of a more robust implementation.</p>
+<h2 id="how-can-i-asynchronously-wait-for-my-child-using-sigchld-advanced">How can I asynchronously wait for my child using SIGCHLD? (ADVANCED)</h2>
+<p>Warning: This section uses signals which we have not yet fully introduced.
+The parent gets the signal SIGCHLD when a child completes, so the signal handler can wait on the process. A slightly simplified version is shown below.</p>
+<pre><code class="C">pid_t child;
+
+void cleanup(int signal) {
+  int status;
+  waitpid(child, &amp;status, 0);
+  write(1,&quot;cleanup!\n&quot;,9);
+}
+int main() {
+   // Register signal handler BEFORE the child can finish
+   signal(SIGCHLD, cleanup); // or better - sigaction
+   child = fork();
+   if (child == -1) { exit(EXIT_FAILURE);}
+
+   if (child == 0) { /* I am the child!*/
+     // Do background stuff e.g. call exec   
+   } else { /* I'm the parent! */
+      sleep(4); // so we can see the cleanup
+      puts(&quot;Parent is done&quot;);
+   }
+   return 0;
+} 
+</code></pre>
+
+<p>The above example however misses a couple of subtle points:
+<em> More than one child may have finished but the parent will only get one SIGCHLD signal (signals are not queued)
+</em> SIGCHLD signals can be sent for other reasons (e.g. a child process is temporarily stopped)</p>
+<p>A more robust code to reap zombies is shown below.</p>
+<pre><code class="C">void cleanup(int signal) {
+  int status;
+  while (waitpid((pid_t) (-1), 0, WNOHANG) &gt; 0) {}
+}
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../HW0/" class="btn btn-neutral float-right" title="HW0">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Forking,-Part-1:-Introduction/" class="btn btn-neutral" title="Forking, Part 1: Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../Forking,-Part-1:-Introduction/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../HW0/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

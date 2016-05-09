@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>Synchronization, Part 8: Ring Buffer Example - UIUC CS241 SystemProgramming Wiki</title>
+  
+
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Synchronization, Part 8: Ring Buffer Example";
+    var mkdocs_page_input_path = "SystemProgramming/Synchronization,-Part-8:-Ring-Buffer-Example.md";
+    var mkdocs_page_url = "/SystemProgramming/Synchronization,-Part-8:-Ring-Buffer-Example/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+  <script src="../../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> UIUC CS241 SystemProgramming Wiki</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../..">Home</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>SystemProgramming</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../#Example Markdown/">#Example Markdown</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../#Informal-Glossary/">#Informal Glossary</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../#Piazza: When And How to Ask For Help/">#Piazza: When And How to Ask For Help</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C Programming, Part 4: Debugging/">C Programming, Part 4: Debugging</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-1:-Introduction/">C Programming, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-2:-Text-Input-And-Output/">C Programming, Part 2: Text Input And Output</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-3:-Common-Gotchas/">C Programming, Part 3: Common Gotchas</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming:-Review-Questions/">C Programming: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-1:-Resource-Allocation-Graph/">Deadlock, Part 1: Resource Allocation Graph</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-2:-Deadlock-Conditions/">Deadlock, Part 2: Deadlock Conditions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Exam-Topics/">Exam Topics</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-1:-Introduction/">File System, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-2:-Files-are-inodes-(everything-else-is-just-data...)/">File System, Part 2: Files are inodes (everything else is just data...)</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-3:-Permissions/">File System, Part 3: Permissions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-4:-Working-with-directories/">File System, Part 4: Working with directories</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-5:-Virtual-file-systems/">File System, Part 5: Virtual file systems</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-6:-Memory-mapped-files-and-Shared-memory/">File System, Part 6: Memory mapped files and Shared memory</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-7:-Scalable-and-Reliable-Filesystems/">File System, Part 7: Scalable and Reliable Filesystems</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-8:-Disk-blocks-example/">File System, Part 8: Disk blocks example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Files,-Part-1:-Working-with-files/">Files, Part 1: Working with files</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Filesystem:-Review-Questions/">Filesystem: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Forking,-Part-1:-Introduction/">Forking, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Forking,-Part-2:-Fork,-Exec,-Wait/">Forking, Part 2: Fork, Exec, Wait</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../HW0/">HW0</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Home/">Home</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-1:-Heap-Memory-Introduction/">Memory, Part 1: Heap Memory Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-2:-Implementing-a-Memory-Allocator/">Memory, Part 2: Implementing a Memory Allocator</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-3:-Smashing-the-Stack-Example/">Memory, Part 3: Smashing the Stack Example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory:-Review-Questions/">Memory: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Multi-threaded-Programming:-Review-Questions/">Multi threaded Programming: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking, Part 3: Building a simple TCP Client/">Networking, Part 3: Building a simple TCP Client</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking, Part 6: Creating a UDP server/">Networking, Part 6: Creating a UDP server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-1:-Introduction/">Networking, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-2:-Using-getaddrinfo/">Networking, Part 2: Using getaddrinfo</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-4:-Building-a-simple-TCP-Server/">Networking, Part 4: Building a simple TCP Server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-5:-Reusing-ports/">Networking, Part 5: Reusing ports</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking:-Review-Questions/">Networking: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Nonblocking-I-O,-select(),-and-epoll/">Nonblocking I O, select(), and epoll</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../OSI-Model/">OSI Model</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../POSIX,-Part-1:-Error-handling/">POSIX, Part 1: Error handling</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipe:-Review-Questions/">Pipe: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipes,-Part-1:-Introduction-to-pipes/">Pipes, Part 1: Introduction to pipes</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipes,-Part-2:-Pipe-programming-secrets/">Pipes, Part 2: Pipe programming secrets</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Process-Control,-Part-1:-Wait-macros,-using-signals/">Process Control, Part 1: Wait macros, using signals</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Programming-Tricks,-Part-1/">Programming Tricks, Part 1</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-1:-Introduction/">Pthreads, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-2:-Usage-in-Practice/">Pthreads, Part 2: Usage in Practice</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../RPC,-Part-1:-Introduction-to-Remote-Procedure-Calls/">RPC, Part 1: Introduction to Remote Procedure Calls</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Sample-program-using-pthread-barriers/">Sample program using pthread barriers</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Scheduling,-Part-1:-Scheduling-Processes/">Scheduling, Part 1: Scheduling Processes</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-2:-Pending-Signals-and-Signal-Masks/">Signals, Part 2: Pending Signals and Signal Masks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-3:-Raising-signals/">Signals, Part 3: Raising signals</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-4:-Sigaction/">Signals, Part 4: Sigaction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals:-Review-Questions/">Signals: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-1:-Mutex-Locks/">Synchronization, Part 1: Mutex Locks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-2:-Counting-Semaphores/">Synchronization, Part 2: Counting Semaphores</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-3:-Working-with-Mutexes-And-Semaphores/">Synchronization, Part 3: Working with Mutexes And Semaphores</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-4:-The-Critical-Section-Problem/">Synchronization, Part 4: The Critical Section Problem</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-5:-Condition-Variables/">Synchronization, Part 5: Condition Variables</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-6:-Implementing-a-barrier/">Synchronization, Part 6: Implementing a barrier</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-7:-The-Reader-Writer-Problem/">Synchronization, Part 7: The Reader Writer Problem</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Synchronization, Part 8: Ring Buffer Example</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#what-is-a-ring-buffer">What is a ring buffer?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#what-are-gotchas-of-implementing-a-ring-buffer">What are gotchas of implementing a Ring Buffer?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#checking-a-multi-threaded-implementation-for-correctness-example-1">Checking a multi-threaded implementation for correctness (Example 1)</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#analysis">Analysis</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#checking-a-multi-threaded-implementation-for-correctness-example-1_1">Checking a multi-threaded implementation for correctness (Example 1)</a></li>
+                
+                    <li><a class="toctree-l4" href="#analysis_1">Analysis</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#correct-implementation-of-a-ring-buffer">Correct implementation of a ring buffer</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#food-for-thought">Food for thought</a></li>
+                
+            
+            </ul>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-9:-The-Reader-Writer-Problem-(part-2)/">Synchronization, Part 9: The Reader Writer Problem (part 2)</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../System-Programming-Short-Stories-and-Songs/">System Programming Short Stories and Songs</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Test-page/">Test page</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Virtual-Memory,-Part-1:-Introduction-to-Virtual-Memory/">Virtual Memory, Part 1: Introduction to Virtual Memory</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../_Footer/"> Footer</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">UIUC CS241 SystemProgramming Wiki</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>SystemProgramming &raquo;</li>
+        
+      
+    
+    <li>Synchronization, Part 8: Ring Buffer Example</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="what-is-a-ring-buffer">What is a ring buffer?</h2>
+<p>A ring buffer is a simple, usually fixed-sized, storage mechanism where contiguous memory is treated as if it is circular, and two index counters keep track of the current beginning and end of the queue. As  array indexing is not circular, the index counters must wrap around to zero when moved past the end of the array.
+As data is added (enqueued) to the front of the queue or removed (dequeued) from tail of the queue, the current items in the buffer form a train that appears to circle the track
+<img alt="RingBuffer" src="https://raw.githubusercontent.com/wiki/angrave/SystemProgramming/RingBuffer-Angrave2014-1024x768.png" />
+A simple (single-threaded) implementation is shown below. Note enqueue and dequeue do not guard against underflow or overflow - it's possible to add an item when when the queue is full and possible to remove an item when the queue is empty. For example if we added 20 integers (1,2,3...) to the queue and did not dequeue any items then values <code>17,18,19,20</code> would overwrite the <code>1,2,3,4</code>. We won't fix this problem right now, instead when we create the multi-threaded version we will ensure enqueue-ing and dequeue-ing threads are blocked while the ring buffer is full or empty respectively.</p>
+<pre><code class="C">void *buffer[16];
+int in = 0, out = 0;
+
+void enqueue(void *value) { /* Add one item to the front of the queue*/
+  buffer[in] = value;
+  in++; /* Advance the index for next time */
+  if (in == 16) in = 0; /* Wrap around! */
+}
+
+void *dequeue() { /* Remove one item to the end of the queue.*/
+  void *result = buffer[out];
+  out++;
+  if (out == 16) out = 0;
+  return result;
+}
+</code></pre>
+
+<h2 id="what-are-gotchas-of-implementing-a-ring-buffer">What are gotchas of implementing a Ring Buffer?</h2>
+<p>It's very tempting to write the enqueue or dequeue method in the following compact form (N is the capacity of the buffer e.g. 16):</p>
+<pre><code class="C">void enqueue(void *value)
+  b[ (in++) % N ] = value;
+}
+</code></pre>
+
+<p>This method would appear to work (pass simple tests etc) but contains a subtle bug. With enough enqueue operations (a bit more than two billion) the int value of <code>in</code> will overflow and become negative! The modulo (or 'remainder') operator <code>%</code> preserves the sign. Thus you might end up writing into <code>b[-14]</code>  for example! </p>
+<p>A compact form is correct uses bit masking provided N is 2^x (16,32,64,...)</p>
+<pre><code class="C">b[ (in++) &amp; (N-1) ] = value;
+</code></pre>
+
+<p>This buffer does not yet prevent buffer underflow or overflow. For that, we'll turn to our multi-threaded attempt that will block a thread until there is space or there is at least one item to remove.</p>
+<h2 id="checking-a-multi-threaded-implementation-for-correctness-example-1">Checking a multi-threaded implementation for correctness (Example 1)</h2>
+<p>The following code is an incorrect implementation. What will happen? Will <code>enqueue</code> and/or <code>dequeue</code> block? Is mutual exclusion satisfied? Can the buffer underflow? Can the buffer overflow?
+For clarity <code>pthread_mutex</code> is shortened to <code>p_m</code> and we assume sem_wait cannot be interrupted.</p>
+<pre><code class="C">void *b[16]
+int in = 0, out = 0
+p_m_t lock
+sem_t s1,s2
+void init() { 
+    p_m_init(&amp;lock, NULL)
+    sem_init(&amp;s1, 0, 16)
+    sem_init(&amp;s2, 0, 0)
+}
+
+enqueue(void *value) {
+    p_m_lock(&amp;lock)
+
+    // Hint: Wait while zero. Decrement and return
+    sem_wait( &amp;s1 ) 
+
+    b[ (in++) &amp; (N-1) ] = value
+
+    // Hint: Increment. Will wake up a waiting thread 
+    sem_post(&amp;s1) 
+    p_m_unlock(&amp;lock)
+}
+void *dequeue(){
+    p_m_lock(&amp;lock)
+    sem_wait(&amp;s2)
+    void *result = b[(out++) &amp; 15]
+    sem_post(&amp;s2)
+    p_m_unlock(&amp;lock)
+    return result
+}
+</code></pre>
+
+<h2 id="analysis">Analysis</h2>
+<p>Before reading on, see how many mistakes you can find. Then determine what would happen if threads called the enqueue and dequeue methods.</p>
+<ul>
+<li>The enqueue method waits and posts on the same semaphore (s1) and similarly with equeue and (s2) i.e. we decrement the value and then immediately increment the value, so by the end of the function the semaphore value is unchanged! </li>
+<li>The initial value of s1 is 16, so the semaphore will never be reduced to zero - enqueue will not block if the ring buffer is full - so overflow is possible.</li>
+<li>The initial value of s2 is zero, so calls to dequeue will always block and never return!</li>
+<li>The order of mutex lock and sem_wait will need to be swapped (however this example is so broken that this bug has no effect!)</li>
+</ul>
+<h2 id="checking-a-multi-threaded-implementation-for-correctness-example-1_1">Checking a multi-threaded implementation for correctness (Example 1)</h2>
+<p>The following code is an incorrect implementation. What will happen? Will <code>enqueue</code> and/or <code>dequeue</code> block? Is mutual exclusion satisfied? Can the buffer underflow? Can the buffer overflow?
+For clarity <code>pthread_mutex</code> is shortened to <code>p_m</code> and we assume sem_wait cannot be interrupted.</p>
+<pre><code class="C">void *b[16]
+int in = 0, out = 0
+p_m_t lock
+sem_t s1, s2
+void init() {
+    sem_init(&amp;s1,0,16)
+    sem_init(&amp;s2,0,0)
+}
+
+enqueue(void *value){
+
+ sem_wait(&amp;s2)
+ p_m_lock(&amp;lock)
+
+ b[ (in++) &amp; (N-1) ] = value
+
+ p_m_unlock(&amp;lock)
+ sem_post(&amp;s1)
+}
+
+void *dequeue(){
+  sem_wait(&amp;s1)
+  p_m_lock(&amp;lock)
+  void *result = b[(out++) &amp; 15]
+  p_m_unlock(&amp;lock)
+  sem_post(&amp;s2)
+
+  return result;
+}
+</code></pre>
+
+<h3 id="analysis_1">Analysis</h3>
+<ul>
+<li>The initial value of s2 is 0. Thus enqueue will block on the first call to sem_wait even though the buffer is empty!</li>
+<li>The initial value of s1 is 16. Thus dequeue will not block on the first call to sem_wait even though the buffer is empty - oops Underflow! The dequeue method will return invalid data.</li>
+<li>The code does not satisfy Mutual Exclusion; two threads can modify <code>in</code> or <code>out</code> at the same time! The code appears to use  mutex lock. Unfortunately the lock was never initialized with <code>pthread_mutex_init()</code> or <code>PTHREAD_MUTEX_INITIALIZER</code> - so the lock may not work (<code>pthread_mutex_lock</code> may simply do nothing)</li>
+</ul>
+<h2 id="correct-implementation-of-a-ring-buffer">Correct implementation of a ring buffer</h2>
+<p>The pseudo-code (<code>pthread_mutex</code> shortened to <code>p_m</code> etc) is shown below.</p>
+<p>As the mutex lock is stored in global (static) memory it can be initialized with  <code>PTHREAD_MUTEX_INITIALIZER</code>.If we had allocated space for the mutex on the heap, then we would have used <code>pthread_mutex_init(ptr, NULL)</code></p>
+<pre><code class="C">#include &lt;pthread.h&gt;
+#include &lt;semaphore.h&gt;
+// N must be 2^i
+#define N (16)
+
+void *b[N]
+int in = 0, out = 0
+p_m_t lock = PTHREAD_MUTEX_INITIALIZER
+sem_t countsem, spacesem
+
+void init() {
+  sem_init(&amp;countsem, 0, 0)
+  sem_init(&amp;spacesem, 0, 16)
+}
+</code></pre>
+
+<p>The enqueue method is shown below. Notice:
+<em> The lock is only held during the critical section (access to the data structure).
+</em> A complete implementation would need to guard against early returns from <code>sem_wait</code> due to POSIX signals.</p>
+<pre><code class="C">enqueue(void *value){
+ // wait if there is no space left:
+ sem_wait( &amp;spacesem )
+
+ p_m_lock(&amp;lock)
+ b[ (in++) &amp; (N-1) ] = value
+ p_m_unlock(&amp;lock)
+
+ // increment the count of the number of items
+ sem_post(&amp;countsem)
+}
+</code></pre>
+
+<p>The <code>dequeue</code> implementation is shown below. Notice the symmetry of the synchronization calls to <code>enqueue</code>. In both cases the functions first wait if the count of spaces or count of items is zero.</p>
+<pre><code class="C">void *dequeue(){
+  // Wait if there are no items in the buffer
+  sem_wait(&amp;countsem)
+
+  p_m_lock(&amp;lock)
+  void *result = b[(out++) &amp; (N-1)]
+  p_m_unlock(&amp;lock)
+
+  // Increment the count of the number of spaces
+  sem_post(&amp;spacesem)
+
+  return result
+}
+</code></pre>
+
+<h2 id="food-for-thought">Food for thought</h2>
+<ul>
+<li>What would happen if  the order of  <code>pthread_mutex_unlock</code> and <code>sem_post</code> calls were swapped?</li>
+<li>What would happen if the order of <code>sem_wait</code> and <code>pthread_mutex_lock</code> calls were swapped?</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Synchronization,-Part-9:-The-Reader-Writer-Problem-(part-2)/" class="btn btn-neutral float-right" title="Synchronization, Part 9: The Reader Writer Problem (part 2)">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Synchronization,-Part-7:-The-Reader-Writer-Problem/" class="btn btn-neutral" title="Synchronization, Part 7: The Reader Writer Problem"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../Synchronization,-Part-7:-The-Reader-Writer-Problem/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../Synchronization,-Part-9:-The-Reader-Writer-Problem-(part-2)/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

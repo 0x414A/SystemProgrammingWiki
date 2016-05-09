@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>RPC, Part 1: Introduction to Remote Procedure Calls - UIUC CS241 SystemProgramming Wiki</title>
+  
+
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "RPC, Part 1: Introduction to Remote Procedure Calls";
+    var mkdocs_page_input_path = "SystemProgramming/RPC,-Part-1:-Introduction-to-Remote-Procedure-Calls.md";
+    var mkdocs_page_url = "/SystemProgramming/RPC,-Part-1:-Introduction-to-Remote-Procedure-Calls/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+  <script src="../../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> UIUC CS241 SystemProgramming Wiki</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../..">Home</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>SystemProgramming</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../#Example Markdown/">#Example Markdown</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../#Informal-Glossary/">#Informal Glossary</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../#Piazza: When And How to Ask For Help/">#Piazza: When And How to Ask For Help</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C Programming, Part 4: Debugging/">C Programming, Part 4: Debugging</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-1:-Introduction/">C Programming, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-2:-Text-Input-And-Output/">C Programming, Part 2: Text Input And Output</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-3:-Common-Gotchas/">C Programming, Part 3: Common Gotchas</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming:-Review-Questions/">C Programming: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-1:-Resource-Allocation-Graph/">Deadlock, Part 1: Resource Allocation Graph</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-2:-Deadlock-Conditions/">Deadlock, Part 2: Deadlock Conditions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Exam-Topics/">Exam Topics</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-1:-Introduction/">File System, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-2:-Files-are-inodes-(everything-else-is-just-data...)/">File System, Part 2: Files are inodes (everything else is just data...)</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-3:-Permissions/">File System, Part 3: Permissions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-4:-Working-with-directories/">File System, Part 4: Working with directories</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-5:-Virtual-file-systems/">File System, Part 5: Virtual file systems</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-6:-Memory-mapped-files-and-Shared-memory/">File System, Part 6: Memory mapped files and Shared memory</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-7:-Scalable-and-Reliable-Filesystems/">File System, Part 7: Scalable and Reliable Filesystems</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-8:-Disk-blocks-example/">File System, Part 8: Disk blocks example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Files,-Part-1:-Working-with-files/">Files, Part 1: Working with files</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Filesystem:-Review-Questions/">Filesystem: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Forking,-Part-1:-Introduction/">Forking, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Forking,-Part-2:-Fork,-Exec,-Wait/">Forking, Part 2: Fork, Exec, Wait</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../HW0/">HW0</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Home/">Home</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-1:-Heap-Memory-Introduction/">Memory, Part 1: Heap Memory Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-2:-Implementing-a-Memory-Allocator/">Memory, Part 2: Implementing a Memory Allocator</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-3:-Smashing-the-Stack-Example/">Memory, Part 3: Smashing the Stack Example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory:-Review-Questions/">Memory: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Multi-threaded-Programming:-Review-Questions/">Multi threaded Programming: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking, Part 3: Building a simple TCP Client/">Networking, Part 3: Building a simple TCP Client</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking, Part 6: Creating a UDP server/">Networking, Part 6: Creating a UDP server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-1:-Introduction/">Networking, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-2:-Using-getaddrinfo/">Networking, Part 2: Using getaddrinfo</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-4:-Building-a-simple-TCP-Server/">Networking, Part 4: Building a simple TCP Server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-5:-Reusing-ports/">Networking, Part 5: Reusing ports</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking:-Review-Questions/">Networking: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Nonblocking-I-O,-select(),-and-epoll/">Nonblocking I O, select(), and epoll</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../OSI-Model/">OSI Model</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../POSIX,-Part-1:-Error-handling/">POSIX, Part 1: Error handling</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipe:-Review-Questions/">Pipe: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipes,-Part-1:-Introduction-to-pipes/">Pipes, Part 1: Introduction to pipes</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipes,-Part-2:-Pipe-programming-secrets/">Pipes, Part 2: Pipe programming secrets</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Process-Control,-Part-1:-Wait-macros,-using-signals/">Process Control, Part 1: Wait macros, using signals</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Programming-Tricks,-Part-1/">Programming Tricks, Part 1</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-1:-Introduction/">Pthreads, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-2:-Usage-in-Practice/">Pthreads, Part 2: Usage in Practice</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 current">
+        <a class="current" href="./">RPC, Part 1: Introduction to Remote Procedure Calls</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#what-is-rpc">What is RPC?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#what-is-privilege-separation">What is Privilege Separation?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#what-is-stub-code-what-is-marshalling">What is stub code? What is marshalling?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#what-is-server-stub-code-what-is-unmarshalling">What is server stub code? What is unmarshalling?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#how-do-you-send-an-int-float-a-struct-a-linked-list-a-graph">How do you send an int? float? a struct?  A linked list? A graph?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#what-is-an-idl-interface-design-language">What is an IDL (Interface Design Language)?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#complexity-and-challenges-of-rpc-vs-local-calls">Complexity and challenges of RPC vs local calls?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#transferring-large-amounts-of-structured-data">Transferring large amounts of structured data</a></li>
+                
+            
+            </ul>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Sample-program-using-pthread-barriers/">Sample program using pthread barriers</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Scheduling,-Part-1:-Scheduling-Processes/">Scheduling, Part 1: Scheduling Processes</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-2:-Pending-Signals-and-Signal-Masks/">Signals, Part 2: Pending Signals and Signal Masks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-3:-Raising-signals/">Signals, Part 3: Raising signals</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-4:-Sigaction/">Signals, Part 4: Sigaction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals:-Review-Questions/">Signals: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-1:-Mutex-Locks/">Synchronization, Part 1: Mutex Locks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-2:-Counting-Semaphores/">Synchronization, Part 2: Counting Semaphores</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-3:-Working-with-Mutexes-And-Semaphores/">Synchronization, Part 3: Working with Mutexes And Semaphores</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-4:-The-Critical-Section-Problem/">Synchronization, Part 4: The Critical Section Problem</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-5:-Condition-Variables/">Synchronization, Part 5: Condition Variables</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-6:-Implementing-a-barrier/">Synchronization, Part 6: Implementing a barrier</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-7:-The-Reader-Writer-Problem/">Synchronization, Part 7: The Reader Writer Problem</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-8:-Ring-Buffer-Example/">Synchronization, Part 8: Ring Buffer Example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-9:-The-Reader-Writer-Problem-(part-2)/">Synchronization, Part 9: The Reader Writer Problem (part 2)</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../System-Programming-Short-Stories-and-Songs/">System Programming Short Stories and Songs</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Test-page/">Test page</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Virtual-Memory,-Part-1:-Introduction-to-Virtual-Memory/">Virtual Memory, Part 1: Introduction to Virtual Memory</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../_Footer/"> Footer</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">UIUC CS241 SystemProgramming Wiki</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>SystemProgramming &raquo;</li>
+        
+      
+    
+    <li>RPC, Part 1: Introduction to Remote Procedure Calls</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="what-is-rpc">What is RPC?</h2>
+<p>Remote Procedure Call. RPC is the idea that we can execute a procedure (function) on a different machine. In practice the procedure may execute on the same machine, however it may be in a different context - for example under a different user with different permissions and different lifecycle.</p>
+<h2 id="what-is-privilege-separation">What is Privilege Separation?</h2>
+<p>The remote code will execute under a different user and with different privileges from the caller. In practice the remote call may execute with more or fewer privileges than the caller. This in principle can be used to improve the security of a system (by ensuring components operate with least privilege). Unfortunately, security concerns need to be carefully assessed to ensure that RPC mechanisms cannot be subverted to perform unwanted actions. For example, an RPC implementation may implicitly trust any connected client to perform any action, rather than a subset of actions on a subset of the data.</p>
+<h2 id="what-is-stub-code-what-is-marshalling">What is stub code? What is marshalling?</h2>
+<p>The stub code is the necessary code to hide the complexity of performing a remote procedure call. One of the roles of the stub code is to <em>marshall</em> the necessary data into a format that can be sent as a byte stream to a remote server.</p>
+<pre><code class="C">// On the outside 'getHiscore' looks like a normal function call
+// On the inside the stub code performs all of the work to send and receive the data to and from the remote machine.
+
+int getHiscore(char* game) {
+  // Marshall the request into a sequence of bytes:
+  char* buffer;
+  asprintf(&amp;buffer,&quot;getHiscore(%s)!&quot;, name);
+
+  // Send down the wire (we do not send the zero byte; the '!' signifies the end of the message)
+  write(fd, buffer, strlen(buffer) );
+
+  // Wait for the server to send a response
+  ssize_t bytesread = read(fd, buffer, sizeof(buffer));
+
+  // Example: unmarshal the bytes received back from text into an int
+  buffer[bytesread] = 0; // Turn the result into a C string
+
+  int score= atoi(buffer);
+  free(buffer);
+  return score;
+}
+</code></pre>
+
+<h2 id="what-is-server-stub-code-what-is-unmarshalling">What is server stub code? What is unmarshalling?</h2>
+<p>The server stub code will receive the request, unmarshall the request into a valid in-memory data call the underlying implementation and send the result back to the caller.</p>
+<h2 id="how-do-you-send-an-int-float-a-struct-a-linked-list-a-graph">How do you send an int? float? a struct?  A linked list? A graph?</h2>
+<p>To implement RPC you need to decide (and document) which conventions you will use to serialize the data into a byte sequence. Even a simple integer has several common choices:
+<em> Signed or unsigned?
+</em> ASCII
+<em> Fixed number of bytes or variable depending on magnitude
+</em> Little or Big endian binary format?</p>
+<p>To marshall a struct, decide which fields need to be serialized. It may not be necessary to send all data items (for example, some items may be irrelevant to the specific RPC or can be re-computed by the server from the other data items present).</p>
+<p>To marshall a linked list it is unnecessary to send the link pointers- just stream the values. As part of unmarshalling the server can recreate a linked list structure from the byte sequence.</p>
+<p>By starting at the head node/vertex, a simple tree can be recursively visited to create a serialized version of the data. A cyclic graph will usually require additional memory to ensure that each edge and vertex is processed exactly once.</p>
+<h2 id="what-is-an-idl-interface-design-language">What is an IDL (Interface Design Language)?</h2>
+<p>Writing stub code by hand is painful, tedious, error prone, difficult to maintain and difficult to reverse engineer the wire protocol from the implemented code. A better approach is specify the data objects, messages and services and automatically generate the client and server code.</p>
+<p>A modern example of an Interface Design Language is Google's Protocol Buffer .proto files.</p>
+<h2 id="complexity-and-challenges-of-rpc-vs-local-calls">Complexity and challenges of RPC vs local calls?</h2>
+<p>Remote Procedure Calls are significantly slower (10x to 100x) and more complex than local calls. An RPC must marshall data into a wire-compatible format. This may require multiple passes through the data structure, temporary memory allocation and transformation of the data representation.</p>
+<p>Robust RPC stub code must intelligently handle network failures and versioning. For example, a server may have to process requests from clients that are still running an early version of the stub code.</p>
+<p>A secure RPC will need to implement additional security checks (including authentication and authorization), validate data and encrypt communication between the client and host.</p>
+<h2 id="transferring-large-amounts-of-structured-data">Transferring large amounts of structured data</h2>
+<p>Let's examine three methods of transferring data using 3 different formats - JSON, XML and Google Protocol Buffers. JSON and XML are text-based protocols. Examples of JSON and XML messages are below.</p>
+<pre><code class="xml">&lt;ticket&gt;&lt;price currency='dollar'&gt;10&lt;/price&gt;&lt;vendor&gt;travelocity&lt;/vendor&gt;&lt;/ticket&gt;
+</code></pre>
+
+<pre><code class="javascript">{ 'currency':'dollar' , 'vendor':'travelocity', 'price':'10' }
+</code></pre>
+
+<p>Google Protocol Buffers is an open-source efficient binary protocol that places a strong emphasis on high throughput with low CPU overhead and minimal memory copying. Implementations exist for multiple languages including Go, Python, C++ and C. This means client and server stub code in multiple languages can be generated from the .proto specification file to marshall data to and from a binary stream.</p>
+<p>Google Protocol Buffers reduces the versioning problem by ignoring unknown fields that are present in a message. See the introduction to Protocol Buffers for more information.</p>
+<p>[[https://developers.google.com/protocol-buffers/docs/overview]]</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Sample-program-using-pthread-barriers/" class="btn btn-neutral float-right" title="Sample program using pthread barriers">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Pthreads,-Part-2:-Usage-in-Practice/" class="btn btn-neutral" title="Pthreads, Part 2: Usage in Practice"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../Pthreads,-Part-2:-Usage-in-Practice/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../Sample-program-using-pthread-barriers/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

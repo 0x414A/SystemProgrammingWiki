@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>File System, Part 4: Working with directories - UIUC CS241 SystemProgramming Wiki</title>
+  
+
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "File System, Part 4: Working with directories";
+    var mkdocs_page_input_path = "SystemProgramming/File-System,-Part-4:-Working-with-directories.md";
+    var mkdocs_page_url = "/SystemProgramming/File-System,-Part-4:-Working-with-directories/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+  <script src="../../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> UIUC CS241 SystemProgramming Wiki</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../..">Home</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>SystemProgramming</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../#Example Markdown/">#Example Markdown</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../#Informal-Glossary/">#Informal Glossary</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../#Piazza: When And How to Ask For Help/">#Piazza: When And How to Ask For Help</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C Programming, Part 4: Debugging/">C Programming, Part 4: Debugging</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-1:-Introduction/">C Programming, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-2:-Text-Input-And-Output/">C Programming, Part 2: Text Input And Output</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-3:-Common-Gotchas/">C Programming, Part 3: Common Gotchas</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming:-Review-Questions/">C Programming: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-1:-Resource-Allocation-Graph/">Deadlock, Part 1: Resource Allocation Graph</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-2:-Deadlock-Conditions/">Deadlock, Part 2: Deadlock Conditions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Exam-Topics/">Exam Topics</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-1:-Introduction/">File System, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-2:-Files-are-inodes-(everything-else-is-just-data...)/">File System, Part 2: Files are inodes (everything else is just data...)</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-3:-Permissions/">File System, Part 3: Permissions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 current">
+        <a class="current" href="./">File System, Part 4: Working with directories</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#how-do-i-find-out-if-file-an-inode-is-a-regular-file-or-directory">How do I find out if file (an inode) is a regular file or directory?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#how-do-i-recurse-into-subdirectories">How do I recurse into subdirectories?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#what-are-symbolic-links-how-do-they-work-how-do-i-make-one">What are symbolic links? How do they work? How do I make one?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#advantages-of-symbolic-links">Advantages of symbolic links</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#what-is-devnull-and-when-is-it-used">What is /dev/null and when is it used?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#why-would-i-want-to-set-a-directorys-sticky-bit">Why would I want to set a directory's sticky bit?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#why-do-shell-and-script-programs-start-with-usrbinenv-python">Why do shell and script programs start with #!/usr/bin/env python ?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#how-do-i-make-hidden-files-ie-not-listed-by-ls-how-do-i-list-them">How do I make 'hidden' files i.e. not listed by "ls"? How do I list them?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#what-happens-if-i-turn-off-the-execute-bit-on-directories">What happens if I turn off the execute bit on directories?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#what-is-file-globbing-and-who-does-it">What is file globbing (and who does it)?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#creating-secure-directories">Creating secure directories</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#how-do-i-automatically-create-parent-directories">How do I automatically create parent directories?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#my-default-umask-022-what-does-this-mean">My default umask 022; what does this mean?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#how-can-i-copy-bytes-from-one-file-to-another">How can I copy bytes from one file to another?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#what-happens-when-i-touch-a-file">What happens when I touch a file?</a></li>
+                
+            
+            </ul>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-5:-Virtual-file-systems/">File System, Part 5: Virtual file systems</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-6:-Memory-mapped-files-and-Shared-memory/">File System, Part 6: Memory mapped files and Shared memory</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-7:-Scalable-and-Reliable-Filesystems/">File System, Part 7: Scalable and Reliable Filesystems</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-8:-Disk-blocks-example/">File System, Part 8: Disk blocks example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Files,-Part-1:-Working-with-files/">Files, Part 1: Working with files</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Filesystem:-Review-Questions/">Filesystem: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Forking,-Part-1:-Introduction/">Forking, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Forking,-Part-2:-Fork,-Exec,-Wait/">Forking, Part 2: Fork, Exec, Wait</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../HW0/">HW0</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Home/">Home</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-1:-Heap-Memory-Introduction/">Memory, Part 1: Heap Memory Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-2:-Implementing-a-Memory-Allocator/">Memory, Part 2: Implementing a Memory Allocator</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-3:-Smashing-the-Stack-Example/">Memory, Part 3: Smashing the Stack Example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory:-Review-Questions/">Memory: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Multi-threaded-Programming:-Review-Questions/">Multi threaded Programming: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking, Part 3: Building a simple TCP Client/">Networking, Part 3: Building a simple TCP Client</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking, Part 6: Creating a UDP server/">Networking, Part 6: Creating a UDP server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-1:-Introduction/">Networking, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-2:-Using-getaddrinfo/">Networking, Part 2: Using getaddrinfo</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-4:-Building-a-simple-TCP-Server/">Networking, Part 4: Building a simple TCP Server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-5:-Reusing-ports/">Networking, Part 5: Reusing ports</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking:-Review-Questions/">Networking: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Nonblocking-I-O,-select(),-and-epoll/">Nonblocking I O, select(), and epoll</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../OSI-Model/">OSI Model</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../POSIX,-Part-1:-Error-handling/">POSIX, Part 1: Error handling</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipe:-Review-Questions/">Pipe: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipes,-Part-1:-Introduction-to-pipes/">Pipes, Part 1: Introduction to pipes</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipes,-Part-2:-Pipe-programming-secrets/">Pipes, Part 2: Pipe programming secrets</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Process-Control,-Part-1:-Wait-macros,-using-signals/">Process Control, Part 1: Wait macros, using signals</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Programming-Tricks,-Part-1/">Programming Tricks, Part 1</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-1:-Introduction/">Pthreads, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-2:-Usage-in-Practice/">Pthreads, Part 2: Usage in Practice</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../RPC,-Part-1:-Introduction-to-Remote-Procedure-Calls/">RPC, Part 1: Introduction to Remote Procedure Calls</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Sample-program-using-pthread-barriers/">Sample program using pthread barriers</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Scheduling,-Part-1:-Scheduling-Processes/">Scheduling, Part 1: Scheduling Processes</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-2:-Pending-Signals-and-Signal-Masks/">Signals, Part 2: Pending Signals and Signal Masks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-3:-Raising-signals/">Signals, Part 3: Raising signals</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-4:-Sigaction/">Signals, Part 4: Sigaction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals:-Review-Questions/">Signals: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-1:-Mutex-Locks/">Synchronization, Part 1: Mutex Locks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-2:-Counting-Semaphores/">Synchronization, Part 2: Counting Semaphores</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-3:-Working-with-Mutexes-And-Semaphores/">Synchronization, Part 3: Working with Mutexes And Semaphores</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-4:-The-Critical-Section-Problem/">Synchronization, Part 4: The Critical Section Problem</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-5:-Condition-Variables/">Synchronization, Part 5: Condition Variables</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-6:-Implementing-a-barrier/">Synchronization, Part 6: Implementing a barrier</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-7:-The-Reader-Writer-Problem/">Synchronization, Part 7: The Reader Writer Problem</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-8:-Ring-Buffer-Example/">Synchronization, Part 8: Ring Buffer Example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-9:-The-Reader-Writer-Problem-(part-2)/">Synchronization, Part 9: The Reader Writer Problem (part 2)</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../System-Programming-Short-Stories-and-Songs/">System Programming Short Stories and Songs</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Test-page/">Test page</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Virtual-Memory,-Part-1:-Introduction-to-Virtual-Memory/">Virtual Memory, Part 1: Introduction to Virtual Memory</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../_Footer/"> Footer</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">UIUC CS241 SystemProgramming Wiki</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>SystemProgramming &raquo;</li>
+        
+      
+    
+    <li>File System, Part 4: Working with directories</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="how-do-i-find-out-if-file-an-inode-is-a-regular-file-or-directory">How do I find out if file (an inode) is a regular file or directory?</h2>
+<p>Use the <code>S_ISDIR</code> macro to check the mode bits in the stat struct:</p>
+<pre><code class="C">struct stat s;
+stat(&quot;/tmp&quot;, &amp;s);
+if (S_ISDIR(s.st_mode)) { ... 
+</code></pre>
+
+<p>Note, later we will write robust code to verify that the stat call succeeds (returns 0); if the <code>stat</code> call fails, we should assume the stat struct content is arbitrary.</p>
+<h2 id="how-do-i-recurse-into-subdirectories">How do I recurse into subdirectories?</h2>
+<p>First a puzzle - how many bugs can you find in the following code?</p>
+<pre><code class="C">void dirlist(char *path) {
+
+  struct dirent *dp;
+  DIR *dirp = opendir(path);
+  while ((dp = readdir(dirp)) != NULL) {
+     char newpath[strlen(path) + strlen(dp-&gt;d_name) + 1];
+     sprintf(newpath,&quot;%s/%s&quot;, newpath, dp-&gt;d_name);
+     printf(&quot;%s\n&quot;, dp-&gt;d_name);
+     dirlist(newpath);
+  }
+}
+
+int main(int argc, char **argv) { dirlist(argv[1]); return 0; }
+</code></pre>
+
+<p>Did you find all 5 bugs?</p>
+<pre><code class="C">// Check opendir result (perhaps user gave us a path that can not be opened as a directory
+if (!dirp) { perror(&quot;Could not open directory&quot;); return; }
+// +2 as we need space for the / and the terminating 0
+char newpath[strlen(path) + strlen(dp-&gt;d_name) + 2]; 
+// Correct parameter
+sprintf(newpath,&quot;%s/%s&quot;, path, dp-&gt;d_name); 
+// Perform stat test (and verify) before recursing
+if (0 == stat(newpath,&amp;s) &amp;&amp; S_ISDIR(s.st_mode)) dirlist(newpath)
+// Resource leak: the directory file handle is not closed after the while loop
+closedir(dirp);
+</code></pre>
+
+<h2 id="what-are-symbolic-links-how-do-they-work-how-do-i-make-one">What are symbolic links? How do they work? How do I make one?</h2>
+<pre><code class="C">symlink(const char *target, const char *symlink);
+</code></pre>
+
+<p>To create a symbolic link in the shell use <code>ln -s</code></p>
+<p>To read the contents of the link as just a file use <code>readlink</code></p>
+<pre><code>$ readlink myfile.txt
+../../dir1/notes.txt
+</code></pre>
+
+<p>To read the meta-(stat) information of a symbolic link use <code>lstat</code> not <code>stat</code></p>
+<pre><code class="C">struct stat s;
+stat(&quot;myfile.txt&quot;, &amp;s1); // stat info about  the notes.txt file
+lstat(&quot;myfile.txt&quot;, &amp;s2); // stat info about the symbolic link
+</code></pre>
+
+<h2 id="advantages-of-symbolic-links">Advantages of symbolic links</h2>
+<ul>
+<li>Can refer to a files that don't exist yet</li>
+<li>Unlike hard links, can refer to directories as well as regular files</li>
+<li>Can refer to files (and directories) that exist outside of the current file system</li>
+</ul>
+<p>Main disadvantage: Slower than regular files and directories. When the links contents are read, they must be interpreted as a new path to the target file.</p>
+<h2 id="what-is-devnull-and-when-is-it-used">What is <code>/dev/null</code> and when is it used?</h2>
+<p>The file <code>/dev/null</code> is a great place to store bits that you never need to read!
+Bytes sent to <code>/dev/null/</code> are never stored - they are simply discarded. A common use of <code>/dev/null</code> is to discard standard output. For example,</p>
+<pre><code>$ ls . &gt;/dev/null
+</code></pre>
+
+<h2 id="why-would-i-want-to-set-a-directorys-sticky-bit">Why would I want to set a directory's sticky bit?</h2>
+<p>When a directory's sticky bit is set only the file's owner, the directory's owner, and the root user can rename (or delete) the file. This is useful when multiple users have write access to a common directory.</p>
+<p>A common use of the sticky bit is for the shared and writable <code>/tmp</code> directory.</p>
+<h2 id="why-do-shell-and-script-programs-start-with-usrbinenv-python">Why do shell and script programs start with <code>#!/usr/bin/env python</code> ?</h2>
+<p>Ans: For portability!
+While it is possible to write the fully qualified path to a python or perl interpreter, this approach is not portable because you may have installed python in a different directory.</p>
+<p>To overcome this use the <code>env</code> utility is used to find and execute the program on the user's path.
+The env utility itself has historically been stored in <code>/usr/bin</code> - and it must be specified with an absolute path.</p>
+<h2 id="how-do-i-make-hidden-files-ie-not-listed-by-ls-how-do-i-list-them">How do I make 'hidden' files i.e. not listed by "ls"? How do I list them?</h2>
+<p>Easy! Create files (or directories) that start with a "." - then (by default) they are not displayed by standard tools and utilities.</p>
+<p>This is often used to hide configuration files inside the user's home directory.
+For example <code>ssh</code> stores its preferences inside a directory called <code>.sshd</code></p>
+<p>To list all files including the normally hidden entries use <code>ls</code> with  <code>-a</code> option </p>
+<pre><code>$ ls -a
+.           a.c         myls
+..          a.out           other.txt
+.secret 
+</code></pre>
+
+<h2 id="what-happens-if-i-turn-off-the-execute-bit-on-directories">What happens if I turn off the execute bit on directories?</h2>
+<p>The execute bit for a directory is used to control whether the directory contents is listable.</p>
+<pre><code>$ chmod ugo-x dir1
+$ ls -l
+drw-r--r--   3 angrave  staff   102 Nov 10 11:22 dir1
+</code></pre>
+
+<p>However when attempting to list the contents of the directory,</p>
+<pre><code>$ ls dir1
+ls: dir1: Permission denied
+</code></pre>
+
+<p>In other words, the directory itself is discoverable but its contents cannot be listed.</p>
+<h2 id="what-is-file-globbing-and-who-does-it">What is file globbing (and who does it)?</h2>
+<p>Before executing the program the shell expands parameters into matching filenames. For example, if the current directory has three filenames that start with my ( my1.txt mytext.txt myomy), then</p>
+<pre><code>$ echo my*
+</code></pre>
+
+<p>Expands to </p>
+<pre><code>$ echo my1.txt mytext.txt myomy
+</code></pre>
+
+<p>This is known as file globbing and is processed before the command is executed.
+ie the command's parameters are identical to manually typing every matching filename.</p>
+<h2 id="creating-secure-directories">Creating secure directories</h2>
+<p>Suppose you created your own directory in /tmp and then set the permissions so that only you can use the directory (see below). Is this secure? </p>
+<pre><code>$ mkdir /tmp/mystuff
+$ chmod 700 /tmp/mystuff
+</code></pre>
+
+<p>There is a window of opportunity between when the directory is created and when it's permissions are changed. This leads to several vulnerabilities that are based on a race condition (where an attacker modifies the directory in some way before the privileges are removed). Some examples include:</p>
+<p>Another user replaces <code>mystuff</code> with a hardlink to an existing file or directory owned by the second user, then they would be able to read and control the contents of the <code>mystuff</code> directory. Oh no - our secrets are no longer secret!</p>
+<p>However in this specific example the <code>/tmp</code> directory has the sticky bit set, so other users may not delete the <code>mystuff</code> directory, and the simple attack scenario described above is impossible. This does not mean that creating the directory and then later making the directory private is secure! A better version is to atomically create the directory with the correct permissions from its inception - </p>
+<pre><code>$ mkdir -m 700 /tmp/mystuff
+</code></pre>
+
+<h2 id="how-do-i-automatically-create-parent-directories">How do I automatically create parent directories?</h2>
+<pre><code>$ mkdir -p d1/d2/d3
+</code></pre>
+
+<p>Will automatically create d1 and d2 if they don't exist.</p>
+<h2 id="my-default-umask-022-what-does-this-mean">My default umask 022; what does this mean?</h2>
+<p>The umask <em>subtracts</em> (reduces) permission bits from 777 and is used when new files and new directories are created by open,mkdir etc. Thus <code>022</code> (octal) means that group and other privileges will not include the writable bit . Each process (including the shell) has a current umask value. When forking, the child inherits the parent's umask value.</p>
+<p>For example, by setting the umask to 077 in the shell, ensures that future file and directory creation will only be accessible to the current user,</p>
+<pre><code>$ umask 077
+$ mkdir secretdir
+</code></pre>
+
+<p>As a code example, suppose a new file is created with <code>open()</code> and mode bits <code>666</code> (write and read bits for user,group and other):</p>
+<pre><code class="C">open(&quot;myfile&quot;, O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
+</code></pre>
+
+<p>If umask is octal 022, then the permissions of the created file will be 0666 &amp; ~022
+ie.</p>
+<pre><code class="C">           S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
+</code></pre>
+
+<h2 id="how-can-i-copy-bytes-from-one-file-to-another">How can I copy bytes from one file to another?</h2>
+<p>Use  the versatile <code>dd</code> command. For example, the following command copies 1mb of data from the file <code>/dev/urandom</code> to the file <code>/dev/null</code>. The data is copied as 1024 blocks of blocksize 1024 bytes.</p>
+<pre><code>$ dd if=/dev/urandom of=/dev/null bs=1k count=1024
+</code></pre>
+
+<p>Both the input and output files in the example above are virtual - they don't exist on a disk. This means the speed of the transfer is unaffected by hardware power. Instead they are part of the <code>dev</code> filesystem, which is virtual filesystem provided by the kernel.
+The virtual file <code>/dev/urandom</code> provides an infinite stream of random bytes, while the virtal file <code>/dev/null</code> ignores all bytes written to it. A common use of <code>/dev/null</code> is to discard the output of a command,</p>
+<pre><code>$ myverboseexecutable &gt; /dev/null
+</code></pre>
+
+<p>Another commonly used /dev virtual file is <code>/dev/zero</code> which provides an infinite stream of zero bytes.
+For example, we can benchmark the operating system performance of reading stream zero bytes in the kernel into a process memory and writing the bytes back to the kernel without any disk I/O. Note the throughput (~20GB/s) is strongly dependent on blocksize. For small block sizes the overhead of additional <code>read</code> and <code>write</code> system calls will  dominate.</p>
+<pre><code>$ dd if=/dev/zero of=/dev/null bs=1M count=1024
+1024+0 records in
+1024+0 records out
+1073741824 bytes (1.1 GB) copied, 0.0539153 s, 19.9 GB/s
+</code></pre>
+
+<h2 id="what-happens-when-i-touch-a-file">What happens when I touch a file?</h2>
+<p>The <code>touch</code> executable creates file if it does not exist and also updates the file's last modified time to be the current time. For example, we can make a new private file with the current time:</p>
+<pre><code>$ umask 077       # all future new files will maskout all r,w,x bits for group and other access
+$ touch file123   # create a file if it does not exist, and update its modified time
+$ stat file123
+  File: `file123'
+  Size: 0           Blocks: 0          IO Block: 65536  regular empty file
+Device: 21h/33d Inode: 226148      Links: 1
+Access: (0600/-rw-------)  Uid: (395606/ angrave)   Gid: (61019/     ews)
+Access: 2014-11-12 13:42:06.000000000 -0600
+Modify: 2014-11-12 13:42:06.001787000 -0600
+Change: 2014-11-12 13:42:06.001787000 -0600
+</code></pre>
+
+<p>An example use of touch is to force make to recompile a file that is unchanged after modifying the compiler options inside the makefile. Remeber that make is 'lazy' - it will compare the modified time of the source file with the corresponding output file to see if the file needs to be recompiled</p>
+<pre><code>$ touch myprogram.c   # force my source file to be recompiled
+$ make
+</code></pre>
+
+<p><a href="https://github.com/angrave/SystemProgramming/wiki/File-System,-Part-5:-Virtual-file-systems">Go to File System: Part 5</a></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../File-System,-Part-5:-Virtual-file-systems/" class="btn btn-neutral float-right" title="File System, Part 5: Virtual file systems">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../File-System,-Part-3:-Permissions/" class="btn btn-neutral" title="File System, Part 3: Permissions"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../File-System,-Part-3:-Permissions/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../File-System,-Part-5:-Virtual-file-systems/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

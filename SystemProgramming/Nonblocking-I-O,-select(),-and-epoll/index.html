@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>Nonblocking I O, select(), and epoll - UIUC CS241 SystemProgramming Wiki</title>
+  
+
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Nonblocking I O, select(), and epoll";
+    var mkdocs_page_input_path = "SystemProgramming/Nonblocking-I-O,-select(),-and-epoll.md";
+    var mkdocs_page_url = "/SystemProgramming/Nonblocking-I-O,-select(),-and-epoll/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+  <script src="../../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> UIUC CS241 SystemProgramming Wiki</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../..">Home</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>SystemProgramming</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../#Example Markdown/">#Example Markdown</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../#Informal-Glossary/">#Informal Glossary</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../#Piazza: When And How to Ask For Help/">#Piazza: When And How to Ask For Help</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C Programming, Part 4: Debugging/">C Programming, Part 4: Debugging</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-1:-Introduction/">C Programming, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-2:-Text-Input-And-Output/">C Programming, Part 2: Text Input And Output</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-3:-Common-Gotchas/">C Programming, Part 3: Common Gotchas</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming:-Review-Questions/">C Programming: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-1:-Resource-Allocation-Graph/">Deadlock, Part 1: Resource Allocation Graph</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-2:-Deadlock-Conditions/">Deadlock, Part 2: Deadlock Conditions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Exam-Topics/">Exam Topics</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-1:-Introduction/">File System, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-2:-Files-are-inodes-(everything-else-is-just-data...)/">File System, Part 2: Files are inodes (everything else is just data...)</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-3:-Permissions/">File System, Part 3: Permissions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-4:-Working-with-directories/">File System, Part 4: Working with directories</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-5:-Virtual-file-systems/">File System, Part 5: Virtual file systems</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-6:-Memory-mapped-files-and-Shared-memory/">File System, Part 6: Memory mapped files and Shared memory</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-7:-Scalable-and-Reliable-Filesystems/">File System, Part 7: Scalable and Reliable Filesystems</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-8:-Disk-blocks-example/">File System, Part 8: Disk blocks example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Files,-Part-1:-Working-with-files/">Files, Part 1: Working with files</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Filesystem:-Review-Questions/">Filesystem: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Forking,-Part-1:-Introduction/">Forking, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Forking,-Part-2:-Fork,-Exec,-Wait/">Forking, Part 2: Fork, Exec, Wait</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../HW0/">HW0</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Home/">Home</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-1:-Heap-Memory-Introduction/">Memory, Part 1: Heap Memory Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-2:-Implementing-a-Memory-Allocator/">Memory, Part 2: Implementing a Memory Allocator</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-3:-Smashing-the-Stack-Example/">Memory, Part 3: Smashing the Stack Example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory:-Review-Questions/">Memory: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Multi-threaded-Programming:-Review-Questions/">Multi threaded Programming: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking, Part 3: Building a simple TCP Client/">Networking, Part 3: Building a simple TCP Client</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking, Part 6: Creating a UDP server/">Networking, Part 6: Creating a UDP server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-1:-Introduction/">Networking, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-2:-Using-getaddrinfo/">Networking, Part 2: Using getaddrinfo</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-4:-Building-a-simple-TCP-Server/">Networking, Part 4: Building a simple TCP Server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-5:-Reusing-ports/">Networking, Part 5: Reusing ports</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking:-Review-Questions/">Networking: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Nonblocking I O, select(), and epoll</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#dont-waste-time-waiting">Don't waste time waiting</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#how-do-i-check-when-the-io-has-finished">How do I check when the I/O has finished?</a></li>
+                
+                    <li><a class="toctree-l4" href="#select">select</a></li>
+                
+                    <li><a class="toctree-l4" href="#epoll">epoll</a></li>
+                
+            
+            </ul>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../OSI-Model/">OSI Model</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../POSIX,-Part-1:-Error-handling/">POSIX, Part 1: Error handling</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipe:-Review-Questions/">Pipe: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipes,-Part-1:-Introduction-to-pipes/">Pipes, Part 1: Introduction to pipes</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipes,-Part-2:-Pipe-programming-secrets/">Pipes, Part 2: Pipe programming secrets</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Process-Control,-Part-1:-Wait-macros,-using-signals/">Process Control, Part 1: Wait macros, using signals</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Programming-Tricks,-Part-1/">Programming Tricks, Part 1</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-1:-Introduction/">Pthreads, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-2:-Usage-in-Practice/">Pthreads, Part 2: Usage in Practice</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../RPC,-Part-1:-Introduction-to-Remote-Procedure-Calls/">RPC, Part 1: Introduction to Remote Procedure Calls</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Sample-program-using-pthread-barriers/">Sample program using pthread barriers</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Scheduling,-Part-1:-Scheduling-Processes/">Scheduling, Part 1: Scheduling Processes</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-2:-Pending-Signals-and-Signal-Masks/">Signals, Part 2: Pending Signals and Signal Masks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-3:-Raising-signals/">Signals, Part 3: Raising signals</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-4:-Sigaction/">Signals, Part 4: Sigaction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals:-Review-Questions/">Signals: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-1:-Mutex-Locks/">Synchronization, Part 1: Mutex Locks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-2:-Counting-Semaphores/">Synchronization, Part 2: Counting Semaphores</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-3:-Working-with-Mutexes-And-Semaphores/">Synchronization, Part 3: Working with Mutexes And Semaphores</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-4:-The-Critical-Section-Problem/">Synchronization, Part 4: The Critical Section Problem</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-5:-Condition-Variables/">Synchronization, Part 5: Condition Variables</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-6:-Implementing-a-barrier/">Synchronization, Part 6: Implementing a barrier</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-7:-The-Reader-Writer-Problem/">Synchronization, Part 7: The Reader Writer Problem</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-8:-Ring-Buffer-Example/">Synchronization, Part 8: Ring Buffer Example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-9:-The-Reader-Writer-Problem-(part-2)/">Synchronization, Part 9: The Reader Writer Problem (part 2)</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../System-Programming-Short-Stories-and-Songs/">System Programming Short Stories and Songs</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Test-page/">Test page</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Virtual-Memory,-Part-1:-Introduction-to-Virtual-Memory/">Virtual Memory, Part 1: Introduction to Virtual Memory</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../_Footer/"> Footer</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">UIUC CS241 SystemProgramming Wiki</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>SystemProgramming &raquo;</li>
+        
+      
+    
+    <li>Nonblocking I O, select(), and epoll</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h3 id="dont-waste-time-waiting">Don't waste time waiting</h3>
+<p>Normally, when you call <code>read()</code>, if the data is not available yet it will wait until the data is ready before the function returns.  When you're reading data from a disk, that delay may not be long, but when you're reading from a slow network connection it may take a long time for that data to arrive, if it ever arrives.  </p>
+<p>POSIX lets you set a flag on a file descriptor such that any call to <code>read()</code> on that file descriptor will return immediately, whether it has finished or not.  With your file descriptor in this mode, your call to <code>read()</code> will start
+the read operation, and while it's working you can do other useful work.  This is called "nonblocking" mode,
+since the call to <code>read()</code> doesn't block.</p>
+<p>To set a file descriptor to be nonblocking:</p>
+<pre><code>// fd is my file descriptor
+int flags = fcntl(fd, F_GETFL, 0);
+fcntl(fd, F_SETFL, flags | O_NONBLOCK);
+</code></pre>
+<p>For a socket, you can create it in nonblocking mode by adding <code>SOCK_NONBLOCK</code> to the second argument to <code>socket()</code>:</p>
+<pre><code>fd = socket(AF_INET, SOCK_STREAM | SOCK_NONBLOCK, 0);
+</code></pre>
+<p>When a file is in nonblocking mode and you call <code>read()</code>, it will return immediately with whatever bytes are available.
+Say 100 bytes have arrived from the server at the other end of your socket and you call <code>read(fd, buf, 150)</code>.
+Read will return immediately with a value of 100, meaning it read 100 of the 150 bytes you asked for.
+Say you tried to read the remaining data with a call to <code>read(fd, buf+100, 50)</code>, but the last 50 bytes still hadn't
+arrived yet.  <code>read()</code> would return -1 and set the global error variable <strong>errno</strong> to either
+EAGAIN or EWOULDBLOCK.  That's the system's way of telling you the data isn't ready yet.</p>
+<p><code>write()</code> also works in nonblocking mode.  Say you want to send 40,000 bytes to a remote server using a socket.
+The system can only send so many bytes at a time. Common systems can send about 23,000 bytes at a time. In nonblocking mode, <code>write(fd, buf, 40000)</code> would return the number of bytes it was able to
+send immediately, or about 23,000.  If you called <code>write()</code> right away again, it would return -1 and set errno to
+EAGAIN or EWOULDBLOCK. That's the system's way of telling you it's still busy sending the last chunk of data,
+and isn't ready to send more yet.</p>
+<h3 id="how-do-i-check-when-the-io-has-finished">How do I check when the I/O has finished?</h3>
+<p>There are a few ways.  Let's see how to do it using <em>select</em> and <em>epoll</em>.</p>
+<h4 id="select">select</h4>
+<pre><code>int select(int nfds, 
+           fd_set *readfds, 
+           fd_set *writefds,
+           fd_set *exceptfds, 
+           struct timeval *timeout);
+</code></pre>
+<p>Given three sets of file descriptors, <code>select()</code> will wait for any of those file descriptors to become 'ready'.
+<em> readfds - a file descriptor in readfds is ready when there is data that can be read or EOF has been reached.
+</em> writefds - a file descriptor in writefds is ready when a call to write() will succeed.
+* exceptfds - system-specific, not well-defined.  Just pass NULL for this.</p>
+<p><code>select()</code> returns the total number of file descriptors that are ready.  If none of them become
+ready during the time defined by <em>timeout</em>, it will return 0.  After <code>select()</code> returns, the 
+caller will need to loop
+through the file descriptors in readfds and/or writefds to see which ones are ready.</p>
+<pre><code>fd_set readfds, writefds;
+FD_ZERO(&amp;readfds);
+FD_ZERO(&amp;writefds);
+for (int i=0; i &lt; read_fd_count; i++)
+  FD_SET(my_read_fds[i], &amp;readfds);
+for (int i=0; i &lt; write_fd_count; i++)
+  FD_SET(my_write_fds[i], &amp;writefds);
+
+struct timeval timeout;
+timeout.tv_sec = 3;
+timeout.tv_usec = 0;
+
+int num_ready = select(FD_SETSIZE, &amp;readfds, &amp;writefds, NULL, &amp;timeout);
+
+if (num_ready &lt; 0) {
+  perror("error in select()");
+} else if (num_ready == 0) {
+  printf("timeout\n");
+} else {
+  for (int i=0; i &lt; read_fd_count; i++)
+    if (FD_ISSET(my_read_fds[i], &amp;readfds))
+      printf("fd %d is ready for reading\n", my_read_fds[i]);
+  for (int i=0; i &lt; write_fd_count; i++)
+    if (FD_ISSET(my_write_fds[i], &amp;writefds))
+      printf("fd %d is ready for writing\n", my_write_fds[i]);
+}
+</code></pre>
+<p><a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/select.html">For more information on select()</a></p>
+<h4 id="epoll">epoll</h4>
+<p><em>epoll</em> is not part of POSIX, but it is supported by Linux.  It is a more efficient way to wait for many
+file descriptors.  It will tell you exactly which descriptors are ready. It even gives you a way to store
+a small amount of data with each descriptor, like an array index or a pointer, making it easier to access
+your data associated with that descriptor.</p>
+<p>To use epoll, first you must create a special file descriptor with <a href="http://linux.die.net/man/2/epoll_create">epoll_create()</a>.  You won't read or write to this file
+descriptor; you'll just pass it to the other epoll_xxx functions and call
+close() on it at the end.</p>
+<pre><code>epfd = epoll_create(1);
+</code></pre>
+<p>For each file descriptor you want to monitor with epoll, you'll need to add it 
+to the epoll data structures 
+using <a href="http://linux.die.net/man/2/epoll_ctl">epoll_ctl()</a> with the <code>EPOLL_CTL_ADD</code> option.  You can add any
+number of file descriptors to it.</p>
+<pre><code>struct epoll_event event;
+event.events = EPOLLOUT;  // EPOLLIN==read, EPOLLOUT==write
+event.data.ptr = mypointer;
+epoll_ctl(epfd, EPOLL_CTL_ADD, mypointer-&gt;fd, &amp;event)
+</code></pre>
+<p>To wait for some of the file descriptors to become ready, use <a href="http://linux.die.net/man/2/epoll_wait">epoll_wait()</a>.
+The epoll_event struct that it fills out will contain the data you provided in event.data when you
+added this file descriptor. This makes it easy for you to look up your own data associated
+with this file descriptor.</p>
+<pre><code>int num_ready = epoll_wait(epfd, &amp;event, 1, timeout_milliseconds);
+if (num_ready &gt; 0) {
+  MyData *mypointer = (MyData*) event.data.ptr;
+  printf("ready to write on %d\n", mypointer-&gt;fd);
+}
+</code></pre>
+<p>Say you were waiting to write data to a file descriptor, but now you want to wait to read data from it.
+Just use <code>epoll_ctl()</code> with the <code>EPOLL_CTL_MOD</code> option to change the type of operation you're monitoring.</p>
+<pre><code>event.events = EPOLLOUT;
+event.data.ptr = mypointer;
+epoll_ctl(epfd, EPOLL_CTL_MOD, mypointer-&gt;fd, &amp;event);
+</code></pre>
+<p>To unsubscribe one file descriptor from epoll while leaving others active, use <code>epoll_ctl()</code> with the <code>EPOLL_CTL_DEL</code> option.</p>
+<pre><code>epoll_ctl(epfd, EPOLL_CTL_DEL, mypointer-&gt;fd, NULL);
+</code></pre>
+<p>To shut down an epoll instance, close its file descriptor.</p>
+<pre><code>close(epfd);
+</code></pre>
+<p>In addition to nonblocking <code>read()</code> and <code>write()</code>, any calls to <code>connect()</code> on a nonblocking socket will also be
+nonblocking. To wait for the connection to complete, use <code>select()</code> or epoll to wait for the socket to be writable.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../OSI-Model/" class="btn btn-neutral float-right" title="OSI Model">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Networking:-Review-Questions/" class="btn btn-neutral" title="Networking: Review Questions"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../Networking:-Review-Questions/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../OSI-Model/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>
