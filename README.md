@@ -26,3 +26,9 @@ Once you've cloned it:
 cd SystemProgrammingWiki
 mkdocs serve
 ```  
+
+To deploy to GitHub pages:
+
+```shell
+mkdocs gh-deploy --clean
+```
