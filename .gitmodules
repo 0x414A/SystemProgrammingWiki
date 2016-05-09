@@ -1,0 +1,3 @@
+[submodule "docs/SystemProgramming"]
+	path = docs/SystemProgramming
+	url = https://github.com/angrave/SystemProgramming.wiki.git
