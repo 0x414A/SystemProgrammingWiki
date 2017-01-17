@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>C Programming, Part 4: Strings and Structs - UIUC CS241 SystemProgramming Wiki</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "C Programming, Part 4: Strings and Structs";
+    var mkdocs_page_input_path = "SystemProgramming/C-Programming,-Part-4:-Strings-and-Structs.md";
+    var mkdocs_page_url = "/SystemProgramming/C-Programming,-Part-4:-Strings-and-Structs/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> UIUC CS241 SystemProgramming Wiki</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../..">Home</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>SystemProgramming</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../#Example Markdown/">#Example Markdown</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../#Informal-Glossary/">#Informal Glossary</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../#Piazza: When And How to Ask For Help/">#Piazza: When And How to Ask For Help</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-1:-Introduction/">C Programming, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-2:-Text-Input-And-Output/">C Programming, Part 2: Text Input And Output</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-3:-Common-Gotchas/">C Programming, Part 3: Common Gotchas</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 current">
+        <a class="current" href="./">C Programming, Part 4: Strings and Structs</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#strings-structs-and-gotchas">Strings, Structs, and Gotcha's</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#so-whats-a-string">So what's a string?</a></li>
+                
+                    <li><a class="toctree-l4" href="#two-places-for-strings">Two places for strings</a></li>
+                
+                    <li><a class="toctree-l4" href="#memory-mismanagement">Memory Mismanagement</a></li>
+                
+                    <li><a class="toctree-l4" href="#remember-the-null-byte">Remember the NULL byte!</a></li>
+                
+                    <li><a class="toctree-l4" href="#where-can-i-find-an-in-depth-and-assignment-comprehensive-explanation-of-all-of-these-functions">Where can I find an In-Depth and Assignment-Comprehensive explanation of all of these functions?</a></li>
+                
+                    <li><a class="toctree-l4" href="#string-informationcomparison-strlen-strcmp">String Information/Comparison: strlen strcmp</a></li>
+                
+                    <li><a class="toctree-l4" href="#string-alteration-strcpy-strcat-strdup">String Alteration: strcpy strcat strdup</a></li>
+                
+                    <li><a class="toctree-l4" href="#string-search-strchr-strstr">String Search: strchr strstr</a></li>
+                
+                    <li><a class="toctree-l4" href="#string-tokenize-strtok">String Tokenize: strtok</a></li>
+                
+                    <li><a class="toctree-l4" href="#memory-movement-memcpy-and-memmove">Memory Movement: memcpy and memmove</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#so-whats-a-struct">So what's a struct?</a></li>
+                
+                    <li><a class="toctree-l4" href="#what-do-these-offsets-mean">What do these offsets mean?</a></li>
+                
+                    <li><a class="toctree-l4" href="#but-not-all-structs-are-perfect">But not all structs are perfect</a></li>
+                
+            
+            </ul>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-5:-Debugging/">C Programming, Part 5: Debugging</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Review-Questions/">C Programming, Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming:-Review-Questions/">C Programming: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-1:-Resource-Allocation-Graph/">Deadlock, Part 1: Resource Allocation Graph</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-2:-Deadlock-Conditions/">Deadlock, Part 2: Deadlock Conditions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-3:-Dining-Philosophers/">Deadlock, Part 3: Dining Philosophers</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock-Review-Questions/">Deadlock Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Exam-Topics/">Exam Topics</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-1:-Introduction/">File System, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-2:-Files-are-inodes-(everything-else-is-just-data...)/">File System, Part 2: Files are inodes (everything else is just data...)</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-3:-Permissions/">File System, Part 3: Permissions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-4:-Working-with-directories/">File System, Part 4: Working with directories</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-5:-Virtual-file-systems/">File System, Part 5: Virtual file systems</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-6:-Memory-mapped-files-and-Shared-memory/">File System, Part 6: Memory mapped files and Shared memory</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-7:-Scalable-and-Reliable-Filesystems/">File System, Part 7: Scalable and Reliable Filesystems</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-System,-Part-9:-Disk-blocks-example/">File System, Part 9: Disk blocks example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-Systems-Review-Questions/">File Systems Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Files,-Part-1:-Working-with-files/">Files, Part 1: Working with files</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Filesystem:-Review-Questions/">Filesystem: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Forking,-Part-1:-Introduction/">Forking, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Forking,-Part-2:-Fork,-Exec,-Wait/">Forking, Part 2: Fork, Exec, Wait</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../HW0/">HW0</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Home/">Home</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../IPC-Review-Questions/">IPC Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-1:-Heap-Memory-Introduction/">Memory, Part 1: Heap Memory Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-2:-Implementing-a-Memory-Allocator/">Memory, Part 2: Implementing a Memory Allocator</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory,-Part-3:-Smashing-the-Stack-Example/">Memory, Part 3: Smashing the Stack Example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory-Review-Questions/">Memory Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Memory:-Review-Questions/">Memory: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Multi-threaded-Programming:-Review-Questions/">Multi threaded Programming: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-1:-Introduction/">Networking, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-2:-Using-getaddrinfo/">Networking, Part 2: Using getaddrinfo</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-3:-Building-a-simple-TCP-Client/">Networking, Part 3: Building a simple TCP Client</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-4:-Building-a-simple-TCP-Server/">Networking, Part 4: Building a simple TCP Server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-5:-Shutting-down-ports,-reusing-ports-and-other-tricks/">Networking, Part 5: Shutting down ports, reusing ports and other tricks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-6:-Building-a-web-server/">Networking, Part 6: Building a web server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-6:-Creating-a-UDP-server/">Networking, Part 6: Creating a UDP server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-7:-Nonblocking-I-O,-select(),-and-epoll/">Networking, Part 7: Nonblocking I O, select(), and epoll</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking-Review-Questions/">Networking Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking:-Review-Questions/">Networking: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../OSI-Model/">OSI Model</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../POSIX,-Part-1:-Error-handling/">POSIX, Part 1: Error handling</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipe:-Review-Questions/">Pipe: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipes,-Part-1:-Introduction-to-pipes/">Pipes, Part 1: Introduction to pipes</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pipes,-Part-2:-Pipe-programming-secrets/">Pipes, Part 2: Pipe programming secrets</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Process-Control,-Part-1:-Wait-macros,-using-signals/">Process Control, Part 1: Wait macros, using signals</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Processes,-Part-1:-Introduction/">Processes, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Processes-Review-Questions/">Processes Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Programming-Tricks,-Part-1/">Programming Tricks, Part 1</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthread-Review-Questions/">Pthread Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-1:-Introduction/">Pthreads, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-2:-Usage-in-Practice/">Pthreads, Part 2: Usage in Practice</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-3:-Parallel-Problems-(Bonus)/">Pthreads, Part 3: Parallel Problems (Bonus)</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../RPC,-Part-1:-Introduction-to-Remote-Procedure-Calls/">RPC, Part 1: Introduction to Remote Procedure Calls</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Sample-program-using-pthread-barriers/">Sample program using pthread barriers</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Scheduling,-Part-1:-Scheduling-Processes/">Scheduling, Part 1: Scheduling Processes</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Scheduling,-Part-2:-Scheduling-Processes:-Algorithms/">Scheduling, Part 2: Scheduling Processes: Algorithms</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-2:-Pending-Signals-and-Signal-Masks/">Signals, Part 2: Pending Signals and Signal Masks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-3:-Raising-signals/">Signals, Part 3: Raising signals</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals,-Part-4:-Sigaction/">Signals, Part 4: Sigaction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals-Review-Questions/">Signals Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals:-Review-Questions/">Signals: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-1:-Mutex-Locks/">Synchronization, Part 1: Mutex Locks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-2:-Counting-Semaphores/">Synchronization, Part 2: Counting Semaphores</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-3:-Working-with-Mutexes-And-Semaphores/">Synchronization, Part 3: Working with Mutexes And Semaphores</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-4:-The-Critical-Section-Problem/">Synchronization, Part 4: The Critical Section Problem</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-5:-Condition-Variables/">Synchronization, Part 5: Condition Variables</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-6:-Implementing-a-barrier/">Synchronization, Part 6: Implementing a barrier</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-7:-The-Reader-Writer-Problem/">Synchronization, Part 7: The Reader Writer Problem</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization,-Part-8:-Ring-Buffer-Example/">Synchronization, Part 8: Ring Buffer Example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Synchronization-Review-Questions/">Synchronization Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../System-Programming-Jokes/">System Programming Jokes</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../System-Programming-Short-Stories-and-Songs/">System Programming Short Stories and Songs</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Test-page/">Test page</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Virtual-Memory,-Part-1:-Introduction-to-Virtual-Memory/">Virtual Memory, Part 1: Introduction to Virtual Memory</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../_Footer/"> Footer</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">UIUC CS241 SystemProgramming Wiki</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>SystemProgramming &raquo;</li>
+        
+      
+    
+    <li>C Programming, Part 4: Strings and Structs</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="strings-structs-and-gotchas">Strings, Structs, and Gotcha's</h1>
+<h1 id="so-whats-a-string">So what's a string?</h1>
+<p><img alt="Crash String" src="https://koenig-media.raywenderlich.com/uploads/2012/02/C-string.png" /></p>
+<p>In C we have <a href="https://en.wikipedia.org/wiki/Null-terminated_string">Null Terminated</a> strings rather than <a href="https://en.wikipedia.org/wiki/String_(computer_science)#Length-prefixed">Length Prefixed</a> for historical reasons. What that means for your average everyday programming is that you need to remember the null character! A string in C is defined as a bunch of bytes until you reach '\0' or the Null Byte.</p>
+<h2 id="two-places-for-strings">Two places for strings</h2>
+<p>Whenever you define a constant string (ie one in the form <code>char* str = "constant"</code>) That string is stored in the <em>data</em> or <em>code</em> segment that is <strong>read-only</strong> meaning that any attempt to modify the string will cause a segfault.</p>
+<p>If one however <code>malloc</code>'s space, one can change that string to be whatever they want.</p>
+<h2 id="memory-mismanagement">Memory Mismanagement</h2>
+<p>One common gotcha is when you write the following</p>
+<pre><code class="C">char* hello_string = malloc(14);
+                       ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___
+// hello_string ----&gt; | g | a | r | b | a | g | e | g | a | r | b | a | g | e |
+                       ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾
+hello_string = &quot;Hello Bhuvan!&quot;;
+// (constant string in the text segment)
+// hello_string ----&gt; [ &quot;H&quot; , &quot;e&quot; , &quot;l&quot; , &quot;l&quot; , &quot;o&quot; , &quot; &quot; , &quot;B&quot; , &quot;h&quot; , &quot;u&quot; , &quot;v&quot; , &quot;a&quot; , &quot;n&quot; , &quot;!&quot; , &quot;\0&quot; ]
+                       ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___
+// memory_leak -----&gt; | g | a | r | b | a | g | e | g | a | r | b | a | g | e |
+                       ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾
+hello_string[9] = 't'; //segfault!!
+</code></pre>
+
+<p>What did we do? We allocated space for 14 bytes, reassigned the pointer and successfully segfaulted! Remember to keep track of what your pointers are doing. What you probably wanted to do was use a <code>string.h</code> function <code>strcpy</code>.</p>
+<pre><code class="C">strcpy(hello_string, &quot;Hello Bhuvan!&quot;);
+</code></pre>
+
+<h2 id="remember-the-null-byte">Remember the NULL byte!</h2>
+<p>Forgetting to NULL terminate a string is a big affect on the strings! Bounds checking is important. The heartbleed bug mentioned earlier in the wikibook is partially because of this.</p>
+<h2 id="where-can-i-find-an-in-depth-and-assignment-comprehensive-explanation-of-all-of-these-functions">Where can I find an In-Depth and Assignment-Comprehensive explanation of all of these functions?</h2>
+<p><a href="https://linux.die.net/man/3/string">Right Here!</a></p>
+<h2 id="string-informationcomparison-strlen-strcmp">String Information/Comparison: <code>strlen</code> <code>strcmp</code></h2>
+<p><code>int strlen(const char *s)</code> returns the length of the string not including the null byte</p>
+<p><code>int strcmp(const char *s1, const char *s2)</code> returns an integer determining the lexicographic order of the strings. If s1 where to come before s2 in a dictionary, then a -1 is returned. If the two strings are equal, then 0. Else, -1. </p>
+<p>With most of these functions, they expect the strings to be readable and not NULL but there is undefined behavior when you pass them NULL.</p>
+<h2 id="string-alteration-strcpy-strcat-strdup">String Alteration: <code>strcpy</code> <code>strcat</code> <code>strdup</code></h2>
+<p><code>char *strcpy(char *dest, const char *src)</code> Copies the string at <code>src</code> to <code>dest</code>. <strong>assumes dest has enough space for src</strong></p>
+<p><code>char *strcat(char *dest, const char *src)</code> Concatenates the string at <code>src</code> to the end of destination. <strong>This function assumes that there is enough space for <code>src</code> at the end of destination including the NULL byte</strong></p>
+<p><code>char *strdup(const char *dest)</code> Returns a <code>malloc</code>'ed copy of the string.</p>
+<h2 id="string-search-strchr-strstr">String Search: <code>strchr</code> <code>strstr</code></h2>
+<p><code>char *strchr(const char *haystack, int needle)</code> Returns a pointer to the first occurrence of <code>needle</code> in <code>haystack</code>. If none found, <code>NULL</code> is returned.</p>
+<p><code>char *strchr(const char *haystack, const char *needle)</code> Same as above but this time a string!</p>
+<h2 id="string-tokenize-strtok">String Tokenize: <code>strtok</code></h2>
+<p>A dangerous but useful function strtok takes a string and tokenizes it. Meaning that it will transform the strings into separate strings. This function has a lot of specs so please read the man pages a contrived examples is below.</p>
+<pre><code class="C">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int main(){
+    char* upped = strdup(&quot;strtok,is,tricky,!!&quot;);
+    char* start = strtok(upped, &quot;,&quot;);
+    do{
+        printf(&quot;%s\n&quot;, start);
+    }while((start = strtok(NULL, &quot;,&quot;)));
+    return 0;
+}
+</code></pre>
+
+<p><strong>Output</strong></p>
+<pre><code class="C">strtok
+is
+tricky
+!!
+</code></pre>
+
+<p>What happens when I change <code>upped</code> like this?</p>
+<pre><code class="C">char* upped = strdup(&quot;strtok,is,tricky,,,!!&quot;);
+</code></pre>
+
+<h2 id="memory-movement-memcpy-and-memmove">Memory Movement: <code>memcpy</code> and <code>memmove</code></h2>
+<p>Why are <code>memcpy</code> and <code>memmove</code> both in <code>&lt;string.h&gt;</code>? Because strings are essentially raw memory with a null byte at the end of them!</p>
+<p><code>void *memcpy(void *dest, const void *src, size_t n)</code> moves <code>n</code> bytes starting at <code>str</code> to <code>dest</code>. <strong>Be careful</strong> There is undefined behavior when the memory regions overlap. This is one of the classic works on my machine examples because many times valgrind won't be able to pick it up because it will look like it works on your machine. When the autograder hits, fail. Consider the safer version which is.</p>
+<p><code>void *memmove(void *dest, const void *src, size_t n)</code> does the same thing as above, but if the memory regions overlap then it is guaranteed that all the bytes will get copied over correctly.</p>
+<h1 id="so-whats-a-struct">So what's a <code>struct</code>?</h1>
+<p><img alt="Struct Example" src="http://www.it.uc3m.es/abel/as/DSP/M2/PointerStructDeclaration.png" /></p>
+<p>In low level terms, a struct is just a piece of contiguous memory, nothing more. Just like an array, a struct has enough space to keep all of its members. But unlike an array, it can store different types. Consider the contact struct declared above</p>
+<pre><code class="C">struct contact {
+    char firstname[20];
+    char lastname[20];
+    unsigned int phone;
+};
+
+struct contact bhuvan;
+</code></pre>
+
+<p><strong>Brief aside</strong></p>
+<pre><code class="C">/* a lot of times we will do the following typdef
+ so we can just write contact contact1 */
+
+typedef struct contact contact;
+contact bhuvan;
+
+/* You can also declare the struct like this to get
+ it done in one statement */
+typedef struct optional_name {
+    ...
+} contact;
+</code></pre>
+
+<p>If you compile the code without any optimizations and reordering, you can expect the addresses of each of the variables to look like this.</p>
+<pre><code class="C">&amp;bhuvan           // 0x100
+&amp;bhuvan.firstname // 0x100 = 0x100+0x00
+&amp;bhuvan.lastname  // 0x114 = 0x100+0x14
+&amp;bhuvan.phone     // 0x128 = 0x100+0x28
+</code></pre>
+
+<p>Because all your compiler does is say 'hey reserve this much space, and I will go and calculate the offsets of whatever variables you want to write to'.</p>
+<h2 id="what-do-these-offsets-mean">What do these offsets mean?</h2>
+<p>The offsets are where the variable starts at. The phone variables starts at the <code>0x128</code>th bytes and continues for sizeof(int) bytes, but not always. <strong>Offsets don't determine where the variable ends though</strong>. Consider the following hack that you see in a lot of kernel code.</p>
+<pre><code class="C">
+typedef struct {
+    int length;
+    char c_str[0];
+} string;
+
+const char* to_convert = &quot;bhuvan&quot;;
+int length = strlen(to_convert);
+
+// Let's convert to a c string
+string* bhuvan_name;
+bhuvan_name = malloc(sizeof(string) + length+1);
+/*
+Currently, our memory looks like this with junk in those black spaces
+                ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___
+ bhuvan_name = |   |   |   |   |   |   |   |   |   |   |   |
+                ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾
+*/
+
+
+bhuvan_name-&gt;length = length;
+/*
+This writes the following values to the first four bytes
+The rest is still garbage
+                ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___
+ bhuvan_name = | 0 | 0 | 0 | 6 |   |   |   |   |   |   |   |
+                ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾
+*/
+
+
+strcpy(bhuvan_name-&gt;c_str, to_convert);
+/*
+Now our string is filled in correctly at the end of the struct
+
+                ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ____
+ bhuvan_name = | 0 | 0 | 0 | 6 | b | h | u | v | a | n | \0 |
+                ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾‾
+*/
+
+strcmp(bhuvan_name-&gt;c_str, &quot;bhuvan&quot;) == 0 //The strings are equal!
+</code></pre>
+
+<h2 id="but-not-all-structs-are-perfect">But not all structs are perfect</h2>
+<p>Structs may require something called <a href="http://www.catb.org/esr/structure-packing/">padding</a> (tutorial). **We do not expect you to pack structs in this course, just know that it is there This is because in the early days (and even now) when you have to an address from memory you have to do it in 32bit or 64bit blocks. This also meant that you could only request addresses that were multiples of that. Meaning that</p>
+<pre><code class="C">struct picture{
+    int height;
+    pixel** data;
+    int width;
+    char* enconding;
+}
+// You think picture looks like this
+           height      data         width     encoding
+           ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___
+picture = |       |               |       |               |
+           ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾
+</code></pre>
+
+<p>Would conceptually may look like this</p>
+<pre><code class="C">struct picture{
+    int height;
+    char slop1[4];
+    pixel** data;
+    int width;
+    char slop2[4];
+    char* enconding;
+}
+           height   slop1       data        width   slop2  encoding
+           ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___
+picture = |       |       |               |       |       |               |
+           ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾
+</code></pre>
+
+<p>(This is on a 64bit system)
+This is not always the case because sometimes your processor supports unaligned accesses. What does this mean? Well there are two options you can set an attribute</p>
+<pre><code class="C">struct __attribute__((packed, aligned(4))) picture{
+    int height;
+    pixel** data;
+    int width;
+    char* enconding;
+}
+// Will look like this
+           height       data        width     encoding
+           ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___
+picture = |       |               |       |               |
+           ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾
+</code></pre>
+
+<p>But now every time I want to access <code>data</code> or <code>encoding</code>, I have to do two memory accesses. The other thing you can do is reorder the struct, although this is not always possible</p>
+<pre><code class="C">struct picture{
+    int height;
+    int width;
+    pixel** data;
+    char* enconding;
+}
+// You think picture looks like this
+           height   width        data         encoding
+           ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___
+picture = |       |       |               |               |
+           ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾
+</code></pre>
+
+<div align="center">
+<a href="https://github.com/angrave/SystemProgramming/wiki/C-Programming,-Part-3:-Common-Gotchas">
+Back: C Programming, Part 3: Common Gotchas
+</a> |
+<a href="https://github.com/angrave/SystemProgramming/wiki/C-Programming%2C-Part-5%3A-Debugging">
+Next: C Programming, Part 5: Debugging
+</a>
+</div>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../C-Programming,-Part-5:-Debugging/" class="btn btn-neutral float-right" title="C Programming, Part 5: Debugging">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../C-Programming,-Part-3:-Common-Gotchas/" class="btn btn-neutral" title="C Programming, Part 3: Common Gotchas"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../C-Programming,-Part-3:-Common-Gotchas/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../C-Programming,-Part-5:-Debugging/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../../js/theme.js"></script>
+
+</body>
+</html>

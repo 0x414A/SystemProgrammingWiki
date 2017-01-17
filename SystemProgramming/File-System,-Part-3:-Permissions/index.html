@@ -7,19 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  
-  <title>File System, Part 3: Permissions - UIUC CS241 SystemProgramming Wiki</title>
-  
-
   <link rel="shortcut icon" href="../../img/favicon.ico">
-
-  
+  <title>File System, Part 3: Permissions - UIUC CS241 SystemProgramming Wiki</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="../../css/highlight.css">
-
   
   <script>
     // Current page data
@@ -30,9 +24,7 @@
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
   <script src="../../js/modernizr-2.8.3.min.js"></script>
-  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
-  <script src="../../js/theme.js"></script> 
-
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
   
 </head>
 
@@ -52,7 +44,7 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        <ul class="current">
+	<ul class="current">
           
             <li>
     <li class="toctree-l1 ">
@@ -89,13 +81,6 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../C Programming, Part 4: Debugging/">C Programming, Part 4: Debugging</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
         <a class="" href="../C-Programming,-Part-1:-Introduction/">C Programming, Part 1: Introduction</a>
         
     </li>
@@ -117,6 +102,27 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-4:-Strings-and-Structs/">C Programming, Part 4: Strings and Structs</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-5:-Debugging/">C Programming, Part 5: Debugging</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Review-Questions/">C Programming, Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../C-Programming:-Review-Questions/">C Programming: Review Questions</a>
         
     </li>
@@ -132,6 +138,20 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Deadlock,-Part-2:-Deadlock-Conditions/">Deadlock, Part 2: Deadlock Conditions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-3:-Dining-Philosophers/">Deadlock, Part 3: Dining Philosophers</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock-Review-Questions/">Deadlock Review Questions</a>
         
     </li>
 
@@ -163,49 +183,27 @@
         
             <ul>
             
-                <li class="toctree-l3"><a href="#does-a-directory-have-an-inode-too">Does a directory have an inode too?</a></li>
+                <li class="toctree-l3"><a href="#remind-me-what-do-permissions-mean-again">Remind Me What do Permissions mean again?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#how-can-i-have-the-same-file-appear-in-two-different-places-in-my-file-system">How can I have the same file appear in two different places in my file system?</a></li>
+                    <li><a class="toctree-l4" href="#how-do-i-change-the-permissions-on-a-file">How do I change the permissions on a file?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#what-happens-when-i-rm-remove-a-file">What happens when I rm (remove) a file?</a></li>
+                    <li><a class="toctree-l4" href="#how-do-i-read-the-permission-string-from-ls">How do I read the permission string from ls?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#case-study-back-up-software-that-minimizes-file-duplication">Case study: Back up software that minimizes file duplication</a></li>
+                    <li><a class="toctree-l4" href="#what-is-sudo">What is sudo?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#can-i-create-hard-links-to-directories-as-well-as-regular-files">Can I create hard links to directories as well as regular files?</a></li>
+                    <li><a class="toctree-l4" href="#how-do-i-change-ownership-of-a-file">How do I change ownership of a file?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#how-do-i-change-the-permissions-on-a-file">How do I change the permissions on a file?</a></li>
+                    <li><a class="toctree-l4" href="#how-do-i-set-permissions-from-code">How do I set permissions from code?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#how-do-i-read-the-permission-string-from-ls">How do I read the permission string from ls?</a></li>
+                    <li><a class="toctree-l4" href="#why-are-some-files-setuid-what-does-this-mean">Why are some files 'setuid'? What does this mean?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#what-is-sudo">What is sudo?</a></li>
+                    <li><a class="toctree-l4" href="#why-are-they-useful">Why are they useful?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#how-do-i-change-ownership-of-a-file">How do I change ownership of a file?</a></li>
+                    <li><a class="toctree-l4" href="#what-permissions-does-sudo-run-as">What permissions does sudo run as ?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#how-do-i-set-permissions-from-code">How do I set permissions from code?</a></li>
+                    <li><a class="toctree-l4" href="#whats-the-difference-between-getuid-and-geteuid">What's the difference between getuid() and geteuid()?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#why-are-some-files-setuid-what-does-this-mean">Why are some files 'setuid'? What does this mean?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#why-are-they-useful">Why are they useful?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#what-permissions-does-sudo-run-as">What permissions does sudo run as ?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#whats-the-difference-between-getuid-and-geteuid">What's the difference between getuid() and geteuid()?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#how-do-i-ensure-only-privileged-users-can-run-my-code">How do I ensure only privileged users can run my code?</a></li>
+                    <li><a class="toctree-l4" href="#how-do-i-ensure-only-privileged-users-can-run-my-code">How do I ensure only privileged users can run my code?</a></li>
                 
             
             </ul>
@@ -243,14 +241,21 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../File-System,-Part-8:-Disk-blocks-example/">File System, Part 8: Disk blocks example</a>
+        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
+        <a class="" href="../File-System,-Part-9:-Disk-blocks-example/">File System, Part 9: Disk blocks example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-Systems-Review-Questions/">File Systems Review Questions</a>
         
     </li>
 
@@ -299,6 +304,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../IPC-Review-Questions/">IPC Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Memory,-Part-1:-Heap-Memory-Introduction/">Memory, Part 1: Heap Memory Introduction</a>
         
     </li>
@@ -320,6 +332,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Memory-Review-Questions/">Memory Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Memory:-Review-Questions/">Memory: Review Questions</a>
         
     </li>
@@ -328,20 +347,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Multi-threaded-Programming:-Review-Questions/">Multi threaded Programming: Review Questions</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Networking, Part 3: Building a simple TCP Client/">Networking, Part 3: Building a simple TCP Client</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Networking, Part 6: Creating a UDP server/">Networking, Part 6: Creating a UDP server</a>
         
     </li>
 
@@ -362,6 +367,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-3:-Building-a-simple-TCP-Client/">Networking, Part 3: Building a simple TCP Client</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Networking,-Part-4:-Building-a-simple-TCP-Server/">Networking, Part 4: Building a simple TCP Server</a>
         
     </li>
@@ -369,7 +381,35 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Networking,-Part-5:-Reusing-ports/">Networking, Part 5: Reusing ports</a>
+        <a class="" href="../Networking,-Part-5:-Shutting-down-ports,-reusing-ports-and-other-tricks/">Networking, Part 5: Shutting down ports, reusing ports and other tricks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-6:-Building-a-web-server/">Networking, Part 6: Building a web server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-6:-Creating-a-UDP-server/">Networking, Part 6: Creating a UDP server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-7:-Nonblocking-I-O,-select(),-and-epoll/">Networking, Part 7: Nonblocking I O, select(), and epoll</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking-Review-Questions/">Networking Review Questions</a>
         
     </li>
 
@@ -377,13 +417,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Networking:-Review-Questions/">Networking: Review Questions</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Nonblocking-I-O,-select(),-and-epoll/">Nonblocking I O, select(), and epoll</a>
         
     </li>
 
@@ -432,7 +465,28 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Processes,-Part-1:-Introduction/">Processes, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Processes-Review-Questions/">Processes Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Programming-Tricks,-Part-1/">Programming Tricks, Part 1</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthread-Review-Questions/">Pthread Review Questions</a>
         
     </li>
 
@@ -447,6 +501,13 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Pthreads,-Part-2:-Usage-in-Practice/">Pthreads, Part 2: Usage in Practice</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-3:-Parallel-Problems-(Bonus)/">Pthreads, Part 3: Parallel Problems (Bonus)</a>
         
     </li>
 
@@ -474,6 +535,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Scheduling,-Part-2:-Scheduling-Processes:-Algorithms/">Scheduling, Part 2: Scheduling Processes: Algorithms</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Signals,-Part-2:-Pending-Signals-and-Signal-Masks/">Signals, Part 2: Pending Signals and Signal Masks</a>
         
     </li>
@@ -489,6 +557,13 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Signals,-Part-4:-Sigaction/">Signals, Part 4: Sigaction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals-Review-Questions/">Signals Review Questions</a>
         
     </li>
 
@@ -558,14 +633,21 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Synchronization,-Part-9:-The-Reader-Writer-Problem-(part-2)/">Synchronization, Part 9: The Reader Writer Problem (part 2)</a>
+        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
+        <a class="" href="../Synchronization-Review-Questions/">Synchronization Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../System-Programming-Jokes/">System Programming Jokes</a>
         
     </li>
 
@@ -637,44 +719,51 @@
           <div role="main">
             <div class="section">
               
-                <h2 id="does-a-directory-have-an-inode-too">Does a directory have an inode too?</h2>
-<p>Yes! Though a better way to think about this, is that a directory (like a file) <em>is</em> an inode (with some data - the directory name and inode contents). It just happens to be a special kind of inode.</p>
-<p>From <a href="http://en.wikipedia.org/wiki/Inode">Wikipedia</a>:</p>
-<blockquote>
-<p>Unix directories are lists of association structures, each of which contains one filename and one inode number.</p>
-</blockquote>
-<p>Remember, inodes don't contain filenames--only other file metadata.</p>
-<h2 id="how-can-i-have-the-same-file-appear-in-two-different-places-in-my-file-system">How can I have the same file appear in two different places in my file system?</h2>
-<p>First remember that a file name != the file. Think of the inode as 'the file' and a directory as just a list of names with each name mapped to an inode number. Some of those inodes may be regular file inodes, others may be directory inodes.</p>
-<p>If we already have a file on a file system we can create another link to the same inode using the 'ln' command</p>
-<pre><code>$ ln file1.txt blip.txt
-</code></pre>
-
-<p>However blip.txt <em>is</em> the same file; if I edit blip I'm editing the same file as 'file1.txt!'
-We can prove this by showing that both file names refer to the same inode:</p>
-<pre><code>$ ls -i file1.txt blip.txt
-134235 file1.txt
-134235 blip.txt
-</code></pre>
-
-<p>These kinds of links (aka directory entries) are called 'hard links'</p>
-<p>The equivalent C call is <code>link</code></p>
-<pre><code class="C">link(const char *path1, const char *path2);
-
-link(&quot;file1.txt&quot;, &quot;blip.txt&quot;);
-</code></pre>
-
-<p>For simplicity the above examples made hard links inside the same directory however hard links can be created anywhere inside the same filesystem.</p>
-<h2 id="what-happens-when-i-rm-remove-a-file">What happens when I <code>rm</code> (remove) a file?</h2>
-<p>When you remove a file (using <code>rm</code> or <code>unlink</code>) you are removing an inode reference from a directory.
-However the inode may still be referenced from other directories. In order to determine if the contents of the file are still required, each inode keeps a reference count that is updated whenever a new link is created or destroyed.</p>
-<h2 id="case-study-back-up-software-that-minimizes-file-duplication">Case study: Back up software that minimizes file duplication</h2>
-<p>An example use of hard-links is to efficiently create multiple archives of a file system at different points in time. Once the archive area has a copy of a particular file, then future archives can re-use these archive files rather than creating a duplicate file. Apple's "Time Machine" software does this.</p>
-<h2 id="can-i-create-hard-links-to-directories-as-well-as-regular-files">Can I create hard links to directories as well as regular files?</h2>
-<p>No. Well yes. Not really... Actually you didn't really want to do this, did you?
-The POSIX standard says no you may not! The <code>ln</code> command will only allow root to do this and only if you provide the <code>-d</code> option. However even root may not be able to perform this because most filesystems prevent it! </p>
-<p>Why?
-The integrity of the file system assumes the directory structure (excluding softlinks which we will talk about later) is a non-cyclic tree that is reachable from the root directory. It becomes expensive to enforce or verify this constraint if directory linking is allowed. Breaking these assumptions can cause file integrity tools to not be able to repair the file system. Recursive searches potentially never terminate and directories can have more than one parent but ".." can only refer to a single parent. All in all, a bad idea.</p>
+                <h1 id="remind-me-what-do-permissions-mean-again">Remind Me What do Permissions mean again?</h1>
+<p>Every file and directory has a set of 9 permission bits and a type field
+<em> r, permission to read the file
+</em> w, permission to write to the file
+* x, permission to execute the file</p>
+<p>chmod 777 <file></p>
+<table>
+<thead>
+<tr>
+<th>chmod</th>
+<th>7</th>
+<th>7</th>
+<th>7</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01</td>
+<td>111</td>
+<td>111</td>
+<td>111</td>
+</tr>
+<tr>
+<td>d</td>
+<td>rwx</td>
+<td>rwx</td>
+<td>rwx</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>Type of the file<br /></li>
+<li>Owner Permissions<br /></li>
+<li>Group Permissions<br /></li>
+<li>Everybody else's permission<br /></li>
+</ol>
+<p><code>mknod</code> changes the first field, the type of the file.
+<code>chmod</code> takes a number and a file and changes the permission bits.</p>
+<p>The file has an owner. If your process has the same user id as the owner (or root) then the permissions in the first triad apply to you. If you are in the same group as the file (all files are also owned by a group) then the next set of permission bits applies to you. If none of the above apply, the last triad applies to you.</p>
 <h2 id="how-do-i-change-the-permissions-on-a-file">How do I change the permissions on a file?</h2>
 <p>Use <code>chmod</code>  (short for "change the file mode bits")</p>
 <p>There is a system call, <code>int chmod(const char *path, mode_t mode);</code> but we will concentrate on the shell command. There's two common ways to use <code>chmod</code> ; with an octal value or with a symbolic string:</p>
@@ -763,10 +852,10 @@ $ sudo adduser fred
       </div>
 
     </section>
-
+    
   </div>
 
-<div class="rst-versions" role="note" style="cursor: pointer">
+  <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
@@ -777,6 +866,7 @@ $ sudo adduser fred
       
     </span>
 </div>
+    <script src="../../js/theme.js"></script>
 
 </body>
 </html>

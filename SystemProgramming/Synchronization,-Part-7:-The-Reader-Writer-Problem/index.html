@@ -7,19 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  
-  <title>Synchronization, Part 7: The Reader Writer Problem - UIUC CS241 SystemProgramming Wiki</title>
-  
-
   <link rel="shortcut icon" href="../../img/favicon.ico">
-
-  
+  <title>Synchronization, Part 7: The Reader Writer Problem - UIUC CS241 SystemProgramming Wiki</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="../../css/highlight.css">
-
   
   <script>
     // Current page data
@@ -30,9 +24,7 @@
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
   <script src="../../js/modernizr-2.8.3.min.js"></script>
-  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
-  <script src="../../js/theme.js"></script> 
-
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
   
 </head>
 
@@ -52,7 +44,7 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        <ul class="current">
+	<ul class="current">
           
             <li>
     <li class="toctree-l1 ">
@@ -89,13 +81,6 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../C Programming, Part 4: Debugging/">C Programming, Part 4: Debugging</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
         <a class="" href="../C-Programming,-Part-1:-Introduction/">C Programming, Part 1: Introduction</a>
         
     </li>
@@ -117,6 +102,27 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-4:-Strings-and-Structs/">C Programming, Part 4: Strings and Structs</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-5:-Debugging/">C Programming, Part 5: Debugging</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Review-Questions/">C Programming, Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../C-Programming:-Review-Questions/">C Programming: Review Questions</a>
         
     </li>
@@ -132,6 +138,20 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Deadlock,-Part-2:-Deadlock-Conditions/">Deadlock, Part 2: Deadlock Conditions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-3:-Dining-Philosophers/">Deadlock, Part 3: Dining Philosophers</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock-Review-Questions/">Deadlock Review Questions</a>
         
     </li>
 
@@ -194,14 +214,21 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../File-System,-Part-8:-Disk-blocks-example/">File System, Part 8: Disk blocks example</a>
+        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
+        <a class="" href="../File-System,-Part-9:-Disk-blocks-example/">File System, Part 9: Disk blocks example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-Systems-Review-Questions/">File Systems Review Questions</a>
         
     </li>
 
@@ -250,6 +277,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../IPC-Review-Questions/">IPC Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Memory,-Part-1:-Heap-Memory-Introduction/">Memory, Part 1: Heap Memory Introduction</a>
         
     </li>
@@ -271,6 +305,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Memory-Review-Questions/">Memory Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Memory:-Review-Questions/">Memory: Review Questions</a>
         
     </li>
@@ -279,20 +320,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Multi-threaded-Programming:-Review-Questions/">Multi threaded Programming: Review Questions</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Networking, Part 3: Building a simple TCP Client/">Networking, Part 3: Building a simple TCP Client</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Networking, Part 6: Creating a UDP server/">Networking, Part 6: Creating a UDP server</a>
         
     </li>
 
@@ -313,6 +340,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-3:-Building-a-simple-TCP-Client/">Networking, Part 3: Building a simple TCP Client</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Networking,-Part-4:-Building-a-simple-TCP-Server/">Networking, Part 4: Building a simple TCP Server</a>
         
     </li>
@@ -320,7 +354,35 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Networking,-Part-5:-Reusing-ports/">Networking, Part 5: Reusing ports</a>
+        <a class="" href="../Networking,-Part-5:-Shutting-down-ports,-reusing-ports-and-other-tricks/">Networking, Part 5: Shutting down ports, reusing ports and other tricks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-6:-Building-a-web-server/">Networking, Part 6: Building a web server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-6:-Creating-a-UDP-server/">Networking, Part 6: Creating a UDP server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-7:-Nonblocking-I-O,-select(),-and-epoll/">Networking, Part 7: Nonblocking I O, select(), and epoll</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking-Review-Questions/">Networking Review Questions</a>
         
     </li>
 
@@ -328,13 +390,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Networking:-Review-Questions/">Networking: Review Questions</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Nonblocking-I-O,-select(),-and-epoll/">Nonblocking I O, select(), and epoll</a>
         
     </li>
 
@@ -383,7 +438,28 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Processes,-Part-1:-Introduction/">Processes, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Processes-Review-Questions/">Processes Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Programming-Tricks,-Part-1/">Programming Tricks, Part 1</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthread-Review-Questions/">Pthread Review Questions</a>
         
     </li>
 
@@ -398,6 +474,13 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Pthreads,-Part-2:-Usage-in-Practice/">Pthreads, Part 2: Usage in Practice</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-3:-Parallel-Problems-(Bonus)/">Pthreads, Part 3: Parallel Problems (Bonus)</a>
         
     </li>
 
@@ -425,6 +508,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Scheduling,-Part-2:-Scheduling-Processes:-Algorithms/">Scheduling, Part 2: Scheduling Processes: Algorithms</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Signals,-Part-2:-Pending-Signals-and-Signal-Masks/">Signals, Part 2: Pending Signals and Signal Masks</a>
         
     </li>
@@ -440,6 +530,13 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Signals,-Part-4:-Sigaction/">Signals, Part 4: Sigaction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals-Review-Questions/">Signals Review Questions</a>
         
     </li>
 
@@ -502,6 +599,21 @@
                 <li class="toctree-l3"><a href="#what-is-the-reader-writer-problem">What is the Reader Writer Problem?</a></li>
                 
             
+                <li class="toctree-l3"><a href="#attempt-1">Attempt #1</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#attempt-2">Attempt #2:</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#attempt-3">Attempt #3</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#starving-writers">Starving writers</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#attempt-4">Attempt #4</a></li>
+                
+            
             </ul>
         
     </li>
@@ -516,14 +628,21 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Synchronization,-Part-9:-The-Reader-Writer-Problem-(part-2)/">Synchronization, Part 9: The Reader Writer Problem (part 2)</a>
+        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
+        <a class="" href="../Synchronization-Review-Questions/">Synchronization Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../System-Programming-Jokes/">System Programming Jokes</a>
         
     </li>
 
@@ -597,8 +716,9 @@
               
                 <h2 id="what-is-the-reader-writer-problem">What is the Reader Writer Problem?</h2>
 <p>Imagine you had a key-value map data structure which is used by many threads. Multiple threads should be able to look up (read) values at the same time provided the data structure is not being written to. The writers are not so gregarious - to avoid data corruption, only one thread at a time may modify (<code>write</code>) the data structure (and no readers may be reading at that time). </p>
-<p>The is an example of the <em>Reader Writer Problem</em>. Namely how can we efficiently synchronize multiple readers and writers such that multiple readers can read together but a writer gets exclusive access?</p>
+<p>This is an example of the <em>Reader Writer Problem</em>. Namely how can we efficiently synchronize multiple readers and writers such that multiple readers can read together but a writer gets exclusive access?</p>
 <p>An incorrect attempt is shown below ("lock" is a shorthand for <code>pthread_mutex_lock</code>):</p>
+<h2 id="attempt-1">Attempt #1</h2>
 <table><tr><td>
 <pre>
 read() {
@@ -617,8 +737,8 @@ write() {
 </pre></td></tr></table>
 
 <p>At least our first attempt does not suffer from data corruption (readers must wait while a writer is writing and vice versa)! However readers must also wait for other readers. So let's try another implementation..</p>
-<p>Attempt #2:
-<table><tr><td>
+<h2 id="attempt-2">Attempt #2:</h2>
+<p><table><tr><td>
 <pre>read() {
   while(writing) {/<em>spin</em>/}
   reading = 1
@@ -635,34 +755,141 @@ write() {
 }
 </pre></td></tr></table></p>
 <p>Our second attempt suffers from a race condition - imagine if two threads both called <code>read</code> and <code>write</code> (or both called write) at the same time. Both threads would be able to proceed! Secondly, we can have multiple readers and multiple writers, so lets keep track of the total number of readers or writers. Which brings us to attempt #3,</p>
-<table><tr><td>
-<pre>read() {
-  lock(&m)
-  while (writers) {
-    pthread_cond_wait(&cv,&m)
-  }
-  readers++
-  // do read stuff
-  readers--
-  pthread_cond_signal(&cv)
-  unlock(&m)
-}
-</pre>
-</td><td>
-<pre>write() {
-  lock(&m)
-  while (readers || writers) {
-    pthread_cond_wait(&cv,&m)
-  }
-  writers++
-  // do write stuff
-  writers--
-  pthread_cond_signal(&cv)
-  unlock(&m)
-}
-</pre></td></tr></table>
+<h2 id="attempt-3">Attempt #3</h2>
+<p>Remember that <code>pthread_cond_wait</code> performs <em>Three</em> actions. Firstly it atomically unlocks the mutex and then sleeps (until it is woken by <code>pthread_cond_signal</code> or <code>pthread_cond_broadcast</code>). Thirdly the awoken thread must re-acquire the mutex lock before returning. Thus only one thread can actually be running inside the critical section defined by the lock and unlock() methods.</p>
+<p>Implementation #3 below ensures that a reader will enter the cond_wait if there are any writers writing.</p>
+<pre><code class="C">read() {
+    lock(&amp;m)
+    while (writing)
+        cond_wait(&amp;cv, &amp;m)
+    reading++;
 
-<p>This solution might appear to work when lightly tested however it suffers from several drawbacks  - can you see them? We will discuss these in a future section.</p>
+/* Read here! */
+
+    reading--
+    cond_signal(&amp;cv)
+    unlock(&amp;m)
+}
+</code></pre>
+
+<p>However only one reader a time can read because candidate #3 did not unlock the mutex. A better version unlocks before reading :</p>
+<pre><code class="C">read() {
+    lock(&amp;m);
+    while (writing)
+        cond_wait(&amp;cv, &amp;m)
+    reading++;
+    unlock(&amp;m)
+/* Read here! */
+    lock(&amp;m)
+    reading--
+    cond_signal(&amp;cv)
+    unlock(&amp;m)
+}
+</code></pre>
+
+<p>Does this mean that a writer and read could read and write at the same time? No! First of all, remember cond_wait requires the thread re-acquire the  mutex lock before returning. Thus only one thread can be executing code inside the critical section (marked with **) at a time!</p>
+<pre><code class="C">read() {
+    lock(&amp;m);
+**  while (writing)
+**      cond_wait(&amp;cv, &amp;m)
+**  reading++;
+    unlock(&amp;m)
+/* Read here! */
+    lock(&amp;m)
+**  reading--
+**  cond_signal(&amp;cv)
+    unlock(&amp;m)
+}
+</code></pre>
+
+<p>Writers must wait for everyone. Mutual exclusion is assured by the lock. </p>
+<pre><code class="C">write() {
+    lock(&amp;m);
+**  while (reading || writing)
+**      cond_wait(&amp;cv, &amp;m);
+**  writing++;
+**
+** /* Write here! */
+**  writing--;
+**  cond_signal(&amp;cv);
+    unlock(&amp;m);
+}
+</code></pre>
+
+<p>Candidate #3 above also uses <code>pthread_cond_signal</code> ; this will only wake up one thread. For example, if many readers are waiting for the writer to complete then only one sleeping reader will be awoken from their slumber. The reader and writer should use <code>cond_broadcast</code> so that all threads should wake up and check their while-loop condition.</p>
+<h2 id="starving-writers">Starving writers</h2>
+<p>Candidate #3 above suffers from starvation. If readers are constantly arriving then a writer will never be able to proceed (the 'reading' count never reduces to zero). This is known as <em>starvation</em> and would be discovered under heavy loads. Our fix is to implement a bounded-wait for the writer. If a writer arrives they will still need to wait for existing readers however future readers must be placed in a "holding pen" and wait for the writer to finish. The "holding pen" can be implemented using a variable and a condition variable (so that we can wake up the threads once the writer has finished).</p>
+<p>Our plan is that when a writer arrives, and before waiting for current readers to finish, register our intent to write (by incrementing a counter 'writer'). Sketched below - </p>
+<pre><code class="C">write() {
+    lock()
+    writer++
+
+    while (reading || writing)
+    cond_wait
+    unlock()
+  ...
+}
+</code></pre>
+
+<p>And incoming readers will not be allowed to continue while writer is nonzero. Notice 'writer' indicates a writer has arrived, while 'reading' and 'writing' counters indicate there is an <em>active</em> reader or writer.</p>
+<pre><code class="C">read() {
+    lock()
+    // readers that arrive *after* the writer arrived will have to wait here!
+    while(writer)
+    cond_wait(&amp;cv,&amp;m)
+
+    // readers that arrive while there is an active writer
+    // will also wait.
+    while (writing) 
+        cond_wait(&amp;cv,&amp;m)
+    reading++
+    unlock
+  ...
+}
+</code></pre>
+
+<h2 id="attempt-4">Attempt #4</h2>
+<p>Below is our first working solution to the Reader-Writer problem. 
+Note if you continue to read about the "Reader Writer problem" then you will discover that we solved the "Second Reader Writer problem" by giving writers preferential access to the lock. This solution is not optimal. However it satisfies our original problem (N active readers, single active writer, avoids starvation of the writer if there is a constant stream of readers). </p>
+<p>Can you identify any improvements? For example, how would you improve the code so that we only woke up readers or one writer? </p>
+<pre><code class="C">
+int writers; // Number writer threads that want to enter the critical section (some or all of these may be blocked)
+int writing; // Number of threads that are actually writing inside the C.S. (can only be zero or one)
+int reading; // Number of threads that are actually reading inside the C.S.
+// if writing !=0 then reading must be zero (and vice versa)
+
+reader() {
+    lock(&amp;m)
+    while (writers)
+        cond_wait(&amp;turn, &amp;m)
+    // No need to wait while(writing here) because we can only exit the above loop
+    // when writing is zero
+    reading++
+    unlock(&amp;m)
+
+  // perform reading here
+
+    lock(&amp;m)
+    reading--
+    cond_broadcast(&amp;turn)
+    unlock(&amp;m)
+}
+
+writer() {
+    lock(&amp;m)  
+    writers++  
+    while (reading || writing)   
+        cond_wait(&amp;turn, &amp;m)  
+    writing++  
+    unlock(&amp;m)  
+    // perform writing here  
+    lock(&amp;m)  
+    writing--  
+    writers--  
+    cond_broadcast(&amp;turn)  
+    unlock(&amp;m)  
+}
+</code></pre>
               
             </div>
           </div>
@@ -692,10 +919,10 @@ write() {
       </div>
 
     </section>
-
+    
   </div>
 
-<div class="rst-versions" role="note" style="cursor: pointer">
+  <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
@@ -706,6 +933,7 @@ write() {
       
     </span>
 </div>
+    <script src="../../js/theme.js"></script>
 
 </body>
 </html>

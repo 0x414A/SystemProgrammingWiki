@@ -7,19 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  
-  <title>File System, Part 1: Introduction - UIUC CS241 SystemProgramming Wiki</title>
-  
-
   <link rel="shortcut icon" href="../../img/favicon.ico">
-
-  
+  <title>File System, Part 1: Introduction - UIUC CS241 SystemProgramming Wiki</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="../../css/highlight.css">
-
   
   <script>
     // Current page data
@@ -30,9 +24,7 @@
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
   <script src="../../js/modernizr-2.8.3.min.js"></script>
-  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
-  <script src="../../js/theme.js"></script> 
-
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
   
 </head>
 
@@ -52,7 +44,7 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        <ul class="current">
+	<ul class="current">
           
             <li>
     <li class="toctree-l1 ">
@@ -89,13 +81,6 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../C Programming, Part 4: Debugging/">C Programming, Part 4: Debugging</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
         <a class="" href="../C-Programming,-Part-1:-Introduction/">C Programming, Part 1: Introduction</a>
         
     </li>
@@ -111,6 +96,27 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../C-Programming,-Part-3:-Common-Gotchas/">C Programming, Part 3: Common Gotchas</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-4:-Strings-and-Structs/">C Programming, Part 4: Strings and Structs</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-5:-Debugging/">C Programming, Part 5: Debugging</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Review-Questions/">C Programming, Review Questions</a>
         
     </li>
 
@@ -138,6 +144,20 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-3:-Dining-Philosophers/">Deadlock, Part 3: Dining Philosophers</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock-Review-Questions/">Deadlock Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Exam-Topics/">Exam Topics</a>
         
     </li>
@@ -149,43 +169,34 @@
         
             <ul>
             
-                <li class="toctree-l3"><a href="#design-a-file-system-what-are-your-design-goals">Design a file system! What are your design goals?</a></li>
+                <li class="toctree-l3"><a href="#navigationterminology">Navigation/Terminology</a></li>
+                
+                    <li><a class="toctree-l4" href="#design-a-file-system-what-are-your-design-goals">Design a file system! What are your design goals?</a></li>
+                
+                    <li><a class="toctree-l4" href="#what-are-and">What are ., .., and ...?</a></li>
+                
+                    <li><a class="toctree-l4" href="#what-are-absolute-and-relative-paths">What are absolute and relative paths?</a></li>
+                
+                    <li><a class="toctree-l4" href="#what-are-some-examples-of-relative-and-absolute-paths">What are some examples of relative and absolute paths?</a></li>
+                
+                    <li><a class="toctree-l4" href="#how-do-i-simplify-abc">How do I simplify a/b/../c/./?</a></li>
                 
             
-                <li class="toctree-l3"><a href="#what-are-and">What are ., .., and ...?</a></li>
+                <li class="toctree-l3"><a href="#so-whats-a-file-system">So what's a File System?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#what-are-absolute-and-relative-paths">What are absolute and relative paths?</a></li>
+                    <li><a class="toctree-l4" href="#how-does-inode-store-the-file-contents">How does inode store the file contents?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#what-are-some-examples-of-relative-and-absolute-paths">What are some examples of relative and absolute paths?</a></li>
+                    <li><a class="toctree-l4" href="#why-make-disk-blocks-the-same-size-as-memory-pages">Why make disk blocks the same size as memory pages?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#how-do-i-simplify-abc">How do I simplify a/b/../c/./?</a></li>
+                    <li><a class="toctree-l4" href="#what-information-do-we-want-to-store-for-each-file">What information do we want to store for each file?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#why-make-disk-blocks-the-same-size-as-memory-pages">Why make disk blocks the same size as memory pages?</a></li>
+                    <li><a class="toctree-l4" href="#what-are-the-traditional-permissions-user-group-other-permissions-for-a-file">What are the traditional permissions: user – group – other permissions for a file?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#what-information-do-we-want-to-store-for-each-file">What information do we want to store for each file?</a></li>
+                    <li><a class="toctree-l4" href="#what-are-the-the-3-permission-bits-for-a-regular-file-for-each-role">What are the the 3 permission bits for a regular file for each role?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#what-are-the-traditional-permissions-user-group-other-permissions-for-a-file">What are the traditional permissions: user – group – other permissions for a file?</a></li>
+                    <li><a class="toctree-l4" href="#what-do-644-755-mean">What do "644" "755" mean?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#what-are-the-the-3-permission-bits-for-a-regular-file-for-each-role">What are the the 3 permission bits for a regular file for each role?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#what-do-644-755-mean">What do "644" "755" mean?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#what-is-an-inode-which-of-the-above-items-is-stored-in-the-inode">What is an inode? Which of the above items is stored in the inode?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#how-does-inode-store-the-file-contents">How does inode store the file contents?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#how-many-pointers-can-you-store-in-each-indirection-table">How many pointers can you store in each indirection table?</a></li>
+                    <li><a class="toctree-l4" href="#how-many-pointers-can-you-store-in-each-indirection-table">How many pointers can you store in each indirection table?</a></li>
                 
             
             </ul>
@@ -237,14 +248,21 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../File-System,-Part-8:-Disk-blocks-example/">File System, Part 8: Disk blocks example</a>
+        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
+        <a class="" href="../File-System,-Part-9:-Disk-blocks-example/">File System, Part 9: Disk blocks example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-Systems-Review-Questions/">File Systems Review Questions</a>
         
     </li>
 
@@ -293,6 +311,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../IPC-Review-Questions/">IPC Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Memory,-Part-1:-Heap-Memory-Introduction/">Memory, Part 1: Heap Memory Introduction</a>
         
     </li>
@@ -314,6 +339,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Memory-Review-Questions/">Memory Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Memory:-Review-Questions/">Memory: Review Questions</a>
         
     </li>
@@ -322,20 +354,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Multi-threaded-Programming:-Review-Questions/">Multi threaded Programming: Review Questions</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Networking, Part 3: Building a simple TCP Client/">Networking, Part 3: Building a simple TCP Client</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Networking, Part 6: Creating a UDP server/">Networking, Part 6: Creating a UDP server</a>
         
     </li>
 
@@ -356,6 +374,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-3:-Building-a-simple-TCP-Client/">Networking, Part 3: Building a simple TCP Client</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Networking,-Part-4:-Building-a-simple-TCP-Server/">Networking, Part 4: Building a simple TCP Server</a>
         
     </li>
@@ -363,7 +388,35 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Networking,-Part-5:-Reusing-ports/">Networking, Part 5: Reusing ports</a>
+        <a class="" href="../Networking,-Part-5:-Shutting-down-ports,-reusing-ports-and-other-tricks/">Networking, Part 5: Shutting down ports, reusing ports and other tricks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-6:-Building-a-web-server/">Networking, Part 6: Building a web server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-6:-Creating-a-UDP-server/">Networking, Part 6: Creating a UDP server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-7:-Nonblocking-I-O,-select(),-and-epoll/">Networking, Part 7: Nonblocking I O, select(), and epoll</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking-Review-Questions/">Networking Review Questions</a>
         
     </li>
 
@@ -371,13 +424,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Networking:-Review-Questions/">Networking: Review Questions</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Nonblocking-I-O,-select(),-and-epoll/">Nonblocking I O, select(), and epoll</a>
         
     </li>
 
@@ -426,7 +472,28 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Processes,-Part-1:-Introduction/">Processes, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Processes-Review-Questions/">Processes Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Programming-Tricks,-Part-1/">Programming Tricks, Part 1</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthread-Review-Questions/">Pthread Review Questions</a>
         
     </li>
 
@@ -441,6 +508,13 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Pthreads,-Part-2:-Usage-in-Practice/">Pthreads, Part 2: Usage in Practice</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-3:-Parallel-Problems-(Bonus)/">Pthreads, Part 3: Parallel Problems (Bonus)</a>
         
     </li>
 
@@ -468,6 +542,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Scheduling,-Part-2:-Scheduling-Processes:-Algorithms/">Scheduling, Part 2: Scheduling Processes: Algorithms</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Signals,-Part-2:-Pending-Signals-and-Signal-Masks/">Signals, Part 2: Pending Signals and Signal Masks</a>
         
     </li>
@@ -483,6 +564,13 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Signals,-Part-4:-Sigaction/">Signals, Part 4: Sigaction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals-Review-Questions/">Signals Review Questions</a>
         
     </li>
 
@@ -552,14 +640,21 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Synchronization,-Part-9:-The-Reader-Writer-Problem-(part-2)/">Synchronization, Part 9: The Reader Writer Problem (part 2)</a>
+        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
+        <a class="" href="../Synchronization-Review-Questions/">Synchronization Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../System-Programming-Jokes/">System Programming Jokes</a>
         
     </li>
 
@@ -631,10 +726,11 @@
           <div role="main">
             <div class="section">
               
-                <h2 id="design-a-file-system-what-are-your-design-goals">Design a file system! What are your design goals?</h2>
+                <h1 id="navigationterminology">Navigation/Terminology</h1>
+<h2 id="design-a-file-system-what-are-your-design-goals">Design a file system! What are your design goals?</h2>
 <p>The design of a file system is difficult problem because there many high-level design goals that we'd like to satisfy. An incomplete list of ideal goals include:</p>
 <ul>
-<li>Reliable and robust (even with hardware failures or incomplete writes dues to power loss)</li>
+<li>Reliable and robust (even with hardware failures or incomplete writes due to power loss)</li>
 <li>Access (security) controls</li>
 <li>Accounting and quotas</li>
 <li>Indexing and search</li>
@@ -646,9 +742,10 @@
 </ul>
 <p>Not all filesystems natively support all of these goals. For example, many filesystems do not automatically compress rarely-used files</p>
 <h2 id="what-are-and">What are <code>.</code>, <code>..</code>, and <code>...</code>?</h2>
-<p><code>.</code> represents the current directory  </p>
-<p><code>..</code> represents the parent directory  </p>
-<p><code>...</code> is NOT a valid representation of any directory (this not the grandparent directory)</p>
+<p>In standard unix file systems: 
+<em> <code>.</code> represents the current directory<br />
+</em> <code>..</code> represents the parent directory<br />
+* <code>...</code> is NOT a valid representation of any directory (this not the grandparent directory). It <em>could</em> however be the name of a file on disk.</p>
 <h2 id="what-are-absolute-and-relative-paths">What are absolute and relative paths?</h2>
 <p>Absolute paths are paths that start from the 'root node' of your directory tree. Relative paths are paths that start from your current position in the tree.</p>
 <h2 id="what-are-some-examples-of-relative-and-absolute-paths">What are some examples of relative and absolute paths?</h2>
@@ -662,6 +759,23 @@
 - Step 4: <code>cd c</code> (in a/c)
 - Step 5: <code>cd .</code> (in a/c, because . represents 'current folder')</p>
 <p>Thus, this path can be simplified to <code>a/c</code>.</p>
+<h1 id="so-whats-a-file-system">So what's a File System?</h1>
+<p>A filesystem is how information is organized on disk. Whenever you want to access a file, the filesystem dictates how the file is read. Here is a sample image of a filesystem.</p>
+<p><img alt="" src="http://tinf2.vub.ac.be/~dvermeir/manual/uintro/disk.gif" /></p>
+<p>Whoa that's a lot let's break it down
+<em> Superblock: This block contains metadata about the filesystem, how large, last modified time, a journal, number of inodes and the first inode start, number of data block and the first data block start.
+</em> Inode: This is the the key abstraction. An inode is a file. 
+* Disk Blocks: These are where the data is stored. The actual contents of the file</p>
+<h2 id="how-does-inode-store-the-file-contents">How does inode store the file contents?</h2>
+<p><img alt="" src="https://classes.soe.ucsc.edu/cmps111/Fall08/inode_with_signatures.jpg" /></p>
+<p>From <a href="http://en.wikipedia.org/wiki/Inode">Wikipedia</a>:</p>
+<blockquote>
+<p><em>In a Unix-style file system, an index node, informally referred to as an inode, is a data structure used to represent a filesystem object, which can be one of various things including a file or a directory. Each inode stores the attributes and disk block location(s) of the filesystem object's data. Filesystem object attributes may include manipulation metadata (e.g. change, access, modify time), as well as owner and permission data (e.g. group-id, user-id, permissions).</em></p>
+</blockquote>
+<p>To read the first few bytes of the file, follow the first indirect block pointer to the first indirect block and read the first few bytes, writing is the same process. If you want to read the entire file, keep reading direct blocks until your size runs out (we will talk about indirect blocks in a bit)</p>
+<blockquote>
+<p>"All problems in computer science can be solved by another level of indirection." - David Wheeler</p>
+</blockquote>
 <h2 id="why-make-disk-blocks-the-same-size-as-memory-pages">Why make disk blocks the same size as memory pages?</h2>
 <p>To support virtual memory, so we can page stuff in and out of memory.</p>
 <h2 id="what-information-do-we-want-to-store-for-each-file">What information do we want to store for each file?</h2>
@@ -693,17 +807,6 @@
 <p>We can read permissions in octal format as follows:<br />
 <em> 644 - R/W user permissions, R group permissions, R world permissions<br />
 </em> 755 - R/W/X user permissions, R/X group permissions, R/X world permissions</p>
-<h2 id="what-is-an-inode-which-of-the-above-items-is-stored-in-the-inode">What is an inode? Which of the above items is stored in the inode?</h2>
-<p>From <a href="http://en.wikipedia.org/wiki/Inode">Wikipedia</a>:</p>
-<blockquote>
-<p><em>In a Unix-style file system, an index node, informally referred to as an inode, is a data structure used to represent a filesystem object, which can be one of various things including a file or a directory. Each inode stores the attributes and disk block location(s) of the filesystem object's data. Filesystem object attributes may include manipulation metadata (e.g. change, access, modify time), as well as owner and permission data (e.g. group-id, user-id, permissions).</em></p>
-</blockquote>
-<h2 id="how-does-inode-store-the-file-contents">How does inode store the file contents?</h2>
-<p><img alt="" src="http://upload.wikimedia.org/wikipedia/commons/a/a2/Ext2-inode.gif" /></p>
-<p>Image source: http://en.wikipedia.org/wiki/Ext2  </p>
-<blockquote>
-<p>"All problems in computer science can be solved by another level of indirection." - David Wheeler</p>
-</blockquote>
 <h2 id="how-many-pointers-can-you-store-in-each-indirection-table">How many pointers can you store in each indirection table?</h2>
 <p>As a worked example, suppose we divide the disk into 4KB blocks and we want to address up to 2^32 blocks.</p>
 <p>The maximum disk size is 4KB *2^32 = 16TB  (remember 2^10 = 1024)</p>
@@ -740,10 +843,10 @@
       </div>
 
     </section>
-
+    
   </div>
 
-<div class="rst-versions" role="note" style="cursor: pointer">
+  <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
@@ -754,6 +857,7 @@
       
     </span>
 </div>
+    <script src="../../js/theme.js"></script>
 
 </body>
 </html>

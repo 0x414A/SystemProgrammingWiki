@@ -7,19 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  
-  <title>Virtual Memory, Part 1: Introduction to Virtual Memory - UIUC CS241 SystemProgramming Wiki</title>
-  
-
   <link rel="shortcut icon" href="../../img/favicon.ico">
-
-  
+  <title>Virtual Memory, Part 1: Introduction to Virtual Memory - UIUC CS241 SystemProgramming Wiki</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="../../css/highlight.css">
-
   
   <script>
     // Current page data
@@ -30,9 +24,7 @@
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
   <script src="../../js/modernizr-2.8.3.min.js"></script>
-  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
-  <script src="../../js/theme.js"></script> 
-
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
   
 </head>
 
@@ -52,7 +44,7 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        <ul class="current">
+	<ul class="current">
           
             <li>
     <li class="toctree-l1 ">
@@ -89,13 +81,6 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../C Programming, Part 4: Debugging/">C Programming, Part 4: Debugging</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
         <a class="" href="../C-Programming,-Part-1:-Introduction/">C Programming, Part 1: Introduction</a>
         
     </li>
@@ -117,6 +102,27 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-4:-Strings-and-Structs/">C Programming, Part 4: Strings and Structs</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-5:-Debugging/">C Programming, Part 5: Debugging</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Review-Questions/">C Programming, Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../C-Programming:-Review-Questions/">C Programming: Review Questions</a>
         
     </li>
@@ -132,6 +138,20 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Deadlock,-Part-2:-Deadlock-Conditions/">Deadlock, Part 2: Deadlock Conditions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-3:-Dining-Philosophers/">Deadlock, Part 3: Dining Philosophers</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock-Review-Questions/">Deadlock Review Questions</a>
         
     </li>
 
@@ -194,14 +214,21 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../File-System,-Part-8:-Disk-blocks-example/">File System, Part 8: Disk blocks example</a>
+        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
+        <a class="" href="../File-System,-Part-9:-Disk-blocks-example/">File System, Part 9: Disk blocks example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-Systems-Review-Questions/">File Systems Review Questions</a>
         
     </li>
 
@@ -250,6 +277,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../IPC-Review-Questions/">IPC Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Memory,-Part-1:-Heap-Memory-Introduction/">Memory, Part 1: Heap Memory Introduction</a>
         
     </li>
@@ -271,6 +305,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Memory-Review-Questions/">Memory Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Memory:-Review-Questions/">Memory: Review Questions</a>
         
     </li>
@@ -279,20 +320,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Multi-threaded-Programming:-Review-Questions/">Multi threaded Programming: Review Questions</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Networking, Part 3: Building a simple TCP Client/">Networking, Part 3: Building a simple TCP Client</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Networking, Part 6: Creating a UDP server/">Networking, Part 6: Creating a UDP server</a>
         
     </li>
 
@@ -313,6 +340,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-3:-Building-a-simple-TCP-Client/">Networking, Part 3: Building a simple TCP Client</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Networking,-Part-4:-Building-a-simple-TCP-Server/">Networking, Part 4: Building a simple TCP Server</a>
         
     </li>
@@ -320,7 +354,35 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Networking,-Part-5:-Reusing-ports/">Networking, Part 5: Reusing ports</a>
+        <a class="" href="../Networking,-Part-5:-Shutting-down-ports,-reusing-ports-and-other-tricks/">Networking, Part 5: Shutting down ports, reusing ports and other tricks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-6:-Building-a-web-server/">Networking, Part 6: Building a web server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-6:-Creating-a-UDP-server/">Networking, Part 6: Creating a UDP server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-7:-Nonblocking-I-O,-select(),-and-epoll/">Networking, Part 7: Nonblocking I O, select(), and epoll</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking-Review-Questions/">Networking Review Questions</a>
         
     </li>
 
@@ -328,13 +390,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Networking:-Review-Questions/">Networking: Review Questions</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Nonblocking-I-O,-select(),-and-epoll/">Nonblocking I O, select(), and epoll</a>
         
     </li>
 
@@ -383,7 +438,28 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Processes,-Part-1:-Introduction/">Processes, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Processes-Review-Questions/">Processes Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Programming-Tricks,-Part-1/">Programming Tricks, Part 1</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthread-Review-Questions/">Pthread Review Questions</a>
         
     </li>
 
@@ -398,6 +474,13 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Pthreads,-Part-2:-Usage-in-Practice/">Pthreads, Part 2: Usage in Practice</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-3:-Parallel-Problems-(Bonus)/">Pthreads, Part 3: Parallel Problems (Bonus)</a>
         
     </li>
 
@@ -425,6 +508,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Scheduling,-Part-2:-Scheduling-Processes:-Algorithms/">Scheduling, Part 2: Scheduling Processes: Algorithms</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Signals,-Part-2:-Pending-Signals-and-Signal-Masks/">Signals, Part 2: Pending Signals and Signal Masks</a>
         
     </li>
@@ -440,6 +530,13 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Signals,-Part-4:-Sigaction/">Signals, Part 4: Sigaction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals-Review-Questions/">Signals Review Questions</a>
         
     </li>
 
@@ -509,14 +606,21 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Synchronization,-Part-9:-The-Reader-Writer-Problem-(part-2)/">Synchronization, Part 9: The Reader Writer Problem (part 2)</a>
+        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
+        <a class="" href="../Synchronization-Review-Questions/">Synchronization Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../System-Programming-Jokes/">System Programming Jokes</a>
         
     </li>
 
@@ -543,11 +647,9 @@
             
                 <li class="toctree-l3"><a href="#what-is-virtual-memory">What is Virtual Memory?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#what-is-the-mmu">What is the MMU?</a></li>
+                    <li><a class="toctree-l4" href="#what-is-the-mmu">What is the MMU?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#so-how-do-we-convert-a-virtual-address-into-a-physical-address">So how do we convert a virtual address into a physical address?</a></li>
+                    <li><a class="toctree-l4" href="#so-how-do-we-convert-a-virtual-address-into-a-physical-address">So how do we convert a virtual address into a physical address?</a></li>
                 
             
                 <li class="toctree-l3"><a href="#what-is-a-page-how-many-of-them-are-there">What is a page? How many of them are there?</a></li>
@@ -561,6 +663,11 @@
                     <li><a class="toctree-l4" href="#what-is-the-offset-and-how-is-it-used">What is the offset and how is it used?</a></li>
                 
                     <li><a class="toctree-l4" href="#multi-level-page-tables">Multi-level page tables</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#advanced-frames-and-page-protections">Advanced Frames and Page Protections</a></li>
+                
+                    <li><a class="toctree-l4" href="#can-frames-be-shared-between-processes-can-they-be-specialized">Can frames be shared between processes? Can they be specialized</a></li>
                 
                     <li><a class="toctree-l4" href="#what-else-is-stored-in-the-page-table-and-why">What else is stored in the page table and why?</a></li>
                 
@@ -618,7 +725,7 @@
           <div role="main">
             <div class="section">
               
-                <h2 id="what-is-virtual-memory">What is Virtual Memory?</h2>
+                <h1 id="what-is-virtual-memory">What is Virtual Memory?</h1>
 <p>In very simple embedded systems and early computers, processes directly access memory i.e. "Address 1234" corresponds to a particular byte stored in a particular part of physical memory.
 In modern systems, this is no longer the case. Instead each process is isolated; and there is a translation process between the address of a particular CPU instruction or piece of data of a process and the actual byte of physical memory ("RAM"). Memory addresses are no longer 'real'; the process runs inside virtual memory. Virtual memory not only keeps processes safe (because one process cannot directly read or modify another process's memory) it also allows the system to efficiently allocate and re-allocate portions of memory to different processes.</p>
 <h2 id="what-is-the-mmu">What is the MMU?</h2>
@@ -631,7 +738,7 @@ We need to do better than this. Our lookup table better be smaller than the memo
 The solution is to chunk memory into small regions called 'pages' and 'frames' and use a lookup table for each page.</p>
 <h1 id="what-is-a-page-how-many-of-them-are-there">What is a page? How many of them are there?</h1>
 <p>A page is a block of virtual memory. A typical block size on Linux operating system is 4KB (i.e. 2^12 addresses), though you can find examples of larger blocks.</p>
-<p>So rather than talking about individual bytes we can talk about blocks of 4KBs. Each block is called a page. We can also number our pages ("Page 0" "Page 1" etc)</p>
+<p>So rather than talking about individual bytes we can talk about blocks of 4KBs, each block is called a page. We can also number our pages ("Page 0" "Page 1" etc)</p>
 <h2 id="ex-how-many-pages-are-there-in-a-32bit-machine-assume-page-size-of-4kb">EX: How many pages are there in a 32bit machine (assume page size of 4KB)?</h2>
 <p>Answer: 2^32 address / 2^12 = 2^20 pages.</p>
 <p>Remember that 2^10 is 1024, so 2^20 is a bit more than one million.</p>
@@ -646,6 +753,8 @@ For example Page 1 might be mapped to frame 45, page 2 mapped to frame 30. Other
 <p>For a 32 bit machine with 4KB pages, each entry needs to hold a frame number - i.e. 20 bits because we calculated there are 2^20 frames. That's 2.5 bytes per entry! In practice, we'll round that up to 4 bytes per entry and find a use for those spare bits. With 4 bytes per entry x 2^20 entries = 4 MB of physical memory are required to hold the page table.</p>
 <p>For a 64 bit machine with 4KB pages, each entry needs 52 bits. Let's round up to 64 bits (8 bytes) per entry. With 2^52 entries thats 2^55 bytes (roughly 40 peta bytes...) Oops our page table is too large.</p>
 <p>In 64 bit architectures memory addresses are sparse, so we need a mechanism to reduce the page table size, given that most of the entries will never be used.</p>
+<p><img alt="" src="http://www.cs.odu.edu/~cs471w/spring12/lectures/MainMemory_files/image028.jpg" /></p>
+<p>A visual example of the page table is here. Imagine accessing an array and grabbing array elements.</p>
 <h2 id="what-is-the-offset-and-how-is-it-used">What is the offset and how is it used?</h2>
 <p>Remember our page table maps pages to frames, but each page is a block of contiguous addresses. How do we calculate which particular byte to use inside a particular frame? The solution is to re-use the lowest bits of the virtual memory address directly. For example, suppose our process is reading the following address-
 <code>VirtualAddress = 11110000111100001111000010101010 (binary)</code></p>
@@ -665,14 +774,21 @@ The remaining upper bits will be the page number (111100001111000011110000).</p>
 Compared to reading or writing memory directly.
 For a single page table, our machine is now twice as slow! (Two memory accesses are required)
 For a two-level page table, memory access is now three times as slow. (Three memory accesses are required)</p>
-<p>To overcome this overhead the MMU includes an associative cache of recently-used  virtual-page-to-frame lookups. This cache is called the TLB ("translation lookaside buffer"). Everytime a virtual address needs to be translated into a physical memory location, the TLB is queried in parallel to the page table. For most memory accesses of most programs, there is a significant chance that the TLB has cached the results. However if a program does not have good cache coherence (for example is reading from random memory locations of many different pages) then the TLB will not have the result cache and now the MMU must use the much slower page table to determine the physical frame.</p>
-<p>Can frames be shared between processes?
-Yes! In addition to storing the frame number, the page table can be used to store whether a process can write or only read a particular frame. Read only frames can then be safely shared between multiple processes. For example, the C-library instruction code can be shared between all processes that dynamically load the code into the process memory. Each process can only read that memory.</p>
-<p>In addition, processes can share a page with a child process using the <code>mmap</code> system call.</p>
+<p>To overcome this overhead, the MMU includes an associative cache of recently-used  virtual-page-to-frame lookups. This cache is called the TLB ("translation lookaside buffer"). Everytime a virtual address needs to be translated into a physical memory location, the TLB is queried in parallel to the page table. For most memory accesses of most programs, there is a significant chance that the TLB has cached the results. However if a program does not have good cache coherence (for example is reading from random memory locations of many different pages) then the TLB will not have the result cache and now the MMU must use the much slower page table to determine the physical frame.</p>
+<p><img alt="" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/X86_Paging_4K.svg/440px-X86_Paging_4K.svg.png" /></p>
+<p>This may be how one splits up a multi level page table.</p>
+<h1 id="advanced-frames-and-page-protections">Advanced Frames and Page Protections</h1>
+<h2 id="can-frames-be-shared-between-processes-can-they-be-specialized">Can frames be shared between processes? Can they be specialized</h2>
+<p>Yes! In addition to storing the frame number, the page table can be used to store whether a process can write or only read a particular frame. Read only frames can then be safely shared between multiple processes. For example, the C-library instruction code can be shared between all processes that dynamically load the code into the process memory. Each process can only read that memory. Meaning that if you try to write to a read-only page in memory you will get a <code>SEGFAULT</code>. That is why sometimes memory accesses segfault and sometimes they don't, it all depends on if your hardware says that you can access.</p>
+<p>In addition, processes can share a page with a child process using the <code>mmap</code> system call. <code>mmap</code> is an interesting call because instead of trying each virtual address to a physical frame, it ties it to something else. That something else can be a file, a GPU unit, or any other memory mapped operation that you can think of! Writing to the memory address may write through to the device or the write may be paused by the operating system but this is a very powerful abstraction because often the operating system is able to perform optimizations (multiple processes memory mapping the same file can have the kernel create one mapping).</p>
 <h2 id="what-else-is-stored-in-the-page-table-and-why">What else is stored in the page table and why?</h2>
 <p>In addition to read-only bit and usage statistics discussed above, it is common to store at least read-only, modification and execution information. </p>
 <h2 id="whats-a-page-fault">What's a page fault?</h2>
-<p>A page fault is when a running program tries to access some virtual memory in its address space that is not mapped to physical memory. Page faults will also occur in other situations, including in the next section.</p>
+<p>A page fault is when a running program tries to access some virtual memory in its address space that is not mapped to physical memory. Page faults will also occur in other situations.</p>
+<p>There are three types of Page Faults</p>
+<p><strong>Minor</strong> If there is no mapping yet for the page, but it is a valid address. This could be memory asked for by <code>sbrk(2)</code> but not written to yet meaning that the operating system can wait for the first write before allocating space. The OS simply makes the page, loads it into memory, and moves on.</p>
+<p><strong>Major</strong> If the mapping to the page is not in memory but on disk. What this will do is swap the page into memory and swap another page out. If this happens frequently enough, your program is said to <em>thrash</em> the MMU.</p>
+<p><strong>Invalid</strong> When you try to write to a non-writable memory address or read to a non-readable memory address. The MMU generates an invalid fault and the OS will usually generate a <code>SIGSEGV</code> meaning segmentation violation meaning that you wrote outside the segment that you could write to.</p>
 <h3 id="read-only-bit">Read-only bit</h3>
 <p>The read-only bit marks the page as read-only. Attempts to write to the page will cause a page fault. The page fault will then be handled by the Kernel. Two examples of the read-only page include sharing the c runtime library between multiple processes (for security you wouldn't want to allow one process to modify the library); and Copy-On-Write where the cost of duplicating a page can be delayed until the first write occurs. </p>
 <h3 id="dirty-bit">Dirty bit</h3>
@@ -713,10 +829,10 @@ Yes! In addition to storing the frame number, the page table can be used to stor
       </div>
 
     </section>
-
+    
   </div>
 
-<div class="rst-versions" role="note" style="cursor: pointer">
+  <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
@@ -727,6 +843,7 @@ Yes! In addition to storing the frame number, the page table can be used to stor
       
     </span>
 </div>
+    <script src="../../js/theme.js"></script>
 
 </body>
 </html>

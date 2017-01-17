@@ -7,19 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  
-  <title>C Programming, Part 2: Text Input And Output - UIUC CS241 SystemProgramming Wiki</title>
-  
-
   <link rel="shortcut icon" href="../../img/favicon.ico">
-
-  
+  <title>C Programming, Part 2: Text Input And Output - UIUC CS241 SystemProgramming Wiki</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="../../css/highlight.css">
-
   
   <script>
     // Current page data
@@ -30,9 +24,7 @@
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
   <script src="../../js/modernizr-2.8.3.min.js"></script>
-  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
-  <script src="../../js/theme.js"></script> 
-
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
   
 </head>
 
@@ -52,7 +44,7 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        <ul class="current">
+	<ul class="current">
           
             <li>
     <li class="toctree-l1 ">
@@ -89,13 +81,6 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../C Programming, Part 4: Debugging/">C Programming, Part 4: Debugging</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
         <a class="" href="../C-Programming,-Part-1:-Introduction/">C Programming, Part 1: Introduction</a>
         
     </li>
@@ -107,28 +92,34 @@
         
             <ul>
             
-                <li class="toctree-l3"><a href="#how-do-i-print-strings-ints-chars-to-the-standard-output-stream">How do I print strings, ints, chars to the standard output stream?</a></li>
+                <li class="toctree-l3"><a href="#printing-to-streams">Printing to Streams</a></li>
+                
+                    <li><a class="toctree-l4" href="#how-do-i-print-strings-ints-chars-to-the-standard-output-stream">How do I print strings, ints, chars to the standard output stream?</a></li>
+                
+                    <li><a class="toctree-l4" href="#how-else-can-i-print-strings-and-single-characters">How else can I print strings and single characters?</a></li>
+                
+                    <li><a class="toctree-l4" href="#how-do-i-print-to-other-file-streams">How do I print to other file streams?</a></li>
+                
+                    <li><a class="toctree-l4" href="#can-i-use-file-descriptors">Can I use file descriptors?</a></li>
+                
+                    <li><a class="toctree-l4" href="#how-do-i-print-data-into-a-c-string">How do I print data into a C string?</a></li>
+                
+                    <li><a class="toctree-l4" href="#what-if-i-really-really-want-printf-to-call-write-without-a-newline">What if I really really want printf to call write without a newline?</a></li>
+                
+                    <li><a class="toctree-l4" href="#how-is-perror-helpful">How is perror helpful?</a></li>
                 
             
-                <li class="toctree-l3"><a href="#how-else-can-i-print-strings-and-single-characters">How else can I print strings and single characters?</a></li>
+                <li class="toctree-l3"><a href="#parsing-input">Parsing Input</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#how-do-i-print-to-other-file-streams">How do I print to other file streams?</a></li>
+                    <li><a class="toctree-l4" href="#how-do-i-parse-numbers-from-strings">How do I parse numbers from strings?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#how-do-i-print-data-into-a-c-string">How do I print data into a C string?</a></li>
+                    <li><a class="toctree-l4" href="#how-do-i-parse-input-using-scanf-into-parameters">How do I parse input using scanf into parameters?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#how-do-i-parse-input-using-scanf-into-parameters">How do I parse input using scanf into parameters?</a></li>
+                    <li><a class="toctree-l4" href="#how-do-i-stop-scanf-from-causing-a-buffer-overflow">How do I stop scanf from causing a buffer overflow?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#how-do-i-stop-scanf-from-causing-a-buffer-overflow">How do I stop scanf from causing a buffer overflow?</a></li>
+                    <li><a class="toctree-l4" href="#why-is-gets-dangerous-what-should-i-use-instead">Why is gets dangerous? What should I use instead?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#why-is-gets-dangerous-what-should-i-use-instead">Why is gets dangerous? What should I use instead?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#how-do-i-use-getline">How do I use getline?</a></li>
+                    <li><a class="toctree-l4" href="#how-do-i-use-getline">How do I use getline?</a></li>
                 
             
             </ul>
@@ -139,6 +130,27 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../C-Programming,-Part-3:-Common-Gotchas/">C Programming, Part 3: Common Gotchas</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-4:-Strings-and-Structs/">C Programming, Part 4: Strings and Structs</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-5:-Debugging/">C Programming, Part 5: Debugging</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Review-Questions/">C Programming, Review Questions</a>
         
     </li>
 
@@ -160,6 +172,20 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Deadlock,-Part-2:-Deadlock-Conditions/">Deadlock, Part 2: Deadlock Conditions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-3:-Dining-Philosophers/">Deadlock, Part 3: Dining Philosophers</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock-Review-Questions/">Deadlock Review Questions</a>
         
     </li>
 
@@ -222,14 +248,21 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../File-System,-Part-8:-Disk-blocks-example/">File System, Part 8: Disk blocks example</a>
+        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
+        <a class="" href="../File-System,-Part-9:-Disk-blocks-example/">File System, Part 9: Disk blocks example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-Systems-Review-Questions/">File Systems Review Questions</a>
         
     </li>
 
@@ -278,6 +311,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../IPC-Review-Questions/">IPC Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Memory,-Part-1:-Heap-Memory-Introduction/">Memory, Part 1: Heap Memory Introduction</a>
         
     </li>
@@ -299,6 +339,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Memory-Review-Questions/">Memory Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Memory:-Review-Questions/">Memory: Review Questions</a>
         
     </li>
@@ -307,20 +354,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Multi-threaded-Programming:-Review-Questions/">Multi threaded Programming: Review Questions</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Networking, Part 3: Building a simple TCP Client/">Networking, Part 3: Building a simple TCP Client</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Networking, Part 6: Creating a UDP server/">Networking, Part 6: Creating a UDP server</a>
         
     </li>
 
@@ -341,6 +374,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-3:-Building-a-simple-TCP-Client/">Networking, Part 3: Building a simple TCP Client</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Networking,-Part-4:-Building-a-simple-TCP-Server/">Networking, Part 4: Building a simple TCP Server</a>
         
     </li>
@@ -348,7 +388,35 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Networking,-Part-5:-Reusing-ports/">Networking, Part 5: Reusing ports</a>
+        <a class="" href="../Networking,-Part-5:-Shutting-down-ports,-reusing-ports-and-other-tricks/">Networking, Part 5: Shutting down ports, reusing ports and other tricks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-6:-Building-a-web-server/">Networking, Part 6: Building a web server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-6:-Creating-a-UDP-server/">Networking, Part 6: Creating a UDP server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-7:-Nonblocking-I-O,-select(),-and-epoll/">Networking, Part 7: Nonblocking I O, select(), and epoll</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking-Review-Questions/">Networking Review Questions</a>
         
     </li>
 
@@ -356,13 +424,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Networking:-Review-Questions/">Networking: Review Questions</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Nonblocking-I-O,-select(),-and-epoll/">Nonblocking I O, select(), and epoll</a>
         
     </li>
 
@@ -411,7 +472,28 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Processes,-Part-1:-Introduction/">Processes, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Processes-Review-Questions/">Processes Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Programming-Tricks,-Part-1/">Programming Tricks, Part 1</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthread-Review-Questions/">Pthread Review Questions</a>
         
     </li>
 
@@ -426,6 +508,13 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Pthreads,-Part-2:-Usage-in-Practice/">Pthreads, Part 2: Usage in Practice</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-3:-Parallel-Problems-(Bonus)/">Pthreads, Part 3: Parallel Problems (Bonus)</a>
         
     </li>
 
@@ -453,6 +542,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Scheduling,-Part-2:-Scheduling-Processes:-Algorithms/">Scheduling, Part 2: Scheduling Processes: Algorithms</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Signals,-Part-2:-Pending-Signals-and-Signal-Masks/">Signals, Part 2: Pending Signals and Signal Masks</a>
         
     </li>
@@ -468,6 +564,13 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Signals,-Part-4:-Sigaction/">Signals, Part 4: Sigaction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals-Review-Questions/">Signals Review Questions</a>
         
     </li>
 
@@ -537,14 +640,21 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Synchronization,-Part-9:-The-Reader-Writer-Problem-(part-2)/">Synchronization, Part 9: The Reader Writer Problem (part 2)</a>
+        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
+        <a class="" href="../Synchronization-Review-Questions/">Synchronization Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../System-Programming-Jokes/">System Programming Jokes</a>
         
     </li>
 
@@ -616,7 +726,8 @@
           <div role="main">
             <div class="section">
               
-                <h2 id="how-do-i-print-strings-ints-chars-to-the-standard-output-stream">How do I print strings, ints, chars to the standard output stream?</h2>
+                <h1 id="printing-to-streams">Printing to Streams</h1>
+<h2 id="how-do-i-print-strings-ints-chars-to-the-standard-output-stream">How do I print strings, ints, chars to the standard output stream?</h2>
 <p>Use <code>printf</code>. The first parameter is a format string that includes placeholders for the data to be printed. Common format specifiers are <code>%s</code> treat the argument as a c string pointer, keep printing all characters until the NULL-character is reached; <code>%d</code> print the argument as an integer; <code>%p</code> print the argument as a memory address. </p>
 <p>A simple example is shown below:</p>
 <pre><code class="C">char *name = ... ; int score = ...;
@@ -632,6 +743,8 @@ printf(&quot;Debug: The string and int are stored at: %p and %p\n&quot;, name, &
 <h2 id="how-do-i-print-to-other-file-streams">How do I print to other file streams?</h2>
 <p>Use <code>fprintf( _file_ , "Hello %s, score: %d", name, score);</code>
 Where _file_ is either predefined 'stdout' 'stderr' or a FILE pointer that was returned by <code>fopen</code> or <code>fdopen</code></p>
+<h2 id="can-i-use-file-descriptors">Can I use file descriptors?</h2>
+<p>Yes! Just use <code>dprintf(int fd, char* format_string, ...);</code> Just remember the stream may be buffered, so you will need to assure that the data is written to the file descriptor.</p>
 <h2 id="how-do-i-print-data-into-a-c-string">How do I print data into a C string?</h2>
 <p>Use <code>sprintf</code> or better <code>snprintf</code>.</p>
 <pre><code class="C">char result[200];
@@ -639,11 +752,57 @@ int len = snprintf(result, sizeof(result), &quot;%s:%d&quot;, name, score);
 </code></pre>
 
 <p>snprintf returns the number of characters written excluding the terminating byte. In the above example this would be a maximum of 199.</p>
+<h2 id="what-if-i-really-really-want-printf-to-call-write-without-a-newline">What if I really really want <code>printf</code> to call <code>write</code> without a newline?</h2>
+<p>Use <code>fflush( FILE* inp )</code>. The contents of the file will be written. If I wanted to write "Hello World" with no newline, I could write it like this.</p>
+<pre><code class="C">int main(){
+    fprintf(stdout, &quot;Hello World&quot;);
+    fflush(stdout);
+    return 0;
+}
+</code></pre>
+
+<h2 id="how-is-perror-helpful">How is <code>perror</code> helpful?</h2>
+<p>Let's say that you have a function call that just failed (because you checked the man page and it is a failing return code). <code>perror(const char* message)</code> will print the english version of the error to stderr</p>
+<pre><code class="C">int main(){
+    int ret = open(&quot;IDoNotExist.txt&quot;, O_RDONLY);
+    if(ret &lt; 0){
+        perror(&quot;Opening IDoNotExist:&quot;);
+    }
+    //...
+    return 0;
+}
+</code></pre>
+
+<h1 id="parsing-input">Parsing Input</h1>
+<h2 id="how-do-i-parse-numbers-from-strings">How do I parse numbers from strings?</h2>
+<p>Use <code>long int strtol(const char *nptr, char **endptr, int base);</code> or <code>long long int strtoll(const char *nptr, char **endptr, int base);</code>.</p>
+<p>What these functions do is take the pointer to your string <code>*nptr</code> and a <code>base</code> (ie binary, octal, decimal, hexadecimal etc) and an optional pointer <code>endptr</code> and returns a parsed int.</p>
+<pre><code class="C">int main(){
+    const char *num = &quot;1A2436&quot;;
+    char* endptr;
+    long int parsed = strtol(num, &amp;endptr, 16);
+    return 0;
+}
+</code></pre>
+
+<p>Be careful though! Error handling is kinda tricky because the function won't return an error code. On error, it'll return 0, and you have to manually check errno, but that could lead to trouble.</p>
+<pre><code class="C">int main(){
+    const char *zero = &quot;0&quot;;
+    char* endptr;
+    printf(&quot;Parsing number&quot;); //printf sets errno
+    long int parsed = strtol(num, &amp;endptr, 16);
+    if(parsed == 0){
+        perror(&quot;Error: &quot;); //oops strtol actually worked!
+    }
+    return 0;
+}
+</code></pre>
+
 <h2 id="how-do-i-parse-input-using-scanf-into-parameters">How do I parse input using <code>scanf</code> into parameters?</h2>
 <p>Use <code>scanf</code> (or <code>fscanf</code> or <code>sscanf</code>) to get input from the default input stream, an arbitrary file stream or a C string respectively.
 It's a good idea to check the return value to see how many items were parsed.
 <code>scanf</code> functions require valid pointers. It's a common source of error to pass in an incorrect pointer value. For example,</p>
-<pre><code>int *data = (int *) malloc(sizeof(int));
+<pre><code class="C">int *data = (int *) malloc(sizeof(int));
 char *line = &quot;v 10&quot;;
 char type;
 // Good practice: Check scanf parsed the line and read two values:
@@ -665,13 +824,13 @@ scanf(&quot;%9s&quot;, buffer); // reads upto 9 charactes from input (leave room
 
 <h2 id="why-is-gets-dangerous-what-should-i-use-instead">Why is <code>gets</code> dangerous? What should I use instead?</h2>
 <p>The following code is vulnerable to buffer overflow. It assumes or trusts that the input line will be no more than 10 characters, including the terminating byte.</p>
-<pre><code>char buf[10];
+<pre><code class="C">char buf[10];
 gets(buf); // Remember the array name means the first byte of the array
 </code></pre>
 
 <p><code>gets</code> is deprecated in C99 standard and has been removed from the latest C standard (C11). Programs should use <code>fgets</code> or <code>getline</code> instead. </p>
 <p>Where each have the following structure respectively:</p>
-<pre><code>char *fgets (char *str, int num, FILE *stream); 
+<pre><code class="C">char *fgets (char *str, int num, FILE *stream); 
 
 ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 </code></pre>
@@ -712,6 +871,15 @@ chars = getline(&amp;buffer, &amp;size, stdin);
 // Later... don't forget to free the buffer!
 free(buffer);
 </code></pre>
+
+<div align="center">
+<a href="https://github.com/angrave/SystemProgramming/wiki/C-Programming,-Part-1:-Introduction">
+Back: C Programming, Part 1: Introduction
+</a> |
+<a href="https://github.com/angrave/SystemProgramming/wiki/C-Programming%2C-Part-3%3A-Common-Gotchas">
+Next: C Programming, Part 3: Common Gotchas
+</a>
+</div>
               
             </div>
           </div>
@@ -741,10 +909,10 @@ free(buffer);
       </div>
 
     </section>
-
+    
   </div>
 
-<div class="rst-versions" role="note" style="cursor: pointer">
+  <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
@@ -755,6 +923,7 @@ free(buffer);
       
     </span>
 </div>
+    <script src="../../js/theme.js"></script>
 
 </body>
 </html>

@@ -7,19 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  
-  <title>Synchronization, Part 4: The Critical Section Problem - UIUC CS241 SystemProgramming Wiki</title>
-  
-
   <link rel="shortcut icon" href="../../img/favicon.ico">
-
-  
+  <title>Synchronization, Part 4: The Critical Section Problem - UIUC CS241 SystemProgramming Wiki</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="../../css/highlight.css">
-
   
   <script>
     // Current page data
@@ -30,9 +24,7 @@
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
   <script src="../../js/modernizr-2.8.3.min.js"></script>
-  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
-  <script src="../../js/theme.js"></script> 
-
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
   
 </head>
 
@@ -52,7 +44,7 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        <ul class="current">
+	<ul class="current">
           
             <li>
     <li class="toctree-l1 ">
@@ -89,13 +81,6 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../C Programming, Part 4: Debugging/">C Programming, Part 4: Debugging</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
         <a class="" href="../C-Programming,-Part-1:-Introduction/">C Programming, Part 1: Introduction</a>
         
     </li>
@@ -117,6 +102,27 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-4:-Strings-and-Structs/">C Programming, Part 4: Strings and Structs</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-5:-Debugging/">C Programming, Part 5: Debugging</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Review-Questions/">C Programming, Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../C-Programming:-Review-Questions/">C Programming: Review Questions</a>
         
     </li>
@@ -132,6 +138,20 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Deadlock,-Part-2:-Deadlock-Conditions/">Deadlock, Part 2: Deadlock Conditions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-3:-Dining-Philosophers/">Deadlock, Part 3: Dining Philosophers</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock-Review-Questions/">Deadlock Review Questions</a>
         
     </li>
 
@@ -194,14 +214,21 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../File-System,-Part-8:-Disk-blocks-example/">File System, Part 8: Disk blocks example</a>
+        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
+        <a class="" href="../File-System,-Part-9:-Disk-blocks-example/">File System, Part 9: Disk blocks example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-Systems-Review-Questions/">File Systems Review Questions</a>
         
     </li>
 
@@ -250,6 +277,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../IPC-Review-Questions/">IPC Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Memory,-Part-1:-Heap-Memory-Introduction/">Memory, Part 1: Heap Memory Introduction</a>
         
     </li>
@@ -271,6 +305,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Memory-Review-Questions/">Memory Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Memory:-Review-Questions/">Memory: Review Questions</a>
         
     </li>
@@ -279,20 +320,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Multi-threaded-Programming:-Review-Questions/">Multi threaded Programming: Review Questions</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Networking, Part 3: Building a simple TCP Client/">Networking, Part 3: Building a simple TCP Client</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Networking, Part 6: Creating a UDP server/">Networking, Part 6: Creating a UDP server</a>
         
     </li>
 
@@ -313,6 +340,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-3:-Building-a-simple-TCP-Client/">Networking, Part 3: Building a simple TCP Client</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Networking,-Part-4:-Building-a-simple-TCP-Server/">Networking, Part 4: Building a simple TCP Server</a>
         
     </li>
@@ -320,7 +354,35 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Networking,-Part-5:-Reusing-ports/">Networking, Part 5: Reusing ports</a>
+        <a class="" href="../Networking,-Part-5:-Shutting-down-ports,-reusing-ports-and-other-tricks/">Networking, Part 5: Shutting down ports, reusing ports and other tricks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-6:-Building-a-web-server/">Networking, Part 6: Building a web server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-6:-Creating-a-UDP-server/">Networking, Part 6: Creating a UDP server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-7:-Nonblocking-I-O,-select(),-and-epoll/">Networking, Part 7: Nonblocking I O, select(), and epoll</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking-Review-Questions/">Networking Review Questions</a>
         
     </li>
 
@@ -328,13 +390,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Networking:-Review-Questions/">Networking: Review Questions</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Nonblocking-I-O,-select(),-and-epoll/">Nonblocking I O, select(), and epoll</a>
         
     </li>
 
@@ -383,7 +438,28 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Processes,-Part-1:-Introduction/">Processes, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Processes-Review-Questions/">Processes Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Programming-Tricks,-Part-1/">Programming Tricks, Part 1</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthread-Review-Questions/">Pthread Review Questions</a>
         
     </li>
 
@@ -398,6 +474,13 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Pthreads,-Part-2:-Usage-in-Practice/">Pthreads, Part 2: Usage in Practice</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-3:-Parallel-Problems-(Bonus)/">Pthreads, Part 3: Parallel Problems (Bonus)</a>
         
     </li>
 
@@ -425,6 +508,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Scheduling,-Part-2:-Scheduling-Processes:-Algorithms/">Scheduling, Part 2: Scheduling Processes: Algorithms</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Signals,-Part-2:-Pending-Signals-and-Signal-Masks/">Signals, Part 2: Pending Signals and Signal Masks</a>
         
     </li>
@@ -440,6 +530,13 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Signals,-Part-4:-Sigaction/">Signals, Part 4: Sigaction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals-Review-Questions/">Signals Review Questions</a>
         
     </li>
 
@@ -478,31 +575,31 @@
         
             <ul>
             
-                <li class="toctree-l3"><a href="#what-is-the-critical-section-problem">What is the Critical Section Problem?</a></li>
+                <li class="toctree-l3"><a href="#candidate-solutions">Candidate Solutions</a></li>
+                
+                    <li><a class="toctree-l4" href="#what-is-the-critical-section-problem">What is the Critical Section Problem?</a></li>
+                
+                    <li><a class="toctree-l4" href="#candidate-solutions-to-the-critical-section-problem">Candidate solutions to the critical section problem.</a></li>
+                
+                    <li><a class="toctree-l4" href="#turn-based-solutions">Turn-based solutions</a></li>
+                
+                    <li><a class="toctree-l4" href="#desired-properties-for-solutions-to-the-critical-section-problem">Desired properties for solutions to the Critical Section Problem?</a></li>
+                
+                    <li><a class="toctree-l4" href="#turn-and-flag-solutions">Turn and Flag solutions</a></li>
                 
             
-                <li class="toctree-l3"><a href="#candidate-solutions-to-the-critical-section-problem">Candidate solutions to the critical section problem.</a></li>
+                <li class="toctree-l3"><a href="#working-solutions">Working Solutions</a></li>
+                
+                    <li><a class="toctree-l4" href="#what-is-petersons-solution">What is Peterson's solution?</a></li>
+                
+                    <li><a class="toctree-l4" href="#was-petersons-solution-the-first-solution">Was Peterson's solution the first solution?</a></li>
+                
+                    <li><a class="toctree-l4" href="#can-i-just-implement-petersons-or-dekkers-algorithm-in-c-or-assembler">Can I just implement Peterson's (or Dekkers) algorithm in C or assembler?</a></li>
                 
             
-                <li class="toctree-l3"><a href="#turn-based-solutions">Turn-based solutions</a></li>
+                <li class="toctree-l3"><a href="#hardware-solutions">Hardware Solutions</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#desired-properties-for-solutions-to-the-critical-section-problem">Desired properties for solutions to the Critical Section Problem?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#turn-and-flag-solutions">Turn and Flag solutions</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#what-is-petersons-solution">What is Peterson's solution?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#was-petersons-solution-the-first-solution">Was Peterson's solution the first solution?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#can-i-just-implement-petersons-or-dekkers-algorithm-in-c-or-assembler">Can I just implement Peterson's (or Dekkers) algorithm in C or assembler?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#how-do-we-implement-critical-section-problem-on-hardware">How do we implement Critical Section Problem on hardware?</a></li>
+                    <li><a class="toctree-l4" href="#how-do-we-implement-critical-section-problem-on-hardware">How do we implement Critical Section Problem on hardware?</a></li>
                 
             
             </ul>
@@ -540,14 +637,21 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Synchronization,-Part-9:-The-Reader-Writer-Problem-(part-2)/">Synchronization, Part 9: The Reader Writer Problem (part 2)</a>
+        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
+        <a class="" href="../Synchronization-Review-Questions/">Synchronization Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../System-Programming-Jokes/">System Programming Jokes</a>
         
     </li>
 
@@ -619,7 +723,8 @@
           <div role="main">
             <div class="section">
               
-                <h2 id="what-is-the-critical-section-problem">What is the Critical Section Problem?</h2>
+                <h1 id="candidate-solutions">Candidate Solutions</h1>
+<h2 id="what-is-the-critical-section-problem">What is the Critical Section Problem?</h2>
 <p>As already discussed in [[Synchronization, Part 3: Working with Mutexes And Semaphores]], there are critical parts of our code that can only be executed by one thread at a time. We describe this requirement as 'mutual exclusion'; only one thread (or process) may have access to the shared resource.</p>
 <p>In multi-threaded programs we can wrap a critical section with mutex lock and unlock calls:</p>
 <pre><code class="C">pthread_mutex_lock() - one thread allowed at a time! (others will have to wait here)
@@ -782,12 +887,13 @@ lower my flag
 </tr>
 </tbody>
 </table>
+<h1 id="working-solutions">Working Solutions</h1>
 <h2 id="what-is-petersons-solution">What is Peterson's solution?</h2>
 <p>Peterson published his novel and surprisingly simple solution in a 2 page paper in 1981. A version of his algorithm is shown below that uses a shared variable <code>turn</code>: </p>
 <pre><code>\\ Candidate #5
 raise my flag
-turn = myid
-wait until your flag is lowered or turn is yourid
+turn = your_id
+wait until your flag is lowered and turn is yourid
 // Do Critical Section stuff
 lower my flag
 </code></pre>
@@ -826,8 +932,83 @@ Using <code>volatile</code> goes someway to prevent compiler optimizations of th
 <p>Further reading: we suggest the following web post that discusses implementing Peterson's algorithm on an x86 process and the linux documentation on memory barriers.</p>
 <p>http://bartoszmilewski.com/2008/11/05/who-ordered-memory-fences-on-an-x86/
 http://lxr.free-electrons.com/source/Documentation/memory-barriers.txt</p>
+<h1 id="hardware-solutions">Hardware Solutions</h1>
 <h2 id="how-do-we-implement-critical-section-problem-on-hardware">How do we implement Critical Section Problem on hardware?</h2>
-<p>Good question. Next lecture...</p>
+<p>We can use C11 Atomics to do that perfectly! A complete solution is detailed here (this is a spinlock mutex, <a href="https://locklessinc.com/articles/mutex_cv_futex/">futex</a> implementations can be found online).</p>
+<pre><code class="C">typedef struct mutex_{
+    atomic_int_least8_t lock;
+    pthread_t owner;
+} mutex;
+
+#define UNLOCKED 0
+#define LOCKED 1
+#define UNASSIGNED_OWNER 0
+
+int mutex_init(mutex* mtx){
+    if(!mtx){
+        return 0;
+    }
+    atomic_init(&amp;mtx-&gt;lock, UNLOCKED); // Not thread safe the user has to take care of this
+    mtx-&gt;owner = UNASSIGNED_OWNER;
+    return 1;
+}
+</code></pre>
+
+<p>This is the initialization code, nothing fancy here. We set the state of the mutex to unlocked and set the owner to locked.</p>
+<pre><code class="C">int mutex_lock(mutex* mtx){
+    int_least8_t zero = UNLOCKED;
+    while(!atomic_compare_exchange_weak_explicit
+            (&amp;mtx-&gt;lock, 
+             &amp;zero, 
+             LOCKED,
+             memory_order_relaxed,
+             memory_order_relaxed)){
+        zero = UNLOCKED;
+        sched_yield(); //Use system calls for scheduling speed
+    }
+    //We have the lock now!!!!
+    mtx-&gt;owner = pthread_self();
+    return 1;
+}
+</code></pre>
+
+<p>Yikes! What does this code do? Well to start it it initializes a variable that we will keep as the unlocked state. <a href="https://en.wikipedia.org/wiki/Compare-and-swap">Atomic Compare and Exchange</a> is an instruction supported by most modern architectures (on x86 it's <code>lock cmpxchg</code>). The pseudocode for this operation looks like this</p>
+<pre><code class="C">int atomic_compare_exchange_pseudo(int* addr1, int* addr2, int val){
+    if(*addr1 == *addr2){
+        *addr1 = val;
+        return 1;
+    }else{
+        *addr2 = *addr1;
+        return 0;
+    }
+}
+</code></pre>
+
+<p>Except it is all done <em>atomically</em> meaning in one uninterruptible operation. What does the <em>weak</em> part mean? Well atomic instructions are also prone to <strong>spurious failures</strong> meaning that there are two versions to these atomic functions a <em>strong</em> and a <em>weak</em> part, strong guarantee the the success or failure while weak may fail. We are using weak because weak is faster and we are in a loop! That means we are okay if it fails a little bit more often because we will just keep spinning around anyway.</p>
+<p>What is this memory order business? We were talking about memory fences earlier, here it is! We won't go into detail because it is outside the scope of this course but not the scope of <a href="https://gcc.gnu.org/wiki/Atomic/GCCMM/AtomicSync">this article</a>.</p>
+<p>Inside the while loop, we have failed to grab the lock! We reset zero to unlocked and sleep for a little while. When we wake up we try to grab the lock again. Once we successfully swap, we are in the critical section! We set the mutex's owner to the current thread for the unlock method and return successful.</p>
+<p>How does this guarantee mutual exclusion, when working with atomics we are not entirely sure! But in this simple example we can because the thread that is able to successfully expect the lock to be UNLOCKED (0) and swap it to a LOCKED (1) state is considered the winner. How do we implement unlock?</p>
+<pre><code class="C">int mutex_unlock(mutex* mtx){
+    if(unlikely(pthread_self() != mtx-&gt;owner)){
+        return 0; //You can't unlock a mutex if you aren't the owner
+    }
+    int_least8_t one = 1;
+    //Critical section ends after this atomic
+    mtx-&gt;owner = UNASSIGNED_OWNER;
+    if(!atomic_compare_exchange_strong_explicit(
+                &amp;mtx-&gt;lock, 
+                &amp;one, 
+                UNLOCKED,
+                memory_order_relaxed,
+                memory_order_relaxed)){
+        //The mutex was never locked in the first place
+        return 0;
+    }
+    return 1;
+}
+</code></pre>
+
+<p>To satisfy the api, you can't unlock the mutex unless you are the one who owns it. Then we unassign the mutex owner, because critical section is over after the atomic. We want a strong exchange because we don't want to block (pthread_mutex_unlock doesn't block). We expect the mutex to be locked, and we swap it to unlock. If the swap was successful, we unlocked the mutex. If the swap wasn't, that means that the mutex was UNLOCKED and we tried to switch it from UNLOCKED to UNLOCKED, preserving the non blocking of unlock.</p>
               
             </div>
           </div>
@@ -857,10 +1038,10 @@ http://lxr.free-electrons.com/source/Documentation/memory-barriers.txt</p>
       </div>
 
     </section>
-
+    
   </div>
 
-<div class="rst-versions" role="note" style="cursor: pointer">
+  <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
@@ -871,6 +1052,7 @@ http://lxr.free-electrons.com/source/Documentation/memory-barriers.txt</p>
       
     </span>
 </div>
+    <script src="../../js/theme.js"></script>
 
 </body>
 </html>

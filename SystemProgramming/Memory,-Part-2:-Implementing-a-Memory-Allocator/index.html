@@ -7,19 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  
-  <title>Memory, Part 2: Implementing a Memory Allocator - UIUC CS241 SystemProgramming Wiki</title>
-  
-
   <link rel="shortcut icon" href="../../img/favicon.ico">
-
-  
+  <title>Memory, Part 2: Implementing a Memory Allocator - UIUC CS241 SystemProgramming Wiki</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="../../css/highlight.css">
-
   
   <script>
     // Current page data
@@ -30,9 +24,7 @@
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
   <script src="../../js/modernizr-2.8.3.min.js"></script>
-  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
-  <script src="../../js/theme.js"></script> 
-
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
   
 </head>
 
@@ -52,7 +44,7 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        <ul class="current">
+	<ul class="current">
           
             <li>
     <li class="toctree-l1 ">
@@ -89,13 +81,6 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../C Programming, Part 4: Debugging/">C Programming, Part 4: Debugging</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
         <a class="" href="../C-Programming,-Part-1:-Introduction/">C Programming, Part 1: Introduction</a>
         
     </li>
@@ -117,6 +102,27 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-4:-Strings-and-Structs/">C Programming, Part 4: Strings and Structs</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-5:-Debugging/">C Programming, Part 5: Debugging</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Review-Questions/">C Programming, Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../C-Programming:-Review-Questions/">C Programming: Review Questions</a>
         
     </li>
@@ -132,6 +138,20 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Deadlock,-Part-2:-Deadlock-Conditions/">Deadlock, Part 2: Deadlock Conditions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-3:-Dining-Philosophers/">Deadlock, Part 3: Dining Philosophers</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock-Review-Questions/">Deadlock Review Questions</a>
         
     </li>
 
@@ -194,14 +214,21 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../File-System,-Part-8:-Disk-blocks-example/">File System, Part 8: Disk blocks example</a>
+        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
+        <a class="" href="../File-System,-Part-9:-Disk-blocks-example/">File System, Part 9: Disk blocks example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-Systems-Review-Questions/">File Systems Review Questions</a>
         
     </li>
 
@@ -250,6 +277,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../IPC-Review-Questions/">IPC Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Memory,-Part-1:-Heap-Memory-Introduction/">Memory, Part 1: Heap Memory Introduction</a>
         
     </li>
@@ -261,27 +295,23 @@
         
             <ul>
             
-                <li class="toctree-l3"><a href="#this-page-talks-about-links-of-blocks-do-i-malloc-memory-for-them-instead">This page talks about links of blocks - do I malloc memory for them instead?</a></li>
+                <li class="toctree-l3"><a href="#memory-allocator-tutorial">Memory Allocator Tutorial</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#thinking-in-blocks">Thinking in blocks</a></li>
+                    <li><a class="toctree-l4" href="#this-page-talks-about-links-of-blocks-do-i-malloc-memory-for-them-instead">This page talks about links of blocks - do I malloc memory for them instead?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#implementing-malloc">Implementing malloc</a></li>
+                    <li><a class="toctree-l4" href="#thinking-in-blocks">Thinking in blocks</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#alignment-and-rounding-up-considerations">Alignment and rounding up considerations</a></li>
+                    <li><a class="toctree-l4" href="#implementing-malloc">Implementing malloc</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#implementing-free">Implementing free</a></li>
+                    <li><a class="toctree-l4" href="#alignment-and-rounding-up-considerations">Alignment and rounding up considerations</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#performance">Performance</a></li>
+                    <li><a class="toctree-l4" href="#a-note-about-internal-fragmentation">A note about internal fragmentation</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#explicit-free-lists-allocators">Explicit Free Lists Allocators</a></li>
+                    <li><a class="toctree-l4" href="#implementing-free">Implementing free</a></li>
                 
-                    <li><a class="toctree-l4" href="#explicit-linked-list-insertion-policy">Explicit linked list insertion policy</a></li>
+                    <li><a class="toctree-l4" href="#performance">Performance</a></li>
+                
+                    <li><a class="toctree-l4" href="#explicit-free-lists-allocators">Explicit Free Lists Allocators</a></li>
                 
             
                 <li class="toctree-l3"><a href="#case-study-buddy-allocator-an-example-of-a-segregated-list">Case study: Buddy Allocator (an example of a segregated list)</a></li>
@@ -306,6 +336,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Memory-Review-Questions/">Memory Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Memory:-Review-Questions/">Memory: Review Questions</a>
         
     </li>
@@ -314,20 +351,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Multi-threaded-Programming:-Review-Questions/">Multi threaded Programming: Review Questions</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Networking, Part 3: Building a simple TCP Client/">Networking, Part 3: Building a simple TCP Client</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Networking, Part 6: Creating a UDP server/">Networking, Part 6: Creating a UDP server</a>
         
     </li>
 
@@ -348,6 +371,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-3:-Building-a-simple-TCP-Client/">Networking, Part 3: Building a simple TCP Client</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Networking,-Part-4:-Building-a-simple-TCP-Server/">Networking, Part 4: Building a simple TCP Server</a>
         
     </li>
@@ -355,7 +385,35 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Networking,-Part-5:-Reusing-ports/">Networking, Part 5: Reusing ports</a>
+        <a class="" href="../Networking,-Part-5:-Shutting-down-ports,-reusing-ports-and-other-tricks/">Networking, Part 5: Shutting down ports, reusing ports and other tricks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-6:-Building-a-web-server/">Networking, Part 6: Building a web server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-6:-Creating-a-UDP-server/">Networking, Part 6: Creating a UDP server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-7:-Nonblocking-I-O,-select(),-and-epoll/">Networking, Part 7: Nonblocking I O, select(), and epoll</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking-Review-Questions/">Networking Review Questions</a>
         
     </li>
 
@@ -363,13 +421,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Networking:-Review-Questions/">Networking: Review Questions</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Nonblocking-I-O,-select(),-and-epoll/">Nonblocking I O, select(), and epoll</a>
         
     </li>
 
@@ -418,7 +469,28 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Processes,-Part-1:-Introduction/">Processes, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Processes-Review-Questions/">Processes Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Programming-Tricks,-Part-1/">Programming Tricks, Part 1</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthread-Review-Questions/">Pthread Review Questions</a>
         
     </li>
 
@@ -433,6 +505,13 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Pthreads,-Part-2:-Usage-in-Practice/">Pthreads, Part 2: Usage in Practice</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-3:-Parallel-Problems-(Bonus)/">Pthreads, Part 3: Parallel Problems (Bonus)</a>
         
     </li>
 
@@ -460,6 +539,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Scheduling,-Part-2:-Scheduling-Processes:-Algorithms/">Scheduling, Part 2: Scheduling Processes: Algorithms</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Signals,-Part-2:-Pending-Signals-and-Signal-Masks/">Signals, Part 2: Pending Signals and Signal Masks</a>
         
     </li>
@@ -475,6 +561,13 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Signals,-Part-4:-Sigaction/">Signals, Part 4: Sigaction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals-Review-Questions/">Signals Review Questions</a>
         
     </li>
 
@@ -544,14 +637,21 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Synchronization,-Part-9:-The-Reader-Writer-Problem-(part-2)/">Synchronization, Part 9: The Reader Writer Problem (part 2)</a>
+        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
+        <a class="" href="../Synchronization-Review-Questions/">Synchronization Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../System-Programming-Jokes/">System Programming Jokes</a>
         
     </li>
 
@@ -623,7 +723,8 @@
           <div role="main">
             <div class="section">
               
-                <p>A memory allocator needs to keep track of which bytes are currently allocated and which are available for use. This page introduces the implementation and conceptual details of building an allocator, i.e. the actual code that implements <code>malloc</code> and <code>free</code>.</p>
+                <h1 id="memory-allocator-tutorial">Memory Allocator Tutorial</h1>
+<p>A memory allocator needs to keep track of which bytes are currently allocated and which are available for use. This page introduces the implementation and conceptual details of building an allocator, i.e. the actual code that implements <code>malloc</code> and <code>free</code>.</p>
 <h2 id="this-page-talks-about-links-of-blocks-do-i-malloc-memory-for-them-instead">This page talks about links of blocks - do I malloc memory for them instead?</h2>
 <p>Though conceptually we are thinking about creating linked lists and lists of blocks, we don't need to "malloc memory" to create them! Instead we are writing integers and pointers into memory that we already control so that we can later consistently hop from one address to the next. This internal information represents some overhead. So even if we had requested 1024 KB of contiguous memory from the system, we will not be able to provide all of it to the running program.</p>
 <h2 id="thinking-in-blocks">Thinking in blocks</h2>
@@ -635,8 +736,8 @@ Rather than storing an explicit list of pointers we store information about the 
 In the implementation, remember that pointer arithmetic depends on type. For example, <code>p += 8</code> adds <code>8 * sizeof(p)</code>, not necessarily 8 bytes!</p>
 <h2 id="implementing-malloc">Implementing malloc</h2>
 <p>The simplest implementation uses first fit: Start at the first block, assuming it exists, and iterate until a block that represents unallocated space of sufficient size is found, or we've checked all the blocks.</p>
-<p>If no suitable block is found then it's time to call <code>sbrk()</code> again to sufficiently extend the size of the heap. A fast implementation might extend it a significant amount so that we will not need to request more heap memory in the near future.</p>
-<p>When a free block is found it may be larger than the space we need. If so, we will create two entries in our implicit list. The first entry is the allocated block, the second entry is the remaining space.</p>
+<p>If no suitable block is found, it's time to call <code>sbrk()</code> again to sufficiently extend the size of the heap. A fast implementation might extend it a significant amount so that we will not need to request more heap memory in the near future.</p>
+<p>When a free block is found, it may be larger than the space we need. If so, we will create two entries in our implicit list. The first entry is the allocated block, the second entry is the remaining space.</p>
 <p>There are two simple ways to note if a block is in use or available. The first is to store it as a byte in the header information along with the size and the second to encode it as the lowest bit in the size!
 Thus block size information would be limited to only even values:</p>
 <pre><code>// Assumes p is a reasonable pointer type, e.g. 'size_t *'.
@@ -654,6 +755,9 @@ realsize = (*p) &amp; ~1;  // mask out the lowest bit
 </code></pre>
 
 <p>The additional constant ensures incomplete units are rounded up. Note, real code is more likely to symbol sizes e.g. <code>sizeof(x) - 1</code>, rather than coding numerical constant 15.</p>
+<h2 id="a-note-about-internal-fragmentation">A note about internal fragmentation</h2>
+<p>Internal fragmentation happens when the block you give them is larger than their allocation size. Let's say that we have a free block of size 16B (not including metadata). If they allocate 7 bytes, you may want to round up to 16B and just return the entire block.</p>
+<p>This gets very sinister when you implementing coalescing and splitting (next section). If you don't implement either, then you may end up returning a block of size 64B for a 7B allocation! There is a <em>lot</em> of overhead for that allocation which is what we are trying to avoid.</p>
 <h2 id="implementing-free">Implementing free</h2>
 <p>When <code>free</code> is called we need to re-apply the offset to get back to the 'real' start of the block (remember we didn't give the user a pointer to the actual start of the block?), i.e. to where we stored the size information.</p>
 <p>A naive implementation would simply mark the block as unused. If we are storing the block allocation status in the lowest size bit, then we just need to clear the bit:</p>
@@ -663,10 +767,6 @@ realsize = (*p) &amp; ~1;  // mask out the lowest bit
 <p>However, we have a bit more work to do: If the current block and the next block (if it exists) are both free we need to coalesce these blocks into a single block.
 Similarly, we also need to check the previous block, too. If that exists and represents an unallocated memory, then we need to coalesce the blocks into a single large block.</p>
 <p>To be able to coalesce a free block with a previous free block we will also need to find the previous block, so we store the block's size at the end of the block, too. These are called "boundary tags" (ref Knuth73). As the blocks are contiguous, the end of one blocks sits right next to the start of the next block. So the current block (apart from the first one) can look a few bytes further back to lookup the size of the previous block. With this information you can now jump backwards!</p>
-<p>http://www.eecs.harvard.edu/~mdw/course/cs61/mediawiki/images/5/53/Lectures-malloc1.pdf 
-Slide 29
-(Hey world - an open source licensed diagram of the above would be nice)
--Not sure if the above link is open source or licensed. Confirmation pending.</p>
 <h2 id="performance">Performance</h2>
 <p>With the above description it's possible to build a memory allocator. It's main advantage is simplicity - at least simple compared to other allocators!
 Allocating memory is a worst-case linear time operation (search linked lists for a sufficiently large free block) and de-allocation is constant time (no more than 3 blocks will need to be coalesced into a single block). Using this allocator it is possible to experiment with different placement strategies. For example, you could start searching from where you last free'd a block, or where you last allocated from. If you do store pointers to blocks, you need to be very careful that they always remain valid (e.g. when coalescing blocks or other malloc or free calls that change the heap structure)</p>
@@ -684,7 +784,7 @@ Allocating memory is a worst-case linear time operation (search linked lists for
 <p>A segregated allocator is one that divides the heap into different areas that are handled by different sub-allocators dependent on the size of the allocation request. Sizes are grouped into classes (e.g. powers of two) and each size is handled by a different sub-allocator and each size maintains its own free list.</p>
 <p>A well known allocator of this type is the buddy allocator. We'll discuss the binary buddy allocator which splits allocation into blocks of size 2^n (n = 1, 2, 3, ...) times some base unit number of bytes, but others also exist (e.g. Fibonacci split - can you see why it's named?). The basic concept is simple: If there are no free blocks of size 2^n, go to the next level and steal that block and split it into two. If two neighboring blocks of the same size become unallocated, they can be coalesced back together into a single large block of twice the size.</p>
 <p>Buddy allocators are fast because the neighboring blocks to coalesce with can be calculated from the free'd block's address, rather than traversing the size tags. Ultimate performance often requires a small amount of assembler code to use a specialized CPU instruction to find the lowest non-zero bit. </p>
-<p>The main disadvantage of the Buddy allocator is that they suffer from internal fragmentation, because allocations are rounded up to the nearest block size. For example, a 68-byte allocation will require a 128-byte block.</p>
+<p>The main disadvantage of the Buddy allocator is that they suffer from <em>internal fragmentation</em>, because allocations are rounded up to the nearest block size. For example, a 68-byte allocation will require a 128-byte block.</p>
 <h3 id="further-reading-and-references">Further Reading and References</h3>
 <ul>
 <li>See <a href="http://books.google.com/books?id=0uHME7EfjQEC&amp;lpg=PP1&amp;pg=PA85#v=onepage&amp;q&amp;f=false">Foundations of Software Technology and Theoretical Computer Science 1999 proceedings</a> (Google books,page 85)</li>
@@ -723,10 +823,10 @@ and </li>
       </div>
 
     </section>
-
+    
   </div>
 
-<div class="rst-versions" role="note" style="cursor: pointer">
+  <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
@@ -737,6 +837,7 @@ and </li>
       
     </span>
 </div>
+    <script src="../../js/theme.js"></script>
 
 </body>
 </html>

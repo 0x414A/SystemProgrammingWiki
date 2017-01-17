@@ -3,8 +3,8 @@
 
     
     <url>
-     <loc>None/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -12,416 +12,512 @@
     
         
     <url>
-     <loc>None/SystemProgramming/#Example Markdown/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/#Example Markdown/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/#Informal-Glossary/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/#Informal-Glossary/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/#Piazza: When And How to Ask For Help/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/#Piazza: When And How to Ask For Help/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/C Programming, Part 4: Debugging/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/C-Programming,-Part-1:-Introduction/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/C-Programming,-Part-1:-Introduction/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/C-Programming,-Part-2:-Text-Input-And-Output/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/C-Programming,-Part-2:-Text-Input-And-Output/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/C-Programming,-Part-3:-Common-Gotchas/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/C-Programming,-Part-3:-Common-Gotchas/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/C-Programming,-Part-4:-Strings-and-Structs/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/C-Programming:-Review-Questions/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/C-Programming,-Part-5:-Debugging/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Deadlock,-Part-1:-Resource-Allocation-Graph/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/C-Programming,-Review-Questions/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Deadlock,-Part-2:-Deadlock-Conditions/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/C-Programming:-Review-Questions/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Exam-Topics/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Deadlock,-Part-1:-Resource-Allocation-Graph/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/File-System,-Part-1:-Introduction/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Deadlock,-Part-2:-Deadlock-Conditions/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/File-System,-Part-2:-Files-are-inodes-(everything-else-is-just-data...)/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Deadlock,-Part-3:-Dining-Philosophers/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/File-System,-Part-3:-Permissions/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Deadlock-Review-Questions/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/File-System,-Part-4:-Working-with-directories/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Exam-Topics/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/File-System,-Part-5:-Virtual-file-systems/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/File-System,-Part-1:-Introduction/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/File-System,-Part-6:-Memory-mapped-files-and-Shared-memory/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/File-System,-Part-2:-Files-are-inodes-(everything-else-is-just-data...)/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/File-System,-Part-7:-Scalable-and-Reliable-Filesystems/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/File-System,-Part-3:-Permissions/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/File-System,-Part-8:-Disk-blocks-example/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/File-System,-Part-4:-Working-with-directories/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/File-System,-Part-5:-Virtual-file-systems/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Files,-Part-1:-Working-with-files/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/File-System,-Part-6:-Memory-mapped-files-and-Shared-memory/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Filesystem:-Review-Questions/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/File-System,-Part-7:-Scalable-and-Reliable-Filesystems/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Forking,-Part-1:-Introduction/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Forking,-Part-2:-Fork,-Exec,-Wait/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/File-System,-Part-9:-Disk-blocks-example/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/HW0/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/File-Systems-Review-Questions/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Home/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Files,-Part-1:-Working-with-files/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Memory,-Part-1:-Heap-Memory-Introduction/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Filesystem:-Review-Questions/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Memory,-Part-2:-Implementing-a-Memory-Allocator/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Forking,-Part-1:-Introduction/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Memory,-Part-3:-Smashing-the-Stack-Example/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Forking,-Part-2:-Fork,-Exec,-Wait/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Memory:-Review-Questions/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/HW0/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Multi-threaded-Programming:-Review-Questions/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Home/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Networking, Part 3: Building a simple TCP Client/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/IPC-Review-Questions/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Networking, Part 6: Creating a UDP server/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Memory,-Part-1:-Heap-Memory-Introduction/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Networking,-Part-1:-Introduction/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Memory,-Part-2:-Implementing-a-Memory-Allocator/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Networking,-Part-2:-Using-getaddrinfo/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Memory,-Part-3:-Smashing-the-Stack-Example/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Networking,-Part-4:-Building-a-simple-TCP-Server/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Memory-Review-Questions/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Networking,-Part-5:-Reusing-ports/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Memory:-Review-Questions/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Networking:-Review-Questions/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Multi-threaded-Programming:-Review-Questions/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Nonblocking-I-O,-select(),-and-epoll/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Networking,-Part-1:-Introduction/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/OSI-Model/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Networking,-Part-2:-Using-getaddrinfo/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/POSIX,-Part-1:-Error-handling/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Networking,-Part-3:-Building-a-simple-TCP-Client/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Pipe:-Review-Questions/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Networking,-Part-4:-Building-a-simple-TCP-Server/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Pipes,-Part-1:-Introduction-to-pipes/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Networking,-Part-5:-Shutting-down-ports,-reusing-ports-and-other-tricks/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Pipes,-Part-2:-Pipe-programming-secrets/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Networking,-Part-6:-Building-a-web-server/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Process-Control,-Part-1:-Wait-macros,-using-signals/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Networking,-Part-6:-Creating-a-UDP-server/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Programming-Tricks,-Part-1/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Networking,-Part-7:-Nonblocking-I-O,-select(),-and-epoll/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Pthreads,-Part-1:-Introduction/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Networking-Review-Questions/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Pthreads,-Part-2:-Usage-in-Practice/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Networking:-Review-Questions/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/RPC,-Part-1:-Introduction-to-Remote-Procedure-Calls/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/OSI-Model/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Sample-program-using-pthread-barriers/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/POSIX,-Part-1:-Error-handling/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Scheduling,-Part-1:-Scheduling-Processes/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Pipe:-Review-Questions/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Signals,-Part-2:-Pending-Signals-and-Signal-Masks/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Pipes,-Part-1:-Introduction-to-pipes/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Signals,-Part-3:-Raising-signals/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Pipes,-Part-2:-Pipe-programming-secrets/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Signals,-Part-4:-Sigaction/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Process-Control,-Part-1:-Wait-macros,-using-signals/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Signals:-Review-Questions/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Processes,-Part-1:-Introduction/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Synchronization,-Part-1:-Mutex-Locks/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Processes-Review-Questions/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Synchronization,-Part-2:-Counting-Semaphores/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Programming-Tricks,-Part-1/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Synchronization,-Part-3:-Working-with-Mutexes-And-Semaphores/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Pthread-Review-Questions/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Synchronization,-Part-4:-The-Critical-Section-Problem/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Pthreads,-Part-1:-Introduction/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Synchronization,-Part-5:-Condition-Variables/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Pthreads,-Part-2:-Usage-in-Practice/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Synchronization,-Part-6:-Implementing-a-barrier/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Pthreads,-Part-3:-Parallel-Problems-(Bonus)/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Synchronization,-Part-7:-The-Reader-Writer-Problem/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/RPC,-Part-1:-Introduction-to-Remote-Procedure-Calls/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Synchronization,-Part-8:-Ring-Buffer-Example/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Sample-program-using-pthread-barriers/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Synchronization,-Part-9:-The-Reader-Writer-Problem-(part-2)/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Scheduling,-Part-1:-Scheduling-Processes/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Synchronization-Concepts:-Review-Questions/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Scheduling,-Part-2:-Scheduling-Processes:-Algorithms/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/System-Programming-Short-Stories-and-Songs/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Signals,-Part-2:-Pending-Signals-and-Signal-Masks/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Test-page/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Signals,-Part-3:-Raising-signals/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/Virtual-Memory,-Part-1:-Introduction-to-Virtual-Memory/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Signals,-Part-4:-Sigaction/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/SystemProgramming/_Footer/</loc>
-     <lastmod>2016-05-08</lastmod>
+     <loc>/SystemProgramming/Signals-Review-Questions/</loc>
+     <lastmod>2017-01-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/SystemProgramming/Signals:-Review-Questions/</loc>
+     <lastmod>2017-01-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/SystemProgramming/Synchronization,-Part-1:-Mutex-Locks/</loc>
+     <lastmod>2017-01-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/SystemProgramming/Synchronization,-Part-2:-Counting-Semaphores/</loc>
+     <lastmod>2017-01-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/SystemProgramming/Synchronization,-Part-3:-Working-with-Mutexes-And-Semaphores/</loc>
+     <lastmod>2017-01-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/SystemProgramming/Synchronization,-Part-4:-The-Critical-Section-Problem/</loc>
+     <lastmod>2017-01-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/SystemProgramming/Synchronization,-Part-5:-Condition-Variables/</loc>
+     <lastmod>2017-01-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/SystemProgramming/Synchronization,-Part-6:-Implementing-a-barrier/</loc>
+     <lastmod>2017-01-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/SystemProgramming/Synchronization,-Part-7:-The-Reader-Writer-Problem/</loc>
+     <lastmod>2017-01-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/SystemProgramming/Synchronization,-Part-8:-Ring-Buffer-Example/</loc>
+     <lastmod>2017-01-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/SystemProgramming/Synchronization-Concepts:-Review-Questions/</loc>
+     <lastmod>2017-01-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/SystemProgramming/Synchronization-Review-Questions/</loc>
+     <lastmod>2017-01-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/SystemProgramming/System-Programming-Jokes/</loc>
+     <lastmod>2017-01-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/SystemProgramming/System-Programming-Short-Stories-and-Songs/</loc>
+     <lastmod>2017-01-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/SystemProgramming/Test-page/</loc>
+     <lastmod>2017-01-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/SystemProgramming/Virtual-Memory,-Part-1:-Introduction-to-Virtual-Memory/</loc>
+     <lastmod>2017-01-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/SystemProgramming/_Footer/</loc>
+     <lastmod>2017-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         

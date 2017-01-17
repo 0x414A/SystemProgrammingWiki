@@ -7,19 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  
-  <title>Forking, Part 2: Fork, Exec, Wait - UIUC CS241 SystemProgramming Wiki</title>
-  
-
   <link rel="shortcut icon" href="../../img/favicon.ico">
-
-  
+  <title>Forking, Part 2: Fork, Exec, Wait - UIUC CS241 SystemProgramming Wiki</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="../../css/highlight.css">
-
   
   <script>
     // Current page data
@@ -30,9 +24,7 @@
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
   <script src="../../js/modernizr-2.8.3.min.js"></script>
-  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
-  <script src="../../js/theme.js"></script> 
-
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
   
 </head>
 
@@ -52,7 +44,7 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        <ul class="current">
+	<ul class="current">
           
             <li>
     <li class="toctree-l1 ">
@@ -89,13 +81,6 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../C Programming, Part 4: Debugging/">C Programming, Part 4: Debugging</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
         <a class="" href="../C-Programming,-Part-1:-Introduction/">C Programming, Part 1: Introduction</a>
         
     </li>
@@ -117,6 +102,27 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-4:-Strings-and-Structs/">C Programming, Part 4: Strings and Structs</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-5:-Debugging/">C Programming, Part 5: Debugging</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Review-Questions/">C Programming, Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../C-Programming:-Review-Questions/">C Programming: Review Questions</a>
         
     </li>
@@ -132,6 +138,20 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Deadlock,-Part-2:-Deadlock-Conditions/">Deadlock, Part 2: Deadlock Conditions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-3:-Dining-Philosophers/">Deadlock, Part 3: Dining Philosophers</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock-Review-Questions/">Deadlock Review Questions</a>
         
     </li>
 
@@ -194,14 +214,21 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../File-System,-Part-8:-Disk-blocks-example/">File System, Part 8: Disk blocks example</a>
+        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
+        <a class="" href="../File-System,-Part-9:-Disk-blocks-example/">File System, Part 9: Disk blocks example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-Systems-Review-Questions/">File Systems Review Questions</a>
         
     </li>
 
@@ -233,37 +260,38 @@
         
             <ul>
             
-                <li class="toctree-l3"><a href="#what-does-the-following-exec-example-do">What does the following 'exec' example do?</a></li>
+                <li class="toctree-l3"><a href="#the-pattern">The Pattern</a></li>
+                
+                    <li><a class="toctree-l4" href="#what-does-the-following-exec-example-do">What does the following 'exec' example do?</a></li>
+                
+                    <li><a class="toctree-l4" href="#subtle-forkbomb-bug">Subtle forkbomb bug</a></li>
+                
+                    <li><a class="toctree-l4" href="#what-does-the-child-inherit-from-the-parent">What does the child inherit from the parent?</a></li>
+                
+                    <li><a class="toctree-l4" href="#what-is-different-in-the-child-process-than-the-parent-process">What is different in the child process than the parent process?</a></li>
+                
+                    <li><a class="toctree-l4" href="#how-do-i-wait-for-my-child-to-finish">How do I wait for my child to finish?</a></li>
+                
+                    <li><a class="toctree-l4" href="#what-is-the-fork-exec-wait-pattern">What is the fork-exec-wait pattern</a></li>
+                
+                    <li><a class="toctree-l4" href="#how-do-i-start-a-background-process-that-runs-as-the-same-time">How do I start a background process that runs as the same time?</a></li>
                 
             
-                <li class="toctree-l3"><a href="#what-does-the-child-inherit-from-the-parent">What does the child inherit from the parent?</a></li>
+                <li class="toctree-l3"><a href="#zombies">Zombies</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#what-is-different-in-the-child-process-than-the-parent-process">What is different in the child process than the parent process?</a></li>
+                    <li><a class="toctree-l4" href="#good-parents-dont-let-their-children-become-zombies">Good parents don't let their children become zombies!</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#how-do-i-wait-for-my-child-to-finish">How do I wait for my child to finish?</a></li>
+                    <li><a class="toctree-l4" href="#what-would-be-effect-of-too-many-zombies">What would be effect of too many zombies?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#what-is-the-fork-exec-wait-pattern">What is the fork-exec-wait pattern</a></li>
+                    <li><a class="toctree-l4" href="#what-does-the-system-do-to-help-prevent-zombies">What does the system do to help prevent zombies?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#how-do-i-start-a-background-process-that-runs-as-the-same-time">How do I start a background process that runs as the same time?</a></li>
+                    <li><a class="toctree-l4" href="#how-do-i-prevent-zombies-warning-simplified-answer">How do I prevent zombies? (Warning: Simplified answer)</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#good-parents-dont-let-their-children-become-zombies">Good parents don't let their children become zombies!</a></li>
+                    <li><a class="toctree-l4" href="#how-can-i-asynchronously-wait-for-my-child-using-sigchld-advanced">How can I asynchronously wait for my child using SIGCHLD? (ADVANCED)</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#what-would-be-effect-of-too-many-zombies">What would be effect of too many zombies?</a></li>
+                    <li><a class="toctree-l4" href="#so-what-are-environment-variables">So what are environment variables?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#what-does-the-system-do-to-help-prevent-zombies">What does the system do to help prevent zombies?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#how-do-i-prevent-zombies-warning-simplified-answer">How do I prevent zombies? (Warning: Simplified answer)</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#how-can-i-asynchronously-wait-for-my-child-using-sigchld-advanced">How can I asynchronously wait for my child using SIGCHLD? (ADVANCED)</a></li>
+                    <li><a class="toctree-l4" href="#right-so-how-do-these-environment-variables-mean-anything-to-parentchild">Right, so how do these environment variables mean anything to parent/child?</a></li>
                 
             
             </ul>
@@ -281,6 +309,13 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Home/">Home</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../IPC-Review-Questions/">IPC Review Questions</a>
         
     </li>
 
@@ -308,6 +343,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Memory-Review-Questions/">Memory Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Memory:-Review-Questions/">Memory: Review Questions</a>
         
     </li>
@@ -316,20 +358,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Multi-threaded-Programming:-Review-Questions/">Multi threaded Programming: Review Questions</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Networking, Part 3: Building a simple TCP Client/">Networking, Part 3: Building a simple TCP Client</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Networking, Part 6: Creating a UDP server/">Networking, Part 6: Creating a UDP server</a>
         
     </li>
 
@@ -350,6 +378,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-3:-Building-a-simple-TCP-Client/">Networking, Part 3: Building a simple TCP Client</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Networking,-Part-4:-Building-a-simple-TCP-Server/">Networking, Part 4: Building a simple TCP Server</a>
         
     </li>
@@ -357,7 +392,35 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Networking,-Part-5:-Reusing-ports/">Networking, Part 5: Reusing ports</a>
+        <a class="" href="../Networking,-Part-5:-Shutting-down-ports,-reusing-ports-and-other-tricks/">Networking, Part 5: Shutting down ports, reusing ports and other tricks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-6:-Building-a-web-server/">Networking, Part 6: Building a web server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-6:-Creating-a-UDP-server/">Networking, Part 6: Creating a UDP server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-7:-Nonblocking-I-O,-select(),-and-epoll/">Networking, Part 7: Nonblocking I O, select(), and epoll</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking-Review-Questions/">Networking Review Questions</a>
         
     </li>
 
@@ -365,13 +428,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Networking:-Review-Questions/">Networking: Review Questions</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Nonblocking-I-O,-select(),-and-epoll/">Nonblocking I O, select(), and epoll</a>
         
     </li>
 
@@ -420,7 +476,28 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Processes,-Part-1:-Introduction/">Processes, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Processes-Review-Questions/">Processes Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Programming-Tricks,-Part-1/">Programming Tricks, Part 1</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthread-Review-Questions/">Pthread Review Questions</a>
         
     </li>
 
@@ -435,6 +512,13 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Pthreads,-Part-2:-Usage-in-Practice/">Pthreads, Part 2: Usage in Practice</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-3:-Parallel-Problems-(Bonus)/">Pthreads, Part 3: Parallel Problems (Bonus)</a>
         
     </li>
 
@@ -462,6 +546,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Scheduling,-Part-2:-Scheduling-Processes:-Algorithms/">Scheduling, Part 2: Scheduling Processes: Algorithms</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Signals,-Part-2:-Pending-Signals-and-Signal-Masks/">Signals, Part 2: Pending Signals and Signal Masks</a>
         
     </li>
@@ -477,6 +568,13 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Signals,-Part-4:-Sigaction/">Signals, Part 4: Sigaction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals-Review-Questions/">Signals Review Questions</a>
         
     </li>
 
@@ -546,14 +644,21 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Synchronization,-Part-9:-The-Reader-Writer-Problem-(part-2)/">Synchronization, Part 9: The Reader Writer Problem (part 2)</a>
+        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
+        <a class="" href="../Synchronization-Review-Questions/">Synchronization Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../System-Programming-Jokes/">System Programming Jokes</a>
         
     </li>
 
@@ -625,7 +730,8 @@
           <div role="main">
             <div class="section">
               
-                <h2 id="what-does-the-following-exec-example-do">What does the following 'exec' example do?</h2>
+                <h1 id="the-pattern">The Pattern</h1>
+<h2 id="what-does-the-following-exec-example-do">What does the following 'exec' example do?</h2>
 <pre><code class="C">#include &lt;unistd.h&gt;
 #include &lt;fcntl.h&gt; // O_CREAT, O_APPEND etc. defined here
 
@@ -647,6 +753,37 @@ int main() {
 </em> chdir : Change the current directory to /usr/include
 <em> execl : Replace the program image with /bin/ls and call its main() method
 </em> perror : We don't expect to get here - if we did then exec failed.</p>
+<h2 id="subtle-forkbomb-bug">Subtle forkbomb bug</h2>
+<p>What's wrong with this code</p>
+<pre><code class="C">#include &lt;unistd.h&gt;
+#define HELLO_NUMBER 10
+
+int main(){
+    pid_t children[HELLO_NUMBER];
+    int i;
+    for(i = 0; i &lt; HELLO_NUMBER; i++){
+        pid_t child = fork();
+        if(child == -1){
+            break;
+        }
+        if(child == 0){ //I am the child
+             execlp(&quot;echo&quot;, &quot;echo&quot;, &quot;hello&quot; ,NULL);
+        }
+        else{
+            children[i] = child;
+        }
+    }
+
+    int j;
+    for(j = 0; j &lt; i; j++){
+        waitpid(children[j], NULL, 0);
+    }
+    return 0;
+}
+
+</code></pre>
+
+<p>echo is not a command so we can't <code>exec</code> it. What does this mean? Instead of creating 10 processes we just created 2**10 processes, fork bombing our machine. How could we prevent this? Put an exit right after exec so in case exec fails we won't end up fork bombing our machine.</p>
 <h2 id="what-does-the-child-inherit-from-the-parent">What does the child inherit from the parent?</h2>
 <ul>
 <li>Open filehandles. If the parent later seeks, say, to the back to the beginning of the file then this will affect the child too (and vice versa). </li>
@@ -665,6 +802,7 @@ See below for a complete code example.</p>
 <h2 id="how-do-i-start-a-background-process-that-runs-as-the-same-time">How do I start a background process that runs as the same time?</h2>
 <p>Don't wait for them! Your parent process can continue to execute code without having to wait for the child process. Note in practice background processes can also be disconnected from the parent's input and output streams by calling <code>close</code> on the open file descriptors before calling exec.</p>
 <p>However child processes that finish before their parent finishes can become zombies. See the zombie page for more information.</p>
+<h1 id="zombies">Zombies</h1>
 <h2 id="good-parents-dont-let-their-children-become-zombies">Good parents don't let their children become zombies!</h2>
 <p>When a child finishes (or terminates) it still takes up a slot in the kernel process table. 
 Only when the child has been 'waited on' will the slot be available again.</p>
@@ -672,7 +810,7 @@ Only when the child has been 'waited on' will the slot be available again.</p>
 <h2 id="what-would-be-effect-of-too-many-zombies">What would be effect of too many zombies?</h2>
 <p>Eventually there would be insufficient space in the kernel process table to create a new processes. Thus <code>fork()</code> would fail and could make the system difficult / impossible to use - for example just logging in requires a new process!</p>
 <h2 id="what-does-the-system-do-to-help-prevent-zombies">What does the system do to help prevent zombies?</h2>
-<p>Once a process completes, any of its children will be assigned to "init" - the first process with pid of 1. Thus these children would see getppid() return a value of 1. The init process automatically waits for all of its children, thus removing zombies from the system.</p>
+<p>Once a process completes, any of its children will be assigned to "init" - the first process with pid of 1. Thus these children would see getppid() return a value of 1. These orphans will eventually finish and for a breif moment become a zombie. Fortunately, the init process automatically waits for all of its children, thus removing these zombies from the system.</p>
 <h2 id="how-do-i-prevent-zombies-warning-simplified-answer">How do I prevent zombies? (Warning: Simplified answer)</h2>
 <p>Wait on your child!</p>
 <pre><code class="C">waitpid(child, &amp;status, 0); // Clean up and wait for my child process to finish.
@@ -716,6 +854,31 @@ int main() {
   while (waitpid((pid_t) (-1), 0, WNOHANG) &gt; 0) {}
 }
 </code></pre>
+
+<h2 id="so-what-are-environment-variables">So what are environment variables?</h2>
+<p>Environment variables are variables that the system keeps for all processes to use. Your system has these set up right now! In Bash, you can check some of these</p>
+<pre><code>$ echo $HOME
+/home/bhuvy
+$ echo $PATH
+/usr/local/sbin:/usr/bin:...
+</code></pre>
+
+<p>How would you get these in C/C++? You can use the <code>getenv</code> and <code>setenv</code> function</p>
+<pre><code class="C">char* home = getenv(&quot;HOME&quot;); // Will return /home/bhuvy
+setenv(&quot;HOME&quot;, &quot;/home/bhuvan&quot;, 1 /*set overwrite to true*/ );
+</code></pre>
+
+<h2 id="right-so-how-do-these-environment-variables-mean-anything-to-parentchild">Right, so how do these environment variables mean anything to parent/child?</h2>
+<p>Well each process gets its own dictionary of environment variables that are copied over to the child. Meaning, if the parent changes their environment variables it won't be transferred to the child and vice versa. This is important in the fork-exec-wait trilogy if you want to exec a program with different environment variables than your parent (or any other process).</p>
+<p>For example, you can write a C program that loops through all of the time zones and executes the <code>date</code> command to print out the date and time in all locals. Environment variables are used for all sorts of programs so modifying them is important.</p>
+<div align="center">
+<a href="https://github.com/angrave/SystemProgramming/wiki/Forking,-Part-1:-Introduction">
+Back: Forking, Part 1: Introduction
+</a> |
+<a href="https://github.com/angrave/SystemProgramming/wiki/Process-Control%2C-Part-1%3A-Wait-macros%2C-using-signals">
+Next: Process Control, Part 1: Wait macros, using signals
+</a>
+</div>
               
             </div>
           </div>
@@ -745,10 +908,10 @@ int main() {
       </div>
 
     </section>
-
+    
   </div>
 
-<div class="rst-versions" role="note" style="cursor: pointer">
+  <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
@@ -759,6 +922,7 @@ int main() {
       
     </span>
 </div>
+    <script src="../../js/theme.js"></script>
 
 </body>
 </html>

@@ -7,19 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  
-  <title>Synchronization, Part 3: Working with Mutexes And Semaphores - UIUC CS241 SystemProgramming Wiki</title>
-  
-
   <link rel="shortcut icon" href="../../img/favicon.ico">
-
-  
+  <title>Synchronization, Part 3: Working with Mutexes And Semaphores - UIUC CS241 SystemProgramming Wiki</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="../../css/highlight.css">
-
   
   <script>
     // Current page data
@@ -30,9 +24,7 @@
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
   <script src="../../js/modernizr-2.8.3.min.js"></script>
-  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
-  <script src="../../js/theme.js"></script> 
-
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
   
 </head>
 
@@ -52,7 +44,7 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        <ul class="current">
+	<ul class="current">
           
             <li>
     <li class="toctree-l1 ">
@@ -89,13 +81,6 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../C Programming, Part 4: Debugging/">C Programming, Part 4: Debugging</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
         <a class="" href="../C-Programming,-Part-1:-Introduction/">C Programming, Part 1: Introduction</a>
         
     </li>
@@ -117,6 +102,27 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-4:-Strings-and-Structs/">C Programming, Part 4: Strings and Structs</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-5:-Debugging/">C Programming, Part 5: Debugging</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Review-Questions/">C Programming, Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../C-Programming:-Review-Questions/">C Programming: Review Questions</a>
         
     </li>
@@ -132,6 +138,20 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Deadlock,-Part-2:-Deadlock-Conditions/">Deadlock, Part 2: Deadlock Conditions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-3:-Dining-Philosophers/">Deadlock, Part 3: Dining Philosophers</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock-Review-Questions/">Deadlock Review Questions</a>
         
     </li>
 
@@ -194,14 +214,21 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../File-System,-Part-8:-Disk-blocks-example/">File System, Part 8: Disk blocks example</a>
+        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
+        <a class="" href="../File-System,-Part-9:-Disk-blocks-example/">File System, Part 9: Disk blocks example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-Systems-Review-Questions/">File Systems Review Questions</a>
         
     </li>
 
@@ -250,6 +277,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../IPC-Review-Questions/">IPC Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Memory,-Part-1:-Heap-Memory-Introduction/">Memory, Part 1: Heap Memory Introduction</a>
         
     </li>
@@ -271,6 +305,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Memory-Review-Questions/">Memory Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Memory:-Review-Questions/">Memory: Review Questions</a>
         
     </li>
@@ -279,20 +320,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Multi-threaded-Programming:-Review-Questions/">Multi threaded Programming: Review Questions</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Networking, Part 3: Building a simple TCP Client/">Networking, Part 3: Building a simple TCP Client</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Networking, Part 6: Creating a UDP server/">Networking, Part 6: Creating a UDP server</a>
         
     </li>
 
@@ -313,6 +340,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-3:-Building-a-simple-TCP-Client/">Networking, Part 3: Building a simple TCP Client</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Networking,-Part-4:-Building-a-simple-TCP-Server/">Networking, Part 4: Building a simple TCP Server</a>
         
     </li>
@@ -320,7 +354,35 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Networking,-Part-5:-Reusing-ports/">Networking, Part 5: Reusing ports</a>
+        <a class="" href="../Networking,-Part-5:-Shutting-down-ports,-reusing-ports-and-other-tricks/">Networking, Part 5: Shutting down ports, reusing ports and other tricks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-6:-Building-a-web-server/">Networking, Part 6: Building a web server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-6:-Creating-a-UDP-server/">Networking, Part 6: Creating a UDP server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-7:-Nonblocking-I-O,-select(),-and-epoll/">Networking, Part 7: Nonblocking I O, select(), and epoll</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking-Review-Questions/">Networking Review Questions</a>
         
     </li>
 
@@ -328,13 +390,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Networking:-Review-Questions/">Networking: Review Questions</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Nonblocking-I-O,-select(),-and-epoll/">Nonblocking I O, select(), and epoll</a>
         
     </li>
 
@@ -383,7 +438,28 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Processes,-Part-1:-Introduction/">Processes, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Processes-Review-Questions/">Processes Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Programming-Tricks,-Part-1/">Programming Tricks, Part 1</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthread-Review-Questions/">Pthread Review Questions</a>
         
     </li>
 
@@ -398,6 +474,13 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Pthreads,-Part-2:-Usage-in-Practice/">Pthreads, Part 2: Usage in Practice</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-3:-Parallel-Problems-(Bonus)/">Pthreads, Part 3: Parallel Problems (Bonus)</a>
         
     </li>
 
@@ -425,6 +508,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Scheduling,-Part-2:-Scheduling-Processes:-Algorithms/">Scheduling, Part 2: Scheduling Processes: Algorithms</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Signals,-Part-2:-Pending-Signals-and-Signal-Masks/">Signals, Part 2: Pending Signals and Signal Masks</a>
         
     </li>
@@ -440,6 +530,13 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Signals,-Part-4:-Sigaction/">Signals, Part 4: Sigaction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals-Review-Questions/">Signals Review Questions</a>
         
     </li>
 
@@ -471,25 +568,18 @@
         
             <ul>
             
-                <li class="toctree-l3"><a href="#what-is-an-atomic-operation">What is an atomic operation?</a></li>
+                <li class="toctree-l3"><a href="#thread-safe-stack">Thread Safe Stack</a></li>
+                
+                    <li><a class="toctree-l4" href="#what-is-an-atomic-operation">What is an atomic operation?</a></li>
+                
+                    <li><a class="toctree-l4" href="#how-do-i-use-mutex-lock-to-make-my-data-structure-thread-safe">How do I use mutex lock to make my data-structure thread-safe?</a></li>
                 
             
-                <li class="toctree-l3"><a href="#how-do-i-use-mutex-lock-to-make-my-data-structure-thread-safe">How do I use mutex lock to make my data-structure thread-safe?</a></li>
+                <li class="toctree-l3"><a href="#stack-semaphores">Stack Semaphores</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#when-can-i-destroy-the-mutex">When can I destroy the mutex?</a></li>
+                    <li><a class="toctree-l4" href="#how-can-i-force-my-threads-to-wait-if-the-stack-is-empty-or-full">How can I force my threads to wait if the stack is empty or full?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#can-i-copy-a-pthread_mutex_t-to-a-new-memory-locaton">Can I copy a pthread_mutex_t to a new memory locaton?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#what-would-a-simple-implementation-of-a-mutex-look-like">What would a simple implementation of a mutex look like?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#how-can-i-force-my-threads-to-wait-if-the-stack-is-empty-or-full">How can I force my threads to wait if the stack is empty or full?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#what-are-the-common-mutex-gotchas">What are the common Mutex Gotchas?</a></li>
+                    <li><a class="toctree-l4" href="#what-are-the-common-mutex-gotchas">What are the common Mutex Gotchas?</a></li>
                 
             
             </ul>
@@ -534,14 +624,21 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Synchronization,-Part-9:-The-Reader-Writer-Problem-(part-2)/">Synchronization, Part 9: The Reader Writer Problem (part 2)</a>
+        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
+        <a class="" href="../Synchronization-Review-Questions/">Synchronization Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../System-Programming-Jokes/">System Programming Jokes</a>
         
     </li>
 
@@ -613,19 +710,32 @@
           <div role="main">
             <div class="section">
               
-                <h2 id="what-is-an-atomic-operation">What is an atomic operation?</h2>
-<p>To paraphrase Wikipedia, "An operation (or set of operations) is atomic or uninterruptible if it appears to the rest of the system to occur instantaneously."
-Without locks, only simple CPU instructions ("read this byte from memory") are atomic (indivisible). On a single CPU system one could temporarily disable interrupts (so a sequence of operations cannot be interrupted) but in practice atomicity is achieved by using synchronization primitives, typically a mutex lock.</p>
+                <h1 id="thread-safe-stack">Thread Safe Stack</h1>
+<h2 id="what-is-an-atomic-operation">What is an atomic operation?</h2>
+<p>To paraphrase Wikipedia, </p>
+<blockquote>
+<p>An operation (or set of operations) is atomic or uninterruptible if it appears to the rest of the system to occur instantaneously.
+Without locks, only simple CPU instructions ("read this byte from memory") are atomic (indivisible). On a single CPU system, one could temporarily disable interrupts (so a sequence of operations cannot be interrupted) but in practice atomicity is achieved by using synchronization primitives, typically a mutex lock.</p>
+</blockquote>
 <p>Incrementing a variable (<code>i++</code>) is <em>not</em> atomic because it requires three distinct steps: Copying the bit pattern from memory into the CPU; performing a calculation using the CPU's registers; copying the bit pattern back to memory. During this increment sequence, another thread or process can still read the old value and other writes to the same memory would also be over-written when the increment sequence completes.</p>
 <h2 id="how-do-i-use-mutex-lock-to-make-my-data-structure-thread-safe">How do I use mutex lock to make my data-structure thread-safe?</h2>
-<p>Note, this is just an introduction - writing high-performance thread-safe data-structures requires it's own book! Here's a simple data structure (a stack) that is not thread-safe:</p>
+<p>Note, this is just an introduction - writing high-performance thread-safe data structures requires its own book! Here's a simple data structure (a stack) that is not thread-safe:</p>
 <pre><code class="C">// A simple fixed-sized stack (version 1)
+#define STACK_SIZE 20
 int count;
-double values[count];
+double values[STACK_SIZE];
 
-void push(double v) { values[count++] = v; }
-double pop() { return values[--count]; }
-int is_empty() { return count == 0; }
+void push(double v) { 
+    values[count++] = v; 
+}
+
+double pop() {
+    return values[--count];
+}
+
+int is_empty() {
+    return count == 0;
+}
 </code></pre>
 
 <p>Version 1 of the stack is not thread-safe because if two threads call push or pop at the same time then the results or the stack can be inconsistent. For example, imagine if two threads call pop at the same time then both threads may read the same value, both may read the original count value.</p>
@@ -633,14 +743,33 @@ int is_empty() { return count == 0; }
 <p>While <code>push</code> (and <code>pop</code>) is executing, the datastructure is an inconsistent state (for example the count may not have been written to, so may still contain the original value). By wrapping these methods with a mutex we can ensure that only one thread at a time can update (or read) the stack.</p>
 <p>A candidate 'solution' is shown below. Is it correct? If not, how will it fail?</p>
 <pre><code class="C">// An attempt at a thread-safe stack (version 2)
+#define STACK_SIZE 20
 int count;
-double values[count];
+double values[STACK_SIZE];
+
 pthread_mutex_t m1 = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t m2 = PTHREAD_MUTEX_INITIALIZER;
 
-void push() { pthread_mutex_lock(&amp;m1); values[count++] = values; pthread_mutex_unlock(&amp;m1); }
-double pop() { pthread_mutex_lock(&amp;m2); double v=values[--count]; pthread_mutex_unlock(&amp;m2); return v;}
-int is_empty() { pthread_mutex_lock(&amp;m1); return count == 0; pthread_mutex_unlock(&amp;m1); }
+void push(double v) { 
+    pthread_mutex_lock(&amp;m1);
+    values[count++] = v;
+    pthread_mutex_unlock(&amp;m1);
+}
+
+double pop() {
+    pthread_mutex_lock(&amp;m2);
+    double v = values[--count];
+    pthread_mutex_unlock(&amp;m2);
+
+    return v;
+}
+
+int is_empty() {
+    pthread_mutex_lock(&amp;m1);
+    return count == 0;
+    pthread_mutex_unlock(&amp;m1);
+}
+
 </code></pre>
 
 <p>The above code ('version 2') contains at least one error. Take a moment to see if you can the error(s) and work out the consequence(s).</p>
@@ -730,27 +859,7 @@ int is_empty(stack_t *s) {
 }
 </code></pre>
 
-<h2 id="when-can-i-destroy-the-mutex">When can I destroy the mutex?</h2>
-<p>You can only destroy an unlocked mutex</p>
-<h2 id="can-i-copy-a-pthread_mutex_t-to-a-new-memory-locaton">Can I copy a pthread_mutex_t to a new memory locaton?</h2>
-<p>No, copying the bytes of the mutex to a new memory location and then using the copy is <em>not</em> supported.</p>
-<h2 id="what-would-a-simple-implementation-of-a-mutex-look-like">What would a simple implementation of a mutex look like?</h2>
-<p>A simple (but incorrect!) suggestion is shown below. The <code>unlock</code> function simply unlocks the mutex and returns. The lock function first checks to see if the lock is already locked. If it is currently locked, it will keep checking again until another thread has unlocked the mutex.</p>
-<pre><code class="C">// Version 1 (Incorrect!)
-
-void lock(mutex_t *m) {
-  while(m-&gt;locked) { /*Locked? Nevermind - just loop and check again!*/ }
-
-  m-&gt;locked = 1;
-}
-void unlock(mutex_t *m) {
-  m-&gt;locked = 0;
-}
-</code></pre>
-
-<p>Version 1 uses 'busy-waiting' (unnecessarily wasting CPU resources) however there is a more serious problem: We have a race-condition! </p>
-<p>If two threads both called <code>lock</code> concurrently it is possible that both threads would read 'm_locked' as zero. Thus both threads would believe they have exclusive access to the lock and both threads will continue. Ooops!</p>
-<p>We might attempt to reduce the CPU overhead a little by calling <code>pthread_yield()</code> inside the loop  - pthread_yield suggests to the operating system that the thread does not use the CPU for a short while, so the CPU may be assigned to threads that are waiting to run. But does not fix the race-condition. We need a better implementation - can you work how to prevent the race-condition?</p>
+<h1 id="stack-semaphores">Stack Semaphores</h1>
 <h2 id="how-can-i-force-my-threads-to-wait-if-the-stack-is-empty-or-full">How can I force my threads to wait if the stack is empty or full?</h2>
 <p>Use counting semaphores! Use a counting semaphore to keep track of how many spaces remain and another semaphore to keep to track the number of items in the stack. We will call these two semaphores 'sremain' and 'sitems'. Remember <code>sem_wait</code> will wait if the semaphore's count has been decremented to zero (by another thread calling sem_post).</p>
 <pre><code class="C">// Sketch #1
@@ -887,10 +996,10 @@ void push(double v) {
       </div>
 
     </section>
-
+    
   </div>
 
-<div class="rst-versions" role="note" style="cursor: pointer">
+  <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
@@ -901,6 +1010,7 @@ void push(double v) {
       
     </span>
 </div>
+    <script src="../../js/theme.js"></script>
 
 </body>
 </html>

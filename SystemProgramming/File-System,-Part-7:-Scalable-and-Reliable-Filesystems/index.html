@@ -7,19 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  
-  <title>File System, Part 7: Scalable and Reliable Filesystems - UIUC CS241 SystemProgramming Wiki</title>
-  
-
   <link rel="shortcut icon" href="../../img/favicon.ico">
-
-  
+  <title>File System, Part 7: Scalable and Reliable Filesystems - UIUC CS241 SystemProgramming Wiki</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="../../css/highlight.css">
-
   
   <script>
     // Current page data
@@ -30,9 +24,7 @@
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
   <script src="../../js/modernizr-2.8.3.min.js"></script>
-  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
-  <script src="../../js/theme.js"></script> 
-
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
   
 </head>
 
@@ -52,7 +44,7 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        <ul class="current">
+	<ul class="current">
           
             <li>
     <li class="toctree-l1 ">
@@ -89,13 +81,6 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../C Programming, Part 4: Debugging/">C Programming, Part 4: Debugging</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
         <a class="" href="../C-Programming,-Part-1:-Introduction/">C Programming, Part 1: Introduction</a>
         
     </li>
@@ -117,6 +102,27 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-4:-Strings-and-Structs/">C Programming, Part 4: Strings and Structs</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-5:-Debugging/">C Programming, Part 5: Debugging</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Review-Questions/">C Programming, Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../C-Programming:-Review-Questions/">C Programming: Review Questions</a>
         
     </li>
@@ -132,6 +138,20 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Deadlock,-Part-2:-Deadlock-Conditions/">Deadlock, Part 2: Deadlock Conditions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-3:-Dining-Philosophers/">Deadlock, Part 3: Dining Philosophers</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock-Review-Questions/">Deadlock Review Questions</a>
         
     </li>
 
@@ -191,30 +211,28 @@
         
             <ul>
             
-                <li class="toctree-l3"><a href="#how-and-why-does-the-kernel-cache-the-filesystem">How and why does the kernel cache the filesystem?</a></li>
+                <li class="toctree-l3"><a href="#reliable-single-disk-filesystems">Reliable Single Disk Filesystems</a></li>
+                
+                    <li><a class="toctree-l4" href="#how-and-why-does-the-kernel-cache-the-filesystem">How and why does the kernel cache the filesystem?</a></li>
+                
+                    <li><a class="toctree-l4" href="#my-data-is-important-can-i-force-the-disk-writes-to-be-saved-to-the-physical-media-and-wait-for-it-to-complete">My data is important! Can I force the disk writes to be saved to the physical media and wait for it to complete?</a></li>
+                
+                    <li><a class="toctree-l4" href="#what-if-my-disk-fails-in-the-middle-of-an-important-operation">What if my disk fails in the middle of an important operation?</a></li>
+                
+                    <li><a class="toctree-l4" href="#how-likely-is-a-disk-failure">How likely is a disk failure?</a></li>
                 
             
-                <li class="toctree-l3"><a href="#my-data-is-important-can-i-force-the-disk-writes-to-be-saved-to-the-physical-media-and-wait-for-it-to-complete">My data is important! Can I force the disk writes to be saved to the physical media and wait for it to complete?</a></li>
+                <li class="toctree-l3"><a href="#redundancy">Redundancy</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#how-likely-is-a-disk-failure">How likely is a disk failure?</a></li>
+                    <li><a class="toctree-l4" href="#how-do-i-protect-my-data-from-disk-failure">How do I protect my data from disk failure?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#how-do-i-protect-my-data-from-disk-failure">How do I protect my data from disk failure?</a></li>
+                    <li><a class="toctree-l4" href="#what-is-raid-3">What is RAID-3?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#what-is-raid-3">What is RAID-3?</a></li>
+                    <li><a class="toctree-l4" href="#how-secure-is-raid-3-to-data-loss">How secure is RAID-3 to data-loss?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#how-secure-is-raid-3-to-data-loss">How secure is RAID-3 to data-loss?</a></li>
+                    <li><a class="toctree-l4" href="#what-is-raid-5">What is RAID-5?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#what-is-raid-5">What is RAID-5?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#distributed-storage">Distributed storage</a></li>
-                
-                    <li><a class="toctree-l4" href="#questions">Questions</a></li>
+                    <li><a class="toctree-l4" href="#distributed-storage">Distributed storage</a></li>
                 
             
             </ul>
@@ -224,14 +242,21 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../File-System,-Part-8:-Disk-blocks-example/">File System, Part 8: Disk blocks example</a>
+        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
+        <a class="" href="../File-System,-Part-9:-Disk-blocks-example/">File System, Part 9: Disk blocks example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-Systems-Review-Questions/">File Systems Review Questions</a>
         
     </li>
 
@@ -280,6 +305,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../IPC-Review-Questions/">IPC Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Memory,-Part-1:-Heap-Memory-Introduction/">Memory, Part 1: Heap Memory Introduction</a>
         
     </li>
@@ -301,6 +333,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Memory-Review-Questions/">Memory Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Memory:-Review-Questions/">Memory: Review Questions</a>
         
     </li>
@@ -309,20 +348,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Multi-threaded-Programming:-Review-Questions/">Multi threaded Programming: Review Questions</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Networking, Part 3: Building a simple TCP Client/">Networking, Part 3: Building a simple TCP Client</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Networking, Part 6: Creating a UDP server/">Networking, Part 6: Creating a UDP server</a>
         
     </li>
 
@@ -343,6 +368,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-3:-Building-a-simple-TCP-Client/">Networking, Part 3: Building a simple TCP Client</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Networking,-Part-4:-Building-a-simple-TCP-Server/">Networking, Part 4: Building a simple TCP Server</a>
         
     </li>
@@ -350,7 +382,35 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Networking,-Part-5:-Reusing-ports/">Networking, Part 5: Reusing ports</a>
+        <a class="" href="../Networking,-Part-5:-Shutting-down-ports,-reusing-ports-and-other-tricks/">Networking, Part 5: Shutting down ports, reusing ports and other tricks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-6:-Building-a-web-server/">Networking, Part 6: Building a web server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-6:-Creating-a-UDP-server/">Networking, Part 6: Creating a UDP server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-7:-Nonblocking-I-O,-select(),-and-epoll/">Networking, Part 7: Nonblocking I O, select(), and epoll</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking-Review-Questions/">Networking Review Questions</a>
         
     </li>
 
@@ -358,13 +418,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Networking:-Review-Questions/">Networking: Review Questions</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Nonblocking-I-O,-select(),-and-epoll/">Nonblocking I O, select(), and epoll</a>
         
     </li>
 
@@ -413,7 +466,28 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Processes,-Part-1:-Introduction/">Processes, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Processes-Review-Questions/">Processes Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Programming-Tricks,-Part-1/">Programming Tricks, Part 1</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthread-Review-Questions/">Pthread Review Questions</a>
         
     </li>
 
@@ -428,6 +502,13 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Pthreads,-Part-2:-Usage-in-Practice/">Pthreads, Part 2: Usage in Practice</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-3:-Parallel-Problems-(Bonus)/">Pthreads, Part 3: Parallel Problems (Bonus)</a>
         
     </li>
 
@@ -455,6 +536,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Scheduling,-Part-2:-Scheduling-Processes:-Algorithms/">Scheduling, Part 2: Scheduling Processes: Algorithms</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Signals,-Part-2:-Pending-Signals-and-Signal-Masks/">Signals, Part 2: Pending Signals and Signal Masks</a>
         
     </li>
@@ -470,6 +558,13 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Signals,-Part-4:-Sigaction/">Signals, Part 4: Sigaction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals-Review-Questions/">Signals Review Questions</a>
         
     </li>
 
@@ -539,14 +634,21 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Synchronization,-Part-9:-The-Reader-Writer-Problem-(part-2)/">Synchronization, Part 9: The Reader Writer Problem (part 2)</a>
+        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
+        <a class="" href="../Synchronization-Review-Questions/">Synchronization Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../System-Programming-Jokes/">System Programming Jokes</a>
         
     </li>
 
@@ -618,8 +720,7 @@
           <div role="main">
             <div class="section">
               
-                <p>Note These notes are not quite complete. Please also see</p>
-<p>https://subversion.ews.illinois.edu/svn/fa15-cs241/_shared/lecture_handouts/CS241-28-filesystems-5.pptx</p>
+                <h1 id="reliable-single-disk-filesystems">Reliable Single Disk Filesystems</h1>
 <h2 id="how-and-why-does-the-kernel-cache-the-filesystem">How and why does the kernel cache the filesystem?</h2>
 <p>Most filesystems cache significant amounts of disk data in physical memory.
 Linux, in this respect, is particularly extreme: All unused memory is used as a giant disk cache.</p>
@@ -632,13 +733,19 @@ For writing we have to choose a trade-off between performance and reliability: D
 <p>Yes (almost). Call <code>sync</code> to request that a filesystem changes be written (flushed) to disk.
 However, not all operating systems honor this request and even if the data is evicted from the kernel buffers the disk firmware use an internal on-disk cache or may not yet have finished changing the physical media. </p>
 <p>Note you can also request that all changes associated with a particular file descriptor are flushed to disk using <code>fsync(int fd)</code></p>
+<h2 id="what-if-my-disk-fails-in-the-middle-of-an-important-operation">What if my disk fails in the middle of an important operation?</h2>
+<p>Don't worry most modern file systems do something called <strong>journalling</strong> that work around this. What the file system does is before it completes a potentially expensive operation, is that it writes what it is going to do down in a journal. In the case of a crash or failure, one can step through the journal and see which files are corrupt and fix them. This is a way to salvage hard disks in cases there is critical data and there is no apparent backup.</p>
 <h2 id="how-likely-is-a-disk-failure">How likely is a disk failure?</h2>
-<p>Disk failures are measured using "Mean-Time-Failure". For large arrays, the mean failure time can be surprising short. For example if the MTTF(single disk) = 30,000 hours, then the MTTF(100 disks)= 30000/100=300 hours  ie about 12 days!</p>
+<p>Disk failures are measured using "Mean-Time-Failure". For large arrays, the mean failure time can be surprisingly short. For example if the MTTF(single disk) = 30,000 hours, then the MTTF(100 disks)= 30000/100=300 hours  ie about 12 days!</p>
+<h1 id="redundancy">Redundancy</h1>
 <h2 id="how-do-i-protect-my-data-from-disk-failure">How do I protect my data from disk failure?</h2>
-<p>Easy! Store the data twice! This is the main principle of a "RAID-1" disk array. By duplicating the writes to a disk with writes to another (backup disk) there are exactly two copies of the data. If one disk fails, the other disk serves as the only copy until it can be re-cloned. Reading data is faster (since data can be requested from either disk) but writes are potentially twice as slow (now two write commands need to be issued for every disk block write) and, compared to using a single disk, the cost of storage per byte has doubled.</p>
+<p>Easy! Store the data twice! This is the main principle of a "RAID-1" disk array. RAID is short for redundant array of inexpensive disks. By duplicating the writes to a disk with writes to another (backup disk) there are exactly two copies of the data. If one disk fails, the other disk serves as the only copy until it can be re-cloned. Reading data is faster (since data can be requested from either disk) but writes are potentially twice as slow (now two write commands need to be issued for every disk block write) and, compared to using a single disk, the cost of storage per byte has doubled.</p>
+<p>Another common RAID scheme is RAID-0, meaning that a file could be split up amoung two disks, but if any one of the disks fail then the files are irrecoverable. This has the benefit of halving write times because one part of the file could be writing to hard disk one and another part to hard disk two.</p>
+<p>It is also common to combine these systems. If you have a lot of hard disks, consider RAID-10. This is where you have two systems of RAID-1, but the systems are hooked up in RAID-0 to each other. This means you would get roughly the same speed from the slowdowns but now any one disk can fail and you can recover that disk. (If two disks from opposing raid partitions fail there is a chance that recover can happen though we don't could on it most of the time). </p>
 <h2 id="what-is-raid-3">What is RAID-3?</h2>
 <p>RAID-3 uses parity codes instead of mirroring the data. For each N-bits written we will write one extra bit, the 'Parity bit' that ensures the total number of 1s written is even.  The parity bit is written to an additional disk. If any one disk (including the parity disk) is lost, then its contents can still be computed using the contents of the other disks.</p>
-<p>One disadvantage of RAID-3 is that whenever a disk block is written, the parity block will always be written too.</p>
+<p><img alt="" src="http://devnull.typepad.com/.a/6a00e551c39e1c88340133ed18ed66970b-pi" /></p>
+<p>One disadvantage of RAID-3 is that whenever a disk block is written, the parity block will always be written too. This means that there is effectively a bottleneck in a separate disk. In practice, this is more likely to cause a failure because one disk is being used 100% of the time and once that disk fails then the other disks are more prone to failure.</p>
 <h2 id="how-secure-is-raid-3-to-data-loss">How secure is RAID-3 to data-loss?</h2>
 <p>A single disk failure will not result in data loss (because there is sufficient data to rebuild the array from the remaining disks). Data-loss will occur when a two disks are unusable because there is no longer sufficient data to rebuild the array. We can calculate the probability of a two disk failure based on the repair time which includes not just the time to insert a new disk but the time required to rebuild the entire contents of the array.</p>
 <pre><code>MTTF = mean time to failure
@@ -652,7 +759,8 @@ p = MTTR / (MTTF-one-disk / (N-1))
 <p>There is a 1% chance that another drive will fail during the rebuild process (at that point you had better hope you still have an accessible backup of your original data.</p>
 <p>In practice the probability of a second failure during the repair process is likely higher because rebuilding the array is I/O-intensive (and on top of normal I/O request activity). This higher I/O load will also stress the disk array</p>
 <h2 id="what-is-raid-5">What is RAID-5?</h2>
-<p>RAID-5 is similar to RAID-3 except that the check block (parity information) is assigned to different disks for different blocks. The check-block is 'rotated' through the disk array. RAID-5 provides better read and write performance than RAID-3 because there is no longer the bottleneck of the single parity disk.</p>
+<p>RAID-5 is similar to RAID-3 except that the check block (parity information) is assigned to different disks for different blocks. The check-block is 'rotated' through the disk array. RAID-5 provides better read and write performance than RAID-3 because there is no longer the bottleneck of the single parity disk. The one drawback is that you need more disks to have this setup and there are more complicated algorithms need to be used</p>
+<p><img alt="" src="http://www.seagate.com/files/www-content/manuals/business-storage-nas-os-manual/_shared/images/118a_ill_raid_5.png" /></p>
 <h2 id="distributed-storage">Distributed storage</h2>
 <p>Failure is the common case
 Google reports 2-10% of disks fail per year
@@ -662,17 +770,7 @@ Must survive failure of not just a disk, but a rack of servers or a whole data c
 Simple redundancy (2 or 3 copies of each file)
 e.g., Google GFS (2001)
 More efficient redundancy (analogous to RAID 3++)
-e.g., Google Colossus filesystem (~2010): customizable replication including Reed-Solomon codes with 1.5x redundancy</p>
-<p>http://goo.gl/LwFIy</p>
-<h3 id="questions">Questions</h3>
-<ul>
-<li>In ext2, what is stored in an inode, and what is stored in a directory entry?</li>
-<li>What are /sys, /proc, /dev/random, and /dev/urandom?</li>
-<li>How do you use chmod to set user/group/owner read/write/execute permissions?</li>
-<li>What does the "dd" command do?</li>
-<li>What is the difference between a hard link and a symbolic link?</li>
-<li>"ls -l" shows the size of each file in a directory. Is the size stored in the directory or in the file's inode?</li>
-</ul>
+e.g., <a href="http://goo.gl/LwFIy">Google Colossus filesystem</a> (~2010): customizable replication including Reed-Solomon codes with 1.5x redundancy</p>
               
             </div>
           </div>
@@ -680,7 +778,7 @@ e.g., Google Colossus filesystem (~2010): customizable replication including Ree
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../File-System,-Part-8:-Disk-blocks-example/" class="btn btn-neutral float-right" title="File System, Part 8: Disk blocks example">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/" class="btn btn-neutral float-right" title="File System, Part 8: Removing preinstalled malware from an Android device">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../File-System,-Part-6:-Memory-mapped-files-and-Shared-memory/" class="btn btn-neutral" title="File System, Part 6: Memory mapped files and Shared memory"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -702,20 +800,21 @@ e.g., Google Colossus filesystem (~2010): customizable replication including Ree
       </div>
 
     </section>
-
+    
   </div>
 
-<div class="rst-versions" role="note" style="cursor: pointer">
+  <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
         <span><a href="../File-System,-Part-6:-Memory-mapped-files-and-Shared-memory/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../File-System,-Part-8:-Disk-blocks-example/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
+    <script src="../../js/theme.js"></script>
 
 </body>
 </html>

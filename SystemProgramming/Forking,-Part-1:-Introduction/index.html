@@ -7,19 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  
-  <title>Forking, Part 1: Introduction - UIUC CS241 SystemProgramming Wiki</title>
-  
-
   <link rel="shortcut icon" href="../../img/favicon.ico">
-
-  
+  <title>Forking, Part 1: Introduction - UIUC CS241 SystemProgramming Wiki</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="../../css/highlight.css">
-
   
   <script>
     // Current page data
@@ -30,9 +24,7 @@
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
   <script src="../../js/modernizr-2.8.3.min.js"></script>
-  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
-  <script src="../../js/theme.js"></script> 
-
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
   
 </head>
 
@@ -52,7 +44,7 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        <ul class="current">
+	<ul class="current">
           
             <li>
     <li class="toctree-l1 ">
@@ -89,13 +81,6 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../C Programming, Part 4: Debugging/">C Programming, Part 4: Debugging</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
         <a class="" href="../C-Programming,-Part-1:-Introduction/">C Programming, Part 1: Introduction</a>
         
     </li>
@@ -117,6 +102,27 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-4:-Strings-and-Structs/">C Programming, Part 4: Strings and Structs</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-5:-Debugging/">C Programming, Part 5: Debugging</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Review-Questions/">C Programming, Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../C-Programming:-Review-Questions/">C Programming: Review Questions</a>
         
     </li>
@@ -132,6 +138,20 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Deadlock,-Part-2:-Deadlock-Conditions/">Deadlock, Part 2: Deadlock Conditions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-3:-Dining-Philosophers/">Deadlock, Part 3: Dining Philosophers</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock-Review-Questions/">Deadlock Review Questions</a>
         
     </li>
 
@@ -194,14 +214,21 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../File-System,-Part-8:-Disk-blocks-example/">File System, Part 8: Disk blocks example</a>
+        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
+        <a class="" href="../File-System,-Part-9:-Disk-blocks-example/">File System, Part 9: Disk blocks example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-Systems-Review-Questions/">File Systems Review Questions</a>
         
     </li>
 
@@ -229,34 +256,30 @@
                 <li class="toctree-l3"><a href="#a-word-of-warning">A word of warning</a></li>
                 
             
-                <li class="toctree-l3"><a href="#what-does-fork-do">What does fork do?</a></li>
+                <li class="toctree-l3"><a href="#intro-to-fork">Intro to Fork</a></li>
+                
+                    <li><a class="toctree-l4" href="#what-does-fork-do">What does fork do?</a></li>
+                
+                    <li><a class="toctree-l4" href="#what-is-the-simplest-fork-example">What is the simplest fork() example?</a></li>
+                
+                    <li><a class="toctree-l4" href="#why-does-this-example-print-42-twice">Why does this example print 42 twice?</a></li>
+                
+                    <li><a class="toctree-l4" href="#how-do-you-write-code-that-is-different-for-the-parent-and-child-process">How do you write code that is different for the parent and child process?</a></li>
+                
+                    <li><a class="toctree-l4" href="#what-is-a-fork-bomb">What is a fork bomb ?</a></li>
                 
             
-                <li class="toctree-l3"><a href="#what-is-the-simplest-fork-example">What is the simplest fork() example?</a></li>
+                <li class="toctree-l3"><a href="#waiting-and-execing">Waiting and Execing</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#why-does-this-example-print-42-twice">Why does this example print 42 twice?</a></li>
+                    <li><a class="toctree-l4" href="#how-does-the-parent-process-wait-for-the-child-to-finish">How does the parent process wait for the child to finish?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#how-do-you-write-code-that-is-different-for-the-parent-and-child-process">How do you write code that is different for the parent and child process?</a></li>
+                    <li><a class="toctree-l4" href="#can-i-make-the-child-process-execute-another-program">Can I make the child process execute another program?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#what-is-a-fork-bomb">What is a fork bomb ?</a></li>
+                    <li><a class="toctree-l4" href="#a-simpler-way-to-execute-another-program">A simpler way to execute another program</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#how-does-the-parent-process-wait-for-the-child-to-finish">How does the parent process wait for the child to finish?</a></li>
+                    <li><a class="toctree-l4" href="#what-is-the-silliest-fork-example">What is the silliest fork example?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#can-i-make-the-child-process-execute-another-program">Can I make the child process execute another program?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#a-simpler-way-to-execute-another-program">A simpler way to execute another program</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#what-is-the-silliest-fork-example">What is the silliest fork example?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#what-is-different-in-the-child-process-than-the-parent-process">What is different in the child process than the parent process?</a></li>
+                    <li><a class="toctree-l4" href="#what-is-different-in-the-child-process-than-the-parent-process">What is different in the child process than the parent process?</a></li>
                 
             
                 <li class="toctree-l3"><a href="#do-child-processes-share-open-filehandles">Do child processes share open filehandles?</a></li>
@@ -292,6 +315,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../IPC-Review-Questions/">IPC Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Memory,-Part-1:-Heap-Memory-Introduction/">Memory, Part 1: Heap Memory Introduction</a>
         
     </li>
@@ -313,6 +343,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Memory-Review-Questions/">Memory Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Memory:-Review-Questions/">Memory: Review Questions</a>
         
     </li>
@@ -321,20 +358,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Multi-threaded-Programming:-Review-Questions/">Multi threaded Programming: Review Questions</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Networking, Part 3: Building a simple TCP Client/">Networking, Part 3: Building a simple TCP Client</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Networking, Part 6: Creating a UDP server/">Networking, Part 6: Creating a UDP server</a>
         
     </li>
 
@@ -355,6 +378,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-3:-Building-a-simple-TCP-Client/">Networking, Part 3: Building a simple TCP Client</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Networking,-Part-4:-Building-a-simple-TCP-Server/">Networking, Part 4: Building a simple TCP Server</a>
         
     </li>
@@ -362,7 +392,35 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Networking,-Part-5:-Reusing-ports/">Networking, Part 5: Reusing ports</a>
+        <a class="" href="../Networking,-Part-5:-Shutting-down-ports,-reusing-ports-and-other-tricks/">Networking, Part 5: Shutting down ports, reusing ports and other tricks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-6:-Building-a-web-server/">Networking, Part 6: Building a web server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-6:-Creating-a-UDP-server/">Networking, Part 6: Creating a UDP server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-7:-Nonblocking-I-O,-select(),-and-epoll/">Networking, Part 7: Nonblocking I O, select(), and epoll</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking-Review-Questions/">Networking Review Questions</a>
         
     </li>
 
@@ -370,13 +428,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Networking:-Review-Questions/">Networking: Review Questions</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Nonblocking-I-O,-select(),-and-epoll/">Nonblocking I O, select(), and epoll</a>
         
     </li>
 
@@ -425,7 +476,28 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Processes,-Part-1:-Introduction/">Processes, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Processes-Review-Questions/">Processes Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Programming-Tricks,-Part-1/">Programming Tricks, Part 1</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthread-Review-Questions/">Pthread Review Questions</a>
         
     </li>
 
@@ -440,6 +512,13 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Pthreads,-Part-2:-Usage-in-Practice/">Pthreads, Part 2: Usage in Practice</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-3:-Parallel-Problems-(Bonus)/">Pthreads, Part 3: Parallel Problems (Bonus)</a>
         
     </li>
 
@@ -467,6 +546,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Scheduling,-Part-2:-Scheduling-Processes:-Algorithms/">Scheduling, Part 2: Scheduling Processes: Algorithms</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Signals,-Part-2:-Pending-Signals-and-Signal-Masks/">Signals, Part 2: Pending Signals and Signal Masks</a>
         
     </li>
@@ -482,6 +568,13 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Signals,-Part-4:-Sigaction/">Signals, Part 4: Sigaction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals-Review-Questions/">Signals Review Questions</a>
         
     </li>
 
@@ -551,14 +644,21 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Synchronization,-Part-9:-The-Reader-Writer-Problem-(part-2)/">Synchronization, Part 9: The Reader Writer Problem (part 2)</a>
+        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
+        <a class="" href="../Synchronization-Review-Questions/">Synchronization Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../System-Programming-Jokes/">System Programming Jokes</a>
         
     </li>
 
@@ -632,9 +732,10 @@
               
                 <h2 id="a-word-of-warning">A word of warning</h2>
 <p>Process forking is a very powerful (and very dangerous) tool. If you mess up and cause a fork bomb (explained later on this page), <strong>you can bring down the entire system</strong>. To reduce the chances of this, limit your maximum number of processes to a small number e.g
- 40 by typing <code>ulimit -u 40</code> into a command line. Note that this limit is only for the user, which means if you fork bomb, then you won't be able to kill all of the processes you just created since calling <code>killall</code> requires your shell to fork() ... ironic right? So what can we do about this. One solution is to spawn another shell instance as another user (for example root) before hand and kill processes form there. Another is to use the built in <code>exec</code> command to kill all the user processes (careful you only have one shot at this). Finally you could reboot the system :)</p>
+ 40 by typing <code>ulimit -u 40</code> into a command line. Note that this limit is only for the user, which means if you fork bomb, then you won't be able to kill all of the processes you just created since calling <code>killall</code> requires your shell to fork() ... ironic right? So what can we do about this. One solution is to spawn another shell instance as another user (for example root) before hand and kill processes from there. Another is to use the built in <code>exec</code> command to kill all the user processes (careful you only have one shot at this). Finally you could reboot the system :)</p>
 <p>When testing fork() code, ensure that you have either root and/or physical access to the machine involved. If you must work on fork () code remotely, remember that <strong>kill -9 -1</strong> will save you in the event of an emergency.</p>
 <p>TL;DR: Fork can be <strong>extremely</strong> dangerous if you aren't prepared for it. <strong>You have been warned.</strong></p>
+<h1 id="intro-to-fork">Intro to Fork</h1>
 <h2 id="what-does-fork-do">What does fork do?</h2>
 <p>The <code>fork</code> system call clones the current process to create a new process. It creates a new process (the child process) by duplicating the state of the existing process with a few minor differences (discussed below). The child process does not start from main. Instead it returns from <code>fork()</code> just as the parent process does.</p>
 <h2 id="what-is-the-simplest-fork-example">What is the simplest <code>fork()</code> example?</h2>
@@ -659,11 +760,11 @@ int main() {
 </code></pre>
 
 <p>The <code>printf</code> line <em>is</em> executed only once however notice that the printed contents is not flushed to standard out (there's no newline printed, we didn't call <code>fflush</code>, or change the buffering mode).
-The output text is therefore in still in process memory waiting to be sent.
+The output text is therefore still in process memory waiting to be sent.
 When <code>fork()</code> is executed the entire process memory is duplicated including the buffer. Thus the child process starts with a non-empty output buffer which will be flushed when the program exits.</p>
 <h2 id="how-do-you-write-code-that-is-different-for-the-parent-and-child-process">How do you write code that is different for the parent and child process?</h2>
-<p>Check the return value of <code>fork()</code>. Return value -1= failed; 0= in child process; positive = in parent process (and the return value is the child process id).  Here's one way to remember which is which:</p>
-<p>The child process can find its parent - the original process that was duplicated -  by calling getppid() - so does not need any additional return information from <code>fork()</code>. The parent process however can only find out the id of the new child process from the return value of <code>fork</code>:</p>
+<p>Check the return value of <code>fork()</code>. Return value <code>-1</code> = failed; <code>0</code> = in child process; positive = in parent process (and the return value is the child process id).  Here's one way to remember which is which:</p>
+<p>The child process can find its parent - the original process that was duplicated -  by calling <code>getppid()</code> - so does not need any additional return information from <code>fork()</code>. The parent process however can only find out the id of the new child process from the return value of <code>fork</code>:</p>
 <pre><code class="C">pid_t id = fork();
 if (id == -1) exit(1); // fork failed 
 if (id &gt; 0)
@@ -678,12 +779,13 @@ if (id &gt; 0)
 
 <h2 id="what-is-a-fork-bomb">What is a fork bomb ?</h2>
 <p>A 'fork bomb' is when you attempt to create an infinite number of processes. A simple example is shown below:</p>
-<pre><code>while (1) fork();
+<pre><code class="C">while (1) fork();
 </code></pre>
 
 <p>This will often bring a system to a near-standstill as it attempts to allocate CPU time and memory to a very large number of processes that are ready to run. Comment: System administrators don't like fork-bombs and may set upper limits on the number of processes each user can have or may revoke login rights because it creates a disturbance in the force for other users' programs. You can also limit the number of child processes created by using <code>setrlimit()</code>.</p>
 <p>fork bombs are not necessarily malicious - they occasionally occur due to student coding errors.</p>
 <p>Angrave suggests that the Matrix trilogy, where the machine and man finally work together to defeat the multiplying Agent-Smith, was a cinematic plot based on an AI-driven fork-bomb.</p>
+<h1 id="waiting-and-execing">Waiting and Execing</h1>
 <h2 id="how-does-the-parent-process-wait-for-the-child-to-finish">How does the parent process wait for the child to finish?</h2>
 <p>Use <code>waitpid</code> (or <code>wait</code>).</p>
 <pre><code class="C">pid_t child_id = fork();
@@ -701,6 +803,15 @@ if (child_id &gt; 0) {
 
 <h2 id="can-i-make-the-child-process-execute-another-program">Can I make the child process execute another program?</h2>
 <p>Yes. Use one of the <a href="http://man7.org/linux/man-pages/man3/exec.3.html"><code>exec</code></a> functions after forking. The <code>exec</code> set of functions replaces the process image with the the process image of what is being called. This means that any lines of code after the <code>exec</code> call are replaced. Any other work you want the child process to do should be done before the <code>exec</code> call.  </p>
+<p>The <a href="https://en.wikipedia.org/wiki/Exec_(system_call)#C_language_prototypes">Wikipedia article</a> does a great job helping you make sense of the names of the exec family.</p>
+<p>The naming schemes can be shortened like this</p>
+<blockquote>
+<p>The base of each is exec (execute), followed by one or more letters:</p>
+<p>e – An array of pointers to environment variables is explicitly passed to the new process image.</p>
+<p>l – Command-line arguments are passed individually (a list) to the function.</p>
+<p>p – Uses the PATH environment variable to find the file named in the file argument to be executed.</p>
+<p>v – Command-line arguments are passed to the function as an array (vector) of pointers.</p>
+</blockquote>
 <pre><code class="C">#include &lt;unistd.h&gt;
 #include &lt;sys/types.h&gt; 
 #include &lt;sys/wait.h&gt;
@@ -729,18 +840,18 @@ int main(int argc, char**argv) {
 </code></pre>
 
 <h2 id="a-simpler-way-to-execute-another-program">A simpler way to execute another program</h2>
-<p>Use <code>system</code>!!! Here is how to use it:</p>
+<p>Use <code>system</code>. Here is how to use it:</p>
 <pre><code class="C">
 #include &lt;unistd.h&gt;
 #include &lt;stdlib.h&gt;
 
 int main(int argc, char**argv) {
-  system(&quot;/bin/ls&quot;);
+  system(&quot;ls&quot;);
   return 0;
 }
 </code></pre>
 
-<p>The <code>system</code> call would fork, exec the command passed by parameter and the parent process would wait for this to finish. This also means that <code>system</code> is a blocking call - The parent process can't continue until the process started by <code>system</code> exits. This may be useful or it may not be, use with caution.</p>
+<p>The <code>system</code> call will fork, execute the command passed by parameter and the original parent process will wait for this to finish. This also means that <code>system</code> is a blocking call: The parent process can't continue until the process started by <code>system</code> exits. This may or may not be useful. Also, <code>system</code> actually creates a shell which is then given the string, which is more overhead than just using <code>exec</code> directly. The standard shell will use the <code>PATH</code> environment variable to search for a filename that matches the command. Using system will usually be sufficient for many simple run-this-command problems but can quickly become limiting for more complex or subtle problems, and it hides the mechanics of the fork-exec-wait pattern so we encourage you to learn and use <code>fork</code> <code>exec</code> and <code>waitpid</code> instead.</p>
 <h2 id="what-is-the-silliest-fork-example">What is the silliest fork example?</h2>
 <p>A slightly silly example is shown below. What will it print? Try it with multiple arguments to your program.</p>
 <pre><code class="C">#include &lt;unistd.h&gt;
@@ -767,10 +878,11 @@ int main(int argc, char **argv) {
 }
 </code></pre>
 
+<p>Note: The algorithm isn't actually O(N) because of how the system scheduler works. Though there are parallel algorithms that run in O(log(N)) per process, this is sadly not one of them.</p>
 <h2 id="what-is-different-in-the-child-process-than-the-parent-process">What is different in the child process than the parent process?</h2>
 <p>The key differences include:
 <em> The process id returned by <code>getpid()</code>. The parent process id returned by <code>getppid()</code>.
-</em> The parent is notified via a signal when the child process finishes but not vice versa.
+</em> The parent is notified via a signal, SIGCHILD, when the child process finishes but not vice versa.
 * The child does not inherit pending signals or timer alarms.
 For a complete list see the <a href="http://man7.org/linux/man-pages/man2/fork.2.html">fork man page</a></p>
 <h1 id="do-child-processes-share-open-filehandles">Do child processes share open filehandles?</h1>
@@ -781,6 +893,14 @@ For a complete list see the <a href="http://man7.org/linux/man-pages/man2/fork.2
 <em> <a href="http://man7.org/linux/man-pages/man2/fork.2.html">fork</a>
 </em> <a href="http://man7.org/linux/man-pages/man3/exec.3.html">exec</a>
 * <a href="http://man7.org/linux/man-pages/man2/wait.2.html">wait</a></p>
+<div align="center">
+<a href="https://github.com/angrave/SystemProgramming/wiki/Processes,-Part-1:-Introduction">
+Back: Processes, Part 1: Introduction
+</a> |
+<a href="https://github.com/angrave/SystemProgramming/wiki/Forking%2C-Part-2%3A-Fork%2C-Exec%2C-Wait">
+Next: Forking, Part 2: Fork, Exec, Wait
+</a>
+</div>
               
             </div>
           </div>
@@ -810,10 +930,10 @@ For a complete list see the <a href="http://man7.org/linux/man-pages/man2/fork.2
       </div>
 
     </section>
-
+    
   </div>
 
-<div class="rst-versions" role="note" style="cursor: pointer">
+  <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
@@ -824,6 +944,7 @@ For a complete list see the <a href="http://man7.org/linux/man-pages/man2/fork.2
       
     </span>
 </div>
+    <script src="../../js/theme.js"></script>
 
 </body>
 </html>

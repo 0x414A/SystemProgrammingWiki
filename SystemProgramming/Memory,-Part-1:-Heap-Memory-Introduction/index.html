@@ -7,19 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  
-  <title>Memory, Part 1: Heap Memory Introduction - UIUC CS241 SystemProgramming Wiki</title>
-  
-
   <link rel="shortcut icon" href="../../img/favicon.ico">
-
-  
+  <title>Memory, Part 1: Heap Memory Introduction - UIUC CS241 SystemProgramming Wiki</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="../../css/highlight.css">
-
   
   <script>
     // Current page data
@@ -30,9 +24,7 @@
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
   <script src="../../js/modernizr-2.8.3.min.js"></script>
-  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
-  <script src="../../js/theme.js"></script> 
-
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
   
 </head>
 
@@ -52,7 +44,7 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        <ul class="current">
+	<ul class="current">
           
             <li>
     <li class="toctree-l1 ">
@@ -89,13 +81,6 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../C Programming, Part 4: Debugging/">C Programming, Part 4: Debugging</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
         <a class="" href="../C-Programming,-Part-1:-Introduction/">C Programming, Part 1: Introduction</a>
         
     </li>
@@ -117,6 +102,27 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-4:-Strings-and-Structs/">C Programming, Part 4: Strings and Structs</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Part-5:-Debugging/">C Programming, Part 5: Debugging</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../C-Programming,-Review-Questions/">C Programming, Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../C-Programming:-Review-Questions/">C Programming: Review Questions</a>
         
     </li>
@@ -132,6 +138,20 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Deadlock,-Part-2:-Deadlock-Conditions/">Deadlock, Part 2: Deadlock Conditions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock,-Part-3:-Dining-Philosophers/">Deadlock, Part 3: Dining Philosophers</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Deadlock-Review-Questions/">Deadlock Review Questions</a>
         
     </li>
 
@@ -194,14 +214,21 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../File-System,-Part-8:-Disk-blocks-example/">File System, Part 8: Disk blocks example</a>
+        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../File-System,-Part-8:-Removing-preinstalled-malware-from-an-Android-device/">File System, Part 8: Removing preinstalled malware from an Android device</a>
+        <a class="" href="../File-System,-Part-9:-Disk-blocks-example/">File System, Part 9: Disk blocks example</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../File-Systems-Review-Questions/">File Systems Review Questions</a>
         
     </li>
 
@@ -249,57 +276,54 @@
 
         
             
+    <li class="toctree-l1 ">
+        <a class="" href="../IPC-Review-Questions/">IPC Review Questions</a>
+        
+    </li>
+
+        
+            
     <li class="toctree-l1 current">
         <a class="current" href="./">Memory, Part 1: Heap Memory Introduction</a>
         
             <ul>
             
-                <li class="toctree-l3"><a href="#what-happens-when-i-call-malloc">What happens when I call malloc?</a></li>
+                <li class="toctree-l3"><a href="#c-dynamic-memory-allocation">C Dynamic Memory Allocation</a></li>
+                
+                    <li><a class="toctree-l4" href="#what-happens-when-i-call-malloc">What happens when I call malloc?</a></li>
+                
+                    <li><a class="toctree-l4" href="#can-malloc-fail">Can malloc fail?</a></li>
+                
+                    <li><a class="toctree-l4" href="#where-is-the-heap-and-how-big-is-it">Where is the heap and how big is it?</a></li>
+                
+                    <li><a class="toctree-l4" href="#do-programs-need-to-call-brk-or-sbrk">Do programs need to call brk or sbrk?</a></li>
+                
+                    <li><a class="toctree-l4" href="#what-is-calloc">What is calloc?</a></li>
+                
+                    <li><a class="toctree-l4" href="#why-is-the-memory-that-is-first-returned-by-sbrk-initialized-to-zero">Why is the memory that is first returned by sbrk initialized to zero?</a></li>
+                
+                    <li><a class="toctree-l4" href="#why-doesnt-malloc-always-initialize-memory-to-zero">Why doesn't malloc always initialize memory to zero?</a></li>
+                
+                    <li><a class="toctree-l4" href="#what-is-realloc-and-when-would-you-use-it">What is realloc and when would you use it?</a></li>
+                
+                    <li><a class="toctree-l4" href="#where-can-i-read-more">Where can I read more?</a></li>
+                
+                    <li><a class="toctree-l4" href="#how-important-is-that-memory-allocation-is-fast">How important is that memory allocation is fast?</a></li>
                 
             
-                <li class="toctree-l3"><a href="#can-malloc-fail">Can malloc fail?</a></li>
+                <li class="toctree-l3"><a href="#intro-to-allocating">Intro to Allocating</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#where-is-the-heap-and-how-big-is-it">Where is the heap and how big is it?</a></li>
+                    <li><a class="toctree-l4" href="#what-is-the-silliest-malloc-and-free-implementation-and-what-is-wrong-with-it">What is the silliest malloc and free implementation and what is wrong with it?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#do-programs-need-to-call-brk-or-sbrk">Do programs need to call brk or sbrk?</a></li>
+                    <li><a class="toctree-l4" href="#what-are-placement-strategies">What are placement strategies?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#what-is-calloc">What is calloc?</a></li>
+                    <li><a class="toctree-l4" href="#what-is-external-fragmentation">What is external fragmentation?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#why-is-the-memory-that-is-first-returned-by-sbrk-initialized-to-zero">Why is the memory that is first returned by sbrk initialized to zero?</a></li>
+                    <li><a class="toctree-l4" href="#what-effect-do-placement-strategies-have-on-external-fragmentation-and-performance">What effect do placement strategies have on external fragmentation and performance?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#why-doesnt-malloc-always-initialize-memory-to-zero">Why doesn't malloc always initialize memory to zero?</a></li>
+                    <li><a class="toctree-l4" href="#what-are-the-challenges-of-writing-a-heap-allocator">What are the challenges of writing a heap allocator?</a></li>
                 
-            
-                <li class="toctree-l3"><a href="#what-is-realloc-and-when-would-you-use-it">What is realloc and when would you use it?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#where-can-i-read-more">Where can I read more?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#how-important-is-that-memory-allocation-is-fast">How important is that memory allocation is fast?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#what-is-the-silliest-malloc-and-free-implementation-and-what-is-wrong-with-it">What is the silliest malloc and free implementation and what is wrong with it?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#what-are-placement-strategies">What are placement strategies?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#what-is-fragmentation">What is fragmentation?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#what-effect-do-placement-strategies-have-on-fragmentation-and-performance">What effect do placement strategies have on fragmentation and performance?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#what-are-the-challenges-of-writing-a-heap-allocator">What are the challenges of writing a heap allocator?</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#how-do-you-implement-a-memory-allocator">How do you implement a memory allocator?</a></li>
+                    <li><a class="toctree-l4" href="#how-do-you-implement-a-memory-allocator">How do you implement a memory allocator?</a></li>
                 
             
             </ul>
@@ -323,6 +347,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Memory-Review-Questions/">Memory Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Memory:-Review-Questions/">Memory: Review Questions</a>
         
     </li>
@@ -331,20 +362,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Multi-threaded-Programming:-Review-Questions/">Multi threaded Programming: Review Questions</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Networking, Part 3: Building a simple TCP Client/">Networking, Part 3: Building a simple TCP Client</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Networking, Part 6: Creating a UDP server/">Networking, Part 6: Creating a UDP server</a>
         
     </li>
 
@@ -365,6 +382,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-3:-Building-a-simple-TCP-Client/">Networking, Part 3: Building a simple TCP Client</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Networking,-Part-4:-Building-a-simple-TCP-Server/">Networking, Part 4: Building a simple TCP Server</a>
         
     </li>
@@ -372,7 +396,35 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Networking,-Part-5:-Reusing-ports/">Networking, Part 5: Reusing ports</a>
+        <a class="" href="../Networking,-Part-5:-Shutting-down-ports,-reusing-ports-and-other-tricks/">Networking, Part 5: Shutting down ports, reusing ports and other tricks</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-6:-Building-a-web-server/">Networking, Part 6: Building a web server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-6:-Creating-a-UDP-server/">Networking, Part 6: Creating a UDP server</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking,-Part-7:-Nonblocking-I-O,-select(),-and-epoll/">Networking, Part 7: Nonblocking I O, select(), and epoll</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Networking-Review-Questions/">Networking Review Questions</a>
         
     </li>
 
@@ -380,13 +432,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Networking:-Review-Questions/">Networking: Review Questions</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Nonblocking-I-O,-select(),-and-epoll/">Nonblocking I O, select(), and epoll</a>
         
     </li>
 
@@ -435,7 +480,28 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Processes,-Part-1:-Introduction/">Processes, Part 1: Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Processes-Review-Questions/">Processes Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Programming-Tricks,-Part-1/">Programming Tricks, Part 1</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthread-Review-Questions/">Pthread Review Questions</a>
         
     </li>
 
@@ -450,6 +516,13 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Pthreads,-Part-2:-Usage-in-Practice/">Pthreads, Part 2: Usage in Practice</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Pthreads,-Part-3:-Parallel-Problems-(Bonus)/">Pthreads, Part 3: Parallel Problems (Bonus)</a>
         
     </li>
 
@@ -477,6 +550,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../Scheduling,-Part-2:-Scheduling-Processes:-Algorithms/">Scheduling, Part 2: Scheduling Processes: Algorithms</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../Signals,-Part-2:-Pending-Signals-and-Signal-Masks/">Signals, Part 2: Pending Signals and Signal Masks</a>
         
     </li>
@@ -492,6 +572,13 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../Signals,-Part-4:-Sigaction/">Signals, Part 4: Sigaction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../Signals-Review-Questions/">Signals Review Questions</a>
         
     </li>
 
@@ -561,14 +648,21 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Synchronization,-Part-9:-The-Reader-Writer-Problem-(part-2)/">Synchronization, Part 9: The Reader Writer Problem (part 2)</a>
+        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Synchronization-Concepts:-Review-Questions/">Synchronization Concepts: Review Questions</a>
+        <a class="" href="../Synchronization-Review-Questions/">Synchronization Review Questions</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../System-Programming-Jokes/">System Programming Jokes</a>
         
     </li>
 
@@ -640,7 +734,8 @@
           <div role="main">
             <div class="section">
               
-                <h2 id="what-happens-when-i-call-malloc">What happens when I call malloc?</h2>
+                <h1 id="c-dynamic-memory-allocation">C Dynamic Memory Allocation</h1>
+<h2 id="what-happens-when-i-call-malloc">What happens when I call malloc?</h2>
 <p>The function <code>malloc</code> is a C library call and is used to reserve a contiguous block of memory. Unlike stack memory, the memory remains allocated until <code>free</code> is called with the same pointer. There is also <code>calloc</code> and <code>realloc</code> which are discussed below.</p>
 <h2 id="can-malloc-fail">Can malloc fail?</h2>
 <p>If <code>malloc</code> fails to reserve any more memory then it returns <code>NULL</code>. Robust programs should check the return value. If your code assumes <code>malloc</code> succeeds and it does not, then your program will likely crash (segfault) when it tries to write to address 0.</p>
@@ -716,7 +811,7 @@ char *ptr2 = malloc(308); // Contents might now contain existing data and is pro
 
 <p>An INCORRECT use of realloc is shown below:</p>
 <pre><code class="C">int *array = malloc(sizeof(int) * 2);
-array[0] = 10; array[1]; = 20;
+array[0] = 10; array[1] = 20;
 // Ooops need a bigger array - so use realloc..
 realloc (array, 3); // ERRORS!
 array[2] = 30; 
@@ -733,6 +828,7 @@ Secondly realloc may need to move the existing contents of the memory to a new l
 <p>See <a href="http://man7.org/linux/man-pages/man3/malloc.3.html">the man page</a>!</p>
 <h2 id="how-important-is-that-memory-allocation-is-fast">How important is that memory allocation is fast?</h2>
 <p>Very! Allocating and de-allocating heap memory is a common operation in most applications.</p>
+<h1 id="intro-to-allocating">Intro to Allocating</h1>
 <h2 id="what-is-the-silliest-malloc-and-free-implementation-and-what-is-wrong-with-it">What is the silliest malloc and free implementation and what is wrong with it?</h2>
 <pre><code class="C">void* malloc(size_t size)
 // Ask the system for more bytes by extending the heap space. 
@@ -816,7 +912,7 @@ Instead we need an allocator that can efficiently use heap space and only ask fo
 </thead>
 <tbody></tbody>
 </table>
-<h2 id="what-is-fragmentation">What is fragmentation?</h2>
+<h2 id="what-is-external-fragmentation">What is external fragmentation?</h2>
 <p>In the example below, of the 64KB of heap memory, 17KB is allocated, and 47KB is free. However the largest available block is only 30KB because our available unallocated heap memory is fragmented into smaller pieces. </p>
 <table>
 <thead>
@@ -832,7 +928,7 @@ Instead we need an allocator that can efficiently use heap space and only ask fo
 </thead>
 <tbody></tbody>
 </table>
-<h2 id="what-effect-do-placement-strategies-have-on-fragmentation-and-performance">What effect do placement strategies have on fragmentation and performance?</h2>
+<h2 id="what-effect-do-placement-strategies-have-on-external-fragmentation-and-performance">What effect do placement strategies have on external fragmentation and performance?</h2>
 <p>Different strategies affect the fragmentation of heap memory in non-obvious ways, which only are discovered by mathematical analysis or careful simulations under real-world conditions (for example simulating the memory allocation requests of a database or webserver).
 For example, best-fit at first glance appears to be an excellent strategy however, if we can not find a perfectly-sized hole then this placement creates many tiny unusable holes, leading to high fragmentation. It also requires a scan of all possible holes.</p>
 <p>First fit has the advantage that it will not evaluate all possible placements and therefore be faster. </p>
@@ -858,7 +954,7 @@ For example, best-fit at first glance appears to be an excellent strategy howeve
         <a href="../Memory,-Part-2:-Implementing-a-Memory-Allocator/" class="btn btn-neutral float-right" title="Memory, Part 2: Implementing a Memory Allocator">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../Home/" class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../IPC-Review-Questions/" class="btn btn-neutral" title="IPC Review Questions"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -877,20 +973,21 @@ For example, best-fit at first glance appears to be an excellent strategy howeve
       </div>
 
     </section>
-
+    
   </div>
 
-<div class="rst-versions" role="note" style="cursor: pointer">
+  <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../Home/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../IPC-Review-Questions/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
         <span style="margin-left: 15px"><a href="../Memory,-Part-2:-Implementing-a-Memory-Allocator/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
+    <script src="../../js/theme.js"></script>
 
 </body>
 </html>
